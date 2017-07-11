@@ -1,0 +1,47 @@
+{
+  "name": "soyfall",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevmannn/soyfall.git"
+  },
+  "dependencies": {
+    "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
+    "localforage": "^1.5.0",
+    "lodash": "^4.17.4",
+    "mapbox-gl": "^0.37.0",
+    "material-ui": "^1.0.0-alpha.21",
+    "moment": "^2.18.1",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-mapbox-gl": "^2.1.0",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
+    "react-scripts": "^1.0.10",
+    "react-tap-event-plugin": "^2.0.1",
+    "react-vis": "^1.6.7",
+    "redux": "^3.7.1",
+    "redux-action-buffer": "^1.1.0",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^4.8.2",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
+    "usps-states": "0.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "enzyme": "^2.9.1",
+    "react-addons-test-utils": "^15.6.0",
+    "redux-mock-store": "^1.2.3"
+  }
+}
