@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import { createSelector } from 'reselect';
 
 // import ForecastMap from './ForecastMap';
 // import ForecastChart from './ForecastChart';
@@ -22,10 +23,8 @@ class VisualizationDyad extends Component {
     }
   }
 
-  componentWillReceiveProps({ forecasts, activeCounties, fetchForecastIfNeeded: fetch }) {
-    if (!forecasts.length) {
-      // activeCounties.forEach(({ countyName, stateAbbr }) => fetch({ countyName, stateAbbr }));
-    }
+  componentWillReceiveProps({ activeCounties, fetchForecastIfNeeded }) {
+    activeCounties.forEach(county => fetchForecastIfNeeded(county));
   }
 
   shouldComponentUpdate({ activeCounties }, { highlighted }) {
@@ -54,6 +53,15 @@ class VisualizationDyad extends Component {
     )
   }
 }
+
+// const getActiveForecasts = createSelector(
+//   [getForecasts, getActiveCounties],
+//   (forecasts, activeCounties) => (
+//     forecasts.filter(({ countyName }) => {})
+//   )
+// )
+
+// const getTotalRainfall = createSelector()
 
 function mapStateToProps({ forecasts }) {
   return { forecasts };

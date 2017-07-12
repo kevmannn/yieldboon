@@ -15,7 +15,7 @@ i.e. Represent the _location_ and _magnitude_ of rainfall for soybean-producing 
 ## Stack & Technical choices:
 > React, Redux, React-mapbox-gl, React-vis, Reselect, Material-ui
 
-## Tradeoffs:
+## Challenges & Tradeoffs:
 > ...?
 
 ## Lessons:
@@ -46,9 +46,6 @@ i.e. Represent the _location_ and _magnitude_ of rainfall for soybean-producing 
 > Given a state and a range of soybean output, show today's _total_ rainfall across _all_ resultant counties (= activeCounties).
 > Chart their aggregate cumulative precipIntensity (= "inches of liquid water per hour"), with hint showing this accumulation at that (= highlighted) point (and the 5 leading activeCounties in this regard).
 > Represent activeCounties and their total rainfall with layers in Map. Make layer style (and map bounds / zoom) reflect what is shown in hint.
-
-<!-- ? -->
-> Is history (midnight) required of the forecast req fso the requirement of "the day's total"? (yes!?) (and ultimately concatenated to the startpoint of the non-historical req...)
 
 ## License
 

@@ -3,7 +3,7 @@ import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
 // import { schemas } from '../middleware';
-import { USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constants';
+import { MS_IN_DAY, USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constants';
 
 export const SELECT_STATE = 'SELECT_STATE';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
@@ -52,9 +52,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
 // Pull soybean production data from usda.gov if inexistent or stale.
 export const fetchSoybeanProductionIfNeeded = () => (dispatch, getState) => {
   const { soybeanProduction: { lastUpdated = null } } = getState();
-  const msInDay = 8.64e+7;
-
-  if (Object.is(lastUpdated, null) || Date.now() - lastUpdated > 365 * msInDay) {
+  if (Object.is(lastUpdated, null) || Date.now() - lastUpdated > 365 * MS_IN_DAY) {
     return dispatch(fetchSoybeanProduction());
   }
 }
@@ -86,10 +84,11 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
     }))
 }
 
-const fetchForecast = ({ countyName, coords }, time = null) => (dispatch, getState) => {
+const fetchForecast = ({ countyName, coords }, time = Date.now() - MS_IN_DAY) => (dispatch, getState) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
-  return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng}`)
+  // Adding `time` to the req yields data starting at midnight of that day and ending at the next midnight.
+  return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
     .then(res => res.json())
     .then(({ hourly: { data } }) => {
       // Mapreduce the response to form a series with y values expressing the accumulated precipIntensity
@@ -111,7 +110,6 @@ const fetchForecast = ({ countyName, coords }, time = null) => (dispatch, getSta
           }
         ]), [])
 
-      nprogress.done();
       dispatch(receiveForecast({ countyName, coords, series }));
     })
 }
@@ -123,6 +121,7 @@ export const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, g
     nprogress.start();
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
+        nprogress.done();
         return dispatch(fetchForecast({ countyName, coords }));
       })
   }

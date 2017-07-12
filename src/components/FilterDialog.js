@@ -17,9 +17,7 @@ export default class FilterDialog extends PureComponent {
   //   this.state = {}
   // }
 
-  onEntering = () => {
-    // this.radioGroup.focus();
-  };
+  onEntering = () => {};
 
   render() {
     const { selectedValue, children, ...rest } = this.props;

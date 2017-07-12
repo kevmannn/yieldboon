@@ -1,8 +1,9 @@
 import { REQUEST_FORECAST, RECEIVE_FORECAST } from '../actions';
 
+const msInDay = 8.64e+7;
+
 export default (state = [], { type, countyName, coords, series }) => {
   switch (type) {
-    // TODO: solve duplicate with and without series bug...
     case REQUEST_FORECAST:
       return [
         ...state,
@@ -12,10 +13,11 @@ export default (state = [], { type, countyName, coords, series }) => {
         }
       ]
     case RECEIVE_FORECAST:
-      const msInDay = 8.64e+7;
       // Append the new forecast to the prexisting, removing any that are now stale.
       return [
-        ...state,
+        ...state.filter(({ countyName: name, lastUpdated }) => {
+          return name !== countyName && Date.now() - lastUpdated < 7 * msInDay;
+        }),
         {
           countyName,
           coords,
@@ -23,7 +25,7 @@ export default (state = [], { type, countyName, coords, series }) => {
           isFetching: false,
           lastUpdated: Date.now()
         }
-      ].filter(({ lastUpdated }) => Date.now() - lastUpdated < 7 * msInDay)
+      ]
     default:
       return state;
   }
