@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import isEqual from 'lodash/isEqual';
+import React, { PureComponent } from 'react';
+// import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
+// import { createSelector } from 'reselect';
 
 // import ForecastMap from './ForecastMap';
 // import ForecastChart from './ForecastChart';
-import { fetchForecastIfNeeded } from '../actions';
+import { loadForecasts } from '../actions';
 
-class VisualizationDyad extends Component {
+class VisualizationDyad extends PureComponent {
   static propTypes = {
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
@@ -20,14 +20,8 @@ class VisualizationDyad extends Component {
     }
   }
 
-  componentWillReceiveProps({ activeCounties, fetchForecastIfNeeded }) {
-    // TODO: axios... (within actions)
-    fetchForecastIfNeeded(activeCounties[0]);
-  }
-
-  shouldComponentUpdate({ activeCounties }, { highlighted }) {
-    return !isEqual(highlighted, this.state.highlighted)
-      || !isEqual(activeCounties, this.props.activeCounties)
+  componentWillReceiveProps({ activeCounties, loadForecasts }) {
+    // loadForecasts(activeCounties);
   }
 
   onNearestX = (highlighted = {}) => {
@@ -45,15 +39,15 @@ class VisualizationDyad extends Component {
   }
 }
 
-// const getAggregatedPrecipIntensity = createSelector()
-// const getDisambiguatedAggregate = createSelector()
+// const getAggregatePrecipIntensitySeries = createSelector()
+// const getDisambiguatedAggregateSeries = createSelector()
 
-function mapStateToProps(state) {
+function mapStateToProps({ forecasts }) {
   return {
     forecasts,
-    // aggregatedPrecipIntensity: getAggregatedPrecipIntensity(state),
-    // disambiguatedAggregate: getDisambiguatedAggregate(state)
+    // aggregatedPrecipIntensitySeries: getAggregatePrecipIntensitySeries(state),
+    // disambiguatedAggregateSeries: getDisambiguatedAggregateSeries(state)
   }
 }
 
-export default connect(mapStateToProps, { fetchForecastIfNeeded })(VisualizationDyad);
+export default connect(mapStateToProps, { loadForecasts })(VisualizationDyad);

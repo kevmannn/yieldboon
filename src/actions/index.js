@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import moment from 'moment';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
@@ -52,7 +53,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
 
 // Pull soybean production data from usda.gov if inexistent or stale.
 export const fetchSoybeanProductionIfNeeded = () => (dispatch, getState) => {
-  const { soybeanProduction: { lastUpdated } } = getState();
+  const { lastUpdated } = getState().soybeanProduction;
   if (!lastUpdated || Date.now() - lastUpdated > 365 * MS_IN_DAY) {
     return dispatch(fetchSoybeanProduction());
   }
@@ -84,22 +85,25 @@ const failToReceiveForecast = ({ countyName, err }) => ({
 
 const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
   return fetch(`https://lat-lng.now.sh/?address=${countyName},${stateAbbr}`)
-    .then(res => res.json())
+    .then(
+      res => res.json(),
+      err => dispatch(failToReceiveForecast({ countyName, err }))
+    )
     .then(({ lat, lng }) => ({
       countyName,
       coords: { lat, lng }
     }))
 }
 
-const yesterday = new Date(Date.now() - MS_IN_DAY);
+const yesterday = moment(Date.now() - MS_IN_DAY).format('YYYY-MM-DDTHH:mm:ss');
 const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, getState) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
-  // TODO: Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
-  return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng}`)
+  // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
+  return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
     .then(
       res => res.json(),
-      err => failToReceiveForecast({ countyName, err })
+      err => dispatch(failToReceiveForecast({ countyName, err }))
     )
     .then(({ hourly: { data } }) => {
       // Mapreduce the response to form a series with y values expressing the accumulated precipIntensity
@@ -127,13 +131,18 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, g
 }
 
 // Find coordinates and the forecast for a given county if inexistent (or not up to date).
-export const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
+const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
   const { forecasts } = getState();
   if (!forecasts.find(({ countyName: name }) => name === countyName)) {
+    // TODO: mv nprogress into loadForecasts...
     nprogress.start();
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
         return dispatch(fetchForecast({ countyName, coords }));
       })
   }
+}
+
+export const loadForecasts = (counties = []) => (dispatch, getState) => {
+  dispatch(fetchForecastIfNeeded(counties[0]));
 }

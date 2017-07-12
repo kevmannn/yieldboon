@@ -32,8 +32,6 @@ class Dashboard extends PureComponent {
     // }
   }
 
-  // TODO: What if this does not, in fact, indicate that we are waiting for the cache,
-  // and instead that there simply are no activeCounties to show??
   componentWillUpdate({ activeCounties }) {
     if (!activeCounties.length) {
       nprogress.start();
@@ -68,11 +66,15 @@ class Dashboard extends PureComponent {
     return (
       <div>
         {/*<TransitionMotion
-          style={{}}
+          styles={[{ key: uniqueId(), style: this.motionStyle }]}
           willEnter={this.willEnter}
           willLeave={this.willLeave}>
           {(interpolated) => (
-            <div></div>
+            <div>
+              {interpolated.map(({ key, style: { opacity, translation } }) => (
+                <div></div>
+              ))}
+            </div>
           )}
         </TransitionMotion>*/}
         <FilterBar />

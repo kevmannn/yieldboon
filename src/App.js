@@ -12,31 +12,28 @@ import Dashboard from './Dashboard';
 class App extends Component {
   static propTypes = {
     // provided via connect:
-    selectedState: PropTypes.string.isRequired
+    selectedState: PropTypes.string
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      toast: {
-        message: null,
-        isOpen: false
-      }
+      toastMessage: null,
+      toastIsOpen: false
     }
   }
 
-  onError = (message) => {
-    const toast = { message, isOpen: true };
-    this.setState({ toast });
+  onError = (message: toastMessage) => {
+    this.setState({ toastMessage, toastIsOpen: true });
   };
 
   onRequestClose = () => {
-    this.setState({ toast: { isOpen: false } });
+    this.setState({ toastIsOpen: false });
   };
 
   render() {
     const { selectedState } = this.props;
-    const { toast: { message, isOpen } } = this.state;
+    const { toastMessage, toastIsOpen } = this.state;
     return (
       <div>
         <Route path="/" render={(props) => (
@@ -51,8 +48,8 @@ class App extends Component {
               onError={this.onError} />
           )} />
         <Toast
-          isOpen={isOpen}
-          message={message}
+          isOpen={toastIsOpen}
+          message={toastMessage}
           onRequestClose={this.onRequestClose} />
       </div>
     )
