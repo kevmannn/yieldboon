@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 // import IconButton from 'material-ui/IconButton';
 // import FilterListIcon from 'material-ui-icons/FilterList';
 
-export default class ActiveCountyTable extends PureComponent {
+export default class CountyRegistry extends PureComponent {
   static propTypes = {
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };

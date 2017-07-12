@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
 import FilterBar from './components/FilterBar';
-import ActiveCountyTable from './components/ActiveCountyTable';
+import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
 import { fetchSoybeanProductionIfNeeded } from './actions';
 
@@ -76,7 +76,7 @@ class Dashboard extends PureComponent {
           )}
         </TransitionMotion>*/}
         <FilterBar />
-        <ActiveCountyTable activeCounties={activeCounties} />
+        <CountyRegistry activeCounties={activeCounties} />
         <VisualizationDyad activeCounties={activeCounties} />
       </div>
     )

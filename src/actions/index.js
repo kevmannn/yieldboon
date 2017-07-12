@@ -52,17 +52,17 @@ const fetchSoybeanProduction = () => (dispatch) => {
 
 // Pull soybean production data from usda.gov if inexistent or stale.
 export const fetchSoybeanProductionIfNeeded = () => (dispatch, getState) => {
-  const { soybeanProduction: { lastUpdated = null } } = getState();
-  if (Object.is(lastUpdated, null) || Date.now() - lastUpdated > 365 * MS_IN_DAY) {
+  const { soybeanProduction: { lastUpdated } } = getState();
+  if (!lastUpdated || Date.now() - lastUpdated > 365 * MS_IN_DAY) {
     return dispatch(fetchSoybeanProduction());
   }
 }
 
-export const changeSoybeanYieldBounds = ({ lowerbound, upperbound }) => ({
-  type: CHANGE_SOYBEAN_YIELD_BOUNDS,
-  lowerbound,
-  upperbound
-})
+// export const changeSoybeanYieldBounds = ({ lowerbound, upperbound }) => ({
+//   type: CHANGE_SOYBEAN_YIELD_BOUNDS,
+//   lowerbound,
+//   upperbound
+// })
 
 const requestForecast = (countyName) => ({
   type: REQUEST_FORECAST,
@@ -91,10 +91,11 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
     }))
 }
 
-const fetchForecast = ({ countyName, coords }, time = Date.now() - MS_IN_DAY) => (dispatch, getState) => {
+const yesterday = new Date(Date.now() - MS_IN_DAY);
+const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, getState) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
-  // Adding `time` to the req yields data starting at midnight of that day and ending at the next midnight.
+  // TODO: Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
   return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng}`)
     .then(
       res => res.json(),

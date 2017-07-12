@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { createSelector } from 'reselect';
+import { createSelector } from 'reselect';
 
 // import ForecastMap from './ForecastMap';
 // import ForecastChart from './ForecastChart';
@@ -10,10 +10,7 @@ import { fetchForecastIfNeeded } from '../actions';
 
 class VisualizationDyad extends Component {
   static propTypes = {
-    activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // provided via connect:
-    forecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
+    activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   constructor(props) {
@@ -38,32 +35,25 @@ class VisualizationDyad extends Component {
   };
 
   render() {
-    // const { activeCounties, forecasts } = this.props;
     // const { highlighted } = this.state;
     return (
       <div>
-        {/*<ForecastChart
-          highlighted={highlighted}
-          onNearestX={this.onNearestX}
-          activeCounties={activeCounties}
-          activeForecasts={activeForecasts} />
-        <ForecastMap
-          highlighted={highlighted}
-          activeCounties={activeCounties} />*/}
+        {/*<ForecastChart />
+        <ForecastMap />*/}
       </div>
     )
   }
 }
 
-// const getActiveForecasts = createSelector(
-//   [getForecasts, getActiveCounties],
-//   (forecasts, activeCounties) => (
-//     forecasts.filter(({ countyName }) => {})
-//   )
-// )
+// const getAggregatedPrecipIntensity = createSelector()
+// const getDisambiguatedAggregate = createSelector()
 
-function mapStateToProps({ forecasts }) {
-  return { forecasts };
+function mapStateToProps(state) {
+  return {
+    forecasts,
+    // aggregatedPrecipIntensity: getAggregatedPrecipIntensity(state),
+    // disambiguatedAggregate: getDisambiguatedAggregate(state)
+  }
 }
 
 export default connect(mapStateToProps, { fetchForecastIfNeeded })(VisualizationDyad);

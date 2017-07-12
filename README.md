@@ -17,6 +17,7 @@ i.e. Represent the _location_ and _magnitude_ of rainfall for soybean-producing 
 
 ## Challenges & Tradeoffs:
 > caching...
+> not trying to represent too much at a given moment
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.
@@ -40,8 +41,8 @@ i.e. Represent the _location_ and _magnitude_ of rainfall for soybean-producing 
 <!-- "Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results." -->
 
 > Given a state and a range of soybean output, show today's _total_ rainfall across _all_ resultant counties (= activeCounties).
-> Chart their aggregate cumulative precipIntensity (= "inches of liquid water per hour"), with hint showing this accumulation at that (= highlighted) point (and the 5 leading activeCounties in this regard).
-> Represent activeCounties and their total rainfall with layers in Map. Make layer style (and map bounds / zoom) reflect what is shown in hint.
+> Chart their aggregate cumulative precipIntensity (= "inches of liquid water per hour"), with hint showing this accumulation at that (= highlighted) point.
+> Disambiguate the aggregate cumulative precipIntensity relative to the highlighted point in the Map.
 
 ## License
 
