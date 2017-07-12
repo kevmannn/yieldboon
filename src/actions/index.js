@@ -8,6 +8,7 @@ import { MS_IN_DAY, USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constant
 export const SELECT_STATE = 'SELECT_STATE';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
+export const FAIL_TO_RECEIVE_FORECAST = 'FAIL_TO_RECEIVE_FORECAST';
 export const REQUEST_SOYBEAN_PRODUCTION = 'REQUEST_SOYBEAN_PRODUCTION';
 export const RECEIVE_SOYBEAN_PRODUCTION = 'RECEIVE_SOYBEAN_PRODUCTION';
 export const CHANGE_SOYBEAN_YIELD_BOUNDS = 'CHANGE_SOYBEAN_YIELD_BOUNDS';
@@ -63,16 +64,22 @@ export const changeSoybeanYieldBounds = ({ lowerbound, upperbound }) => ({
   upperbound
 })
 
-export const requestForecast = (countyName) => ({
-  type: RECEIVE_FORECAST,
+const requestForecast = (countyName) => ({
+  type: REQUEST_FORECAST,
   countyName
 })
 
-export const receiveForecast = ({ countyName, coords, series }) => ({
+const receiveForecast = ({ countyName, coords, series }) => ({
   type: RECEIVE_FORECAST,
   countyName,
   coords,
   series
+})
+
+const failToReceiveForecast = ({ countyName, err }) => ({
+  type: FAIL_TO_RECEIVE_FORECAST,
+  countyName,
+  err
 })
 
 const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
@@ -88,8 +95,11 @@ const fetchForecast = ({ countyName, coords }, time = Date.now() - MS_IN_DAY) =>
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of that day and ending at the next midnight.
-  return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
-    .then(res => res.json())
+  return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng}`)
+    .then(
+      res => res.json(),
+      err => failToReceiveForecast({ countyName, err })
+    )
     .then(({ hourly: { data } }) => {
       // Mapreduce the response to form a series with y values expressing the accumulated precipIntensity
       // (where precipIntensity = "inches of liquid water per hour").
@@ -110,6 +120,7 @@ const fetchForecast = ({ countyName, coords }, time = Date.now() - MS_IN_DAY) =>
           }
         ]), [])
 
+      nprogress.done();
       dispatch(receiveForecast({ countyName, coords, series }));
     })
 }
@@ -121,7 +132,6 @@ export const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, g
     nprogress.start();
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
-        nprogress.done();
         return dispatch(fetchForecast({ countyName, coords }));
       })
   }

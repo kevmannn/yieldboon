@@ -16,7 +16,7 @@ i.e. Represent the _location_ and _magnitude_ of rainfall for soybean-producing 
 > React, Redux, React-mapbox-gl, React-vis, Reselect, Material-ui
 
 ## Challenges & Tradeoffs:
-> ...?
+> caching...
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.
@@ -26,10 +26,6 @@ i.e. Represent the _location_ and _magnitude_ of rainfall for soybean-producing 
 * Much thinking can be contingent on (apparent) API limitations and assumptions about response formats.
 
 ## Future:
-* Timezones(?)
-
-* Chart (and compute) "the day's result" in a strict sense (i.e midnight - midnight).
-
 * Create layer of polygons representing the boundaries of each county within `ForecastMap`.
 
 * Use [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically set `soybeanYieldBounds`.

@@ -18,30 +18,9 @@ export default class ActiveCountyTable extends PureComponent {
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  // springConfig = { ...presets.stiff, precision: 0.9 };
-
-  // motionStyle = {
-  //   opacity: spring(1, this.springConfig),
-  //   translation: spring(0, this.springConfig)
-  // };
-
-  // willEnter = () => {
-  //   return {
-  //     opacity: 0.8,
-  //     translation: -170
-  //   }
-  // };
-
-  // willLeave = () => {
-  //   return {
-  //     opacity: spring(0, this.springConfig),
-  //     translation: spring(40, this.springConfig)
-  //   }
-  // };
-
   render() {
-    // const { activeCounties: { id = 42 } } = this.props;
     return (
+      <div>{this.props.activeCounties.length}</div>
     )
   }
 }

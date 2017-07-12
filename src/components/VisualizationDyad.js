@@ -24,7 +24,8 @@ class VisualizationDyad extends Component {
   }
 
   componentWillReceiveProps({ activeCounties, fetchForecastIfNeeded }) {
-    activeCounties.forEach(county => fetchForecastIfNeeded(county));
+    // TODO: axios... (within actions)
+    fetchForecastIfNeeded(activeCounties[0]);
   }
 
   shouldComponentUpdate({ activeCounties }, { highlighted }) {
@@ -60,8 +61,6 @@ class VisualizationDyad extends Component {
 //     forecasts.filter(({ countyName }) => {})
 //   )
 // )
-
-// const getTotalRainfall = createSelector()
 
 function mapStateToProps({ forecasts }) {
   return { forecasts };
