@@ -15,9 +15,9 @@
 
 ## Challenges & Tradeoffs:
 > trying not to represent too much data at a given moment
-> opting not to implement [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically set `soybeanYieldBounds`.
-> assumptions in development related to caching the store
+> chasing down bugs related to working with cached state
 > imagining what would bring the most utility to an agriculturally-minded user
+> opting not to implement [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically set `soybeanYieldBounds`.
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.
@@ -35,8 +35,8 @@
 
 <!-- finding a path: -->
 <!-- "Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results." -->
-> Chart the (aggregated, with respect to all activeForecasts) cumulative precipIntensity series, with hint showing the y value at that (= highlighted) point (along with the top three of activeCounties with _most rainfall / soybeanYield_).
-> Show all activeCounties on the map, with special attention paid to the top three with _most rainfall / soybeanYield_
+> The Chart plots the mean cumulative precipIntensity series, with the chart's hint showing the y value at that (highlighted) point and the top 5 entities with _most rainfall / soybeanYield_ (= in / bu).
+> The purpose of the Map is to light up the salient 'features' of the particular highlighted.i, revealing their context with respect to all other entities.
 
 ## License
 

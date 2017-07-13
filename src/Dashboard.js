@@ -2,13 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import nprogress from 'nprogress';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
+import * as selectors from './selectors';
 import FilterBar from './components/FilterBar';
 import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
-// import * as selectors from './selectors';
 import { selectState, fetchSoybeanProductionIfNeeded } from './actions';
 
 class Dashboard extends PureComponent {
@@ -73,6 +72,11 @@ class Dashboard extends PureComponent {
     const { selectedState, activeCounties } = this.props;
     return (
       <div>
+        <FilterBar
+          selectedState={selectedState}
+          onSelectedStateChange={this.onSelectedStateChange }/>
+        <CountyRegistry activeCounties={activeCounties} />
+        <VisualizationDyad activeCounties={activeCounties} />
         {/*<TransitionMotion
           styles={[{ key: uniqueId(), style: this.motionStyle }]}
           willEnter={this.willEnter}
@@ -85,41 +89,16 @@ class Dashboard extends PureComponent {
             </div>
           )}
         </TransitionMotion>*/}
-        <FilterBar
-          selectedState={selectedState}
-          onSelectedStateChange={this.onSelectedStateChange }/>
-        <CountyRegistry activeCounties={activeCounties} />
-        <VisualizationDyad activeCounties={activeCounties} />
       </div>
     )
   }
 }
 
-const getSelectedState = ({ selectedState }) => selectedState;
-const getSoybeanYieldBounds = ({ soybeanYieldBounds }) => soybeanYieldBounds;
-const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
-
-// Filter soybeanProduction payload for entities that fall within our criteria of state membership and yield bounds.
-const getActiveCounties = createSelector(
-  [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
-  (selectedState = '', { lowerbound = 0, upperbound = 1e8 }, payload = []) => (
-    payload.filter(({ stateAbbr: abbr, soybeanYield: soy }) => {
-      return abbr === selectedState && (soy > lowerbound && soy < upperbound);
-    })
-  )
-)
-
-// TODO: ...
-// const getPrecipForecastCountyPayloadPairs = createSelector(
-//   [getActiveCounties, getPrecipForecasts],
-//   () => {}
-// )
-
 function mapStateToProps(state) {
   const { selectedState } = state;
   return {
     selectedState,
-    activeCounties: getActiveCounties(state)
+    activeCounties: selectors.getActiveCounties(state)
   }
 }
 
