@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 // import moment from 'moment';
-import PropTypes from 'prop-types';
+// import { createSelector } from 'reselect';
 import {
   // Hint,
   // XAxis,
@@ -11,15 +12,13 @@ import {
   makeWidthFlexible
 } from 'react-vis';
 
-// import ChartHint from './ChartHint';
-
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
-    // data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // onNearestX: PropTypes.func.isRequired,
-    highlighted: PropTypes.object
+    onNearestX: PropTypes.func.isRequired,
+    highlighted: PropTypes.object,
+    // aggregatedPrecipSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   shouldComponentUpdate({ highlighted }) {
@@ -56,7 +55,7 @@ export default class ForecastChart extends Component {
         background: '#fff',
         boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
       }}>
-        <FlexibleXYPlot
+        {/*<FlexibleXYPlot
           {...this.flexibleXYPlotProps}
           yDomain={[yMin, yMax]}
           onMouseLeave={this.onMouseLeave}>
@@ -66,7 +65,7 @@ export default class ForecastChart extends Component {
             stroke={this.defaultStroke}
             strokeWidth={2}
             onNearestX={this.onNearestX} />
-        </FlexibleXYPlot>
+        </FlexibleXYPlot>*/}
       </div>
     )
   }

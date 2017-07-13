@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-// import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { createSelector } from 'reselect';
+// import isEqual from 'lodash/isEqual';
+// import { createArraySelector } from 'reselect-map';
 
 // import ForecastMap from './ForecastMap';
 // import ForecastChart from './ForecastChart';
@@ -39,14 +39,19 @@ class VisualizationDyad extends PureComponent {
   }
 }
 
-// const getAggregatePrecipIntensitySeries = createSelector()
+// TODO: does this belong in ForecastChart (is there a true reliance on activeCounties)?
+// TODO: Lessen / avoid this O(n^2) work by using https://github.com/HeyImAlex/reselect-map
+// const getAggregatePrecipSeries = createSelector(
+//   [getForecasts, getSelectedState],
+//   (forecasts, selectedState) => ()
+// )
+
 // const getDisambiguatedAggregateSeries = createSelector()
 
 function mapStateToProps({ forecasts }) {
   return {
     forecasts,
-    // aggregatedPrecipIntensitySeries: getAggregatePrecipIntensitySeries(state),
-    // disambiguatedAggregateSeries: getDisambiguatedAggregateSeries(state)
+    // aggregatedPrecipSeries: getAggregatePrecipSeries(state)
   }
 }
 

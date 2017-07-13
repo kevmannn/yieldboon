@@ -9,6 +9,7 @@ import { MS_IN_DAY, USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constant
 export const SELECT_STATE = 'SELECT_STATE';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
+export const SET_FORECAST_FILTER = 'SET_FORECAST_FILTER';
 export const FAIL_TO_RECEIVE_FORECAST = 'FAIL_TO_RECEIVE_FORECAST';
 export const REQUEST_SOYBEAN_PRODUCTION = 'REQUEST_SOYBEAN_PRODUCTION';
 export const RECEIVE_SOYBEAN_PRODUCTION = 'RECEIVE_SOYBEAN_PRODUCTION';
@@ -17,6 +18,11 @@ export const CHANGE_SOYBEAN_YIELD_BOUNDS = 'CHANGE_SOYBEAN_YIELD_BOUNDS';
 export const selectState = (name) => ({
   type: SELECT_STATE,
   name
+})
+
+export const setForecastFilter = (blacklist) => ({
+  type: SET_FORECAST_FILTER,
+  blacklist
 })
 
 const requestSoybeanProduction = () => ({
@@ -145,4 +151,8 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
 
 export const loadForecasts = (counties = []) => (dispatch, getState) => {
   dispatch(fetchForecastIfNeeded(counties[0]));
+  // TODO: account for setForecastFilter...
+  // nprogress.start();
+  // return Promise.all(counties.map(county => dispatch(fetchForecastIfNeeded(county))))
+  //   .then(() => nprogress.done())
 }

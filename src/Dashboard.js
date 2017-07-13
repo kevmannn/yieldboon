@@ -8,14 +8,15 @@ import { createSelector } from 'reselect';
 import FilterBar from './components/FilterBar';
 import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
-import { fetchSoybeanProductionIfNeeded } from './actions';
+import { selectState, fetchSoybeanProductionIfNeeded } from './actions';
 
 class Dashboard extends PureComponent {
   static propTypes = {
-    // match: PropTypes.object.isRequired,
-    // history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     onError: PropTypes.func.isRequired,
     // Provided via connect:
+    selectedState: PropTypes.string.isRequired,
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchSoybeanProductionIfNeeded: PropTypes.func.isRequired
   };
@@ -24,12 +25,12 @@ class Dashboard extends PureComponent {
     this.props.fetchSoybeanProductionIfNeeded();
   }
 
-  // TODO: Account for a route that is 'ahead of' state(?)
+  // Make state 'catch up to' an incongruous path.
   componentWillReceiveProps({ match: { params } }) {
-    // const { history, selectState, selectedState } = this.props;
-    // if (params.selectedState !== selectedState) {
-    //   selectState(params.selectedState);
-    // }
+    const { history, selectState, selectedState } = this.props;
+    if (params.selectedState !== selectedState) {
+      selectState(params.selectedState);
+    }
   }
 
   componentWillUpdate({ activeCounties }) {
@@ -39,6 +40,12 @@ class Dashboard extends PureComponent {
       nprogress.done();
     }
   }
+
+  onSelectedStateChange = (selectedState) => {
+    const { history, selectState } = this.props;
+    selectState(selectedState);
+    history.push(`/dashboard/${selectedState}`);
+  };
 
   // springConfig = { ...presets.stiff, precision: 0.9 };
 
@@ -62,7 +69,7 @@ class Dashboard extends PureComponent {
   // };
 
   render() {
-    const { activeCounties } = this.props;
+    const { selectedState, activeCounties } = this.props;
     return (
       <div>
         {/*<TransitionMotion
@@ -77,7 +84,9 @@ class Dashboard extends PureComponent {
             </div>
           )}
         </TransitionMotion>*/}
-        <FilterBar />
+        <FilterBar
+          selectedState={selectedState}
+          onSelectedStateChange={this.onSelectedStateChange }/>
         <CountyRegistry activeCounties={activeCounties} />
         <VisualizationDyad activeCounties={activeCounties} />
       </div>
@@ -89,7 +98,7 @@ const getSelectedState = ({ selectedState }) => selectedState;
 const getSoybeanYieldBounds = ({ soybeanYieldBounds }) => soybeanYieldBounds;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
-// Filter soybeanProduction payload for entries that fall within our criteria of state membership and yield bounds.
+// Filter soybeanProduction payload for entities that fall within our criteria of state membership and yield bounds.
 const getActiveCounties = createSelector(
   [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
   (selectedState = '', { lowerbound = 0, upperbound = 1e8 }, payload = []) => (
@@ -100,7 +109,11 @@ const getActiveCounties = createSelector(
 )
 
 function mapStateToProps(state) {
-  return { activeCounties: getActiveCounties(state) };
+  const { selectedState } = state;
+  return {
+    selectedState,
+    activeCounties: getActiveCounties(state)
+  }
 }
 
-export default connect(mapStateToProps, { fetchSoybeanProductionIfNeeded })(Dashboard);
+export default connect(mapStateToProps, { selectState, fetchSoybeanProductionIfNeeded })(Dashboard);

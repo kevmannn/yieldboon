@@ -1,20 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 // import Button from 'material-ui/Button';
 // import { byAbbr, byName } from 'usps-states';
 // import { MuiThemeProvider } from 'material-ui/styles';
 
 // import FilterDialog from './FilterDialog';
 // import YieldRheostat from './YieldRheostat';
-import { selectState } from '../actions';
 
-class FilterBar extends PureComponent {
+export default class FilterBar extends PureComponent {
   static propTypes = {
-    // provided via connect:
     selectState: PropTypes.func.isRequired,
-    selectedState: PropTypes.string.isRequired,
-    // soybeanYieldBounds: PropTypes.object.isRequired
+    selectedState: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -42,9 +38,3 @@ class FilterBar extends PureComponent {
     )
   }
 }
-
-function mapStateToProps({ selectedState }) {
-  return { selectedState };
-}
-
-export default connect(mapStateToProps, { selectState })(FilterBar);

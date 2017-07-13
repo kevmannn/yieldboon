@@ -1,7 +1,32 @@
 import { MS_IN_DAY } from '../constants';
-import { REQUEST_FORECAST, RECEIVE_FORECAST, FAIL_TO_RECEIVE_FORECAST } from '../actions';
+import {
+  REQUEST_FORECAST,
+  RECEIVE_FORECAST,
+  SET_FORECAST_FILTER,
+  FAIL_TO_RECEIVE_FORECAST
+} from '../actions';
 
-export default (state = [], { type, countyName, coords, series, err }) => {
+export default (state = { blacklist: [], forecasts: [] }, action) => {
+  const { type, blacklist = [] } = action;
+  switch (type) {
+    case SET_FORECAST_FILTER:
+      return {
+        ...state,
+        blacklist
+      }
+    case FAIL_TO_RECEIVE_FORECAST:
+    case REQUEST_FORECAST:
+    case RECEIVE_FORECAST:
+      return {
+        ...state,
+        forecasts: forecasts(state.forecasts, action)
+      }
+    default:
+      return state;
+  }
+}
+
+function forecasts(state = [], { type, countyName, coords, series, err }) {
   switch (type) {
     case FAIL_TO_RECEIVE_FORECAST:
       return [
