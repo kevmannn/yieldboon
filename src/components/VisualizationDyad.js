@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import isEqual from 'lodash/isEqual';
 
@@ -10,7 +10,7 @@ import { loadForecasts } from '../actions';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
-    // activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
+    // activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   constructor(props) {
@@ -21,8 +21,8 @@ class VisualizationDyad extends PureComponent {
   }
 
   // TODO: mv to Dashboard?
-  componentWillReceiveProps({ activeCounties, loadForecasts }) {
-    // loadForecasts(activeCounties);
+  componentWillReceiveProps({ activeForecasts, loadForecasts }) {
+    // loadForecasts(activeForecasts);
   }
 
   onNearestX = (highlighted = {}) => {
@@ -42,8 +42,8 @@ class VisualizationDyad extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    // activePrecipForecasts: getActiveForecasts(state),
-    // aggregatedPrecipSeries: getAggregatePrecipSeries(state)
+    // activePrecipForecasts: selectors.getActiveForecasts(state),
+    // aggregatedPrecipSeries: selectors.getAggregatePrecipSeries(state)
   }
 }
 

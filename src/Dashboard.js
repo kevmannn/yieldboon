@@ -17,7 +17,7 @@ class Dashboard extends PureComponent {
     onError: PropTypes.func.isRequired,
     // Provided via connect:
     selectedState: PropTypes.string.isRequired,
-    activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired,
+    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchSoybeanProductionIfNeeded: PropTypes.func.isRequired
   };
 
@@ -27,21 +27,21 @@ class Dashboard extends PureComponent {
 
   // Make state 'catch up to' an incongruous path.
   componentWillReceiveProps({ match: { params } }) {
-    const { history, selectState, selectedState } = this.props;
+    const { selectState, selectedState } = this.props;
     if (params.selectedState !== selectedState) {
       selectState(params.selectedState);
     }
   }
 
-  componentWillUpdate({ activeCounties }) {
-    if (!activeCounties.length) {
+  componentWillUpdate({ activeForecasts }) {
+    if (!activeForecasts.length) {
       nprogress.start();
     } else {
       nprogress.done();
     }
   }
 
-  onSelectedStateChange = (selectedState) => {
+  onSelectState = (selectedState) => {
     const { history, selectState } = this.props;
     selectState(selectedState);
     history.push(`/dashboard/${selectedState}`);
@@ -69,14 +69,14 @@ class Dashboard extends PureComponent {
   // };
 
   render() {
-    const { selectedState, activeCounties } = this.props;
+    const { selectedState, activeForecasts } = this.props;
     return (
       <div>
         <FilterBar
           selectedState={selectedState}
-          onSelectedStateChange={this.onSelectedStateChange }/>
-        <CountyRegistry activeCounties={activeCounties} />
-        <VisualizationDyad activeCounties={activeCounties} />
+          onSelectState={this.onSelectState } />
+        <CountyRegistry activeForecasts={activeForecasts} />
+        <VisualizationDyad activeForecasts={activeForecasts} />
         {/*<TransitionMotion
           styles={[{ key: uniqueId(), style: this.motionStyle }]}
           willEnter={this.willEnter}
@@ -98,7 +98,7 @@ function mapStateToProps(state) {
   const { selectedState } = state;
   return {
     selectedState,
-    activeCounties: selectors.getActiveCounties(state)
+    activeForecasts: selectors.getActiveForecasts(state)
   }
 }
 

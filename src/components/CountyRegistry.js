@@ -18,12 +18,12 @@ import PropTypes from 'prop-types';
 
 export default class CountyRegistry extends PureComponent {
   static propTypes = {
-    activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
+    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   render() {
     return (
-      <div>{this.props.activeCounties.length}</div>
+      <div>{this.props.activeForecasts.length}</div>
     )
   }
 }

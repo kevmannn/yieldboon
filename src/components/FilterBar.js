@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 export default class FilterBar extends PureComponent {
   static propTypes = {
-    selectState: PropTypes.func.isRequired,
+    onSelectState: PropTypes.func.isRequired,
     selectedState: PropTypes.string.isRequired
   };
 
