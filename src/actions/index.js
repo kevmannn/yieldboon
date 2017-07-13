@@ -131,7 +131,6 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, g
           }
         ]), [])
 
-      nprogress.done();
       dispatch(receiveForecast({ countyName, coords, series }));
     })
 }
@@ -141,9 +140,10 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
   const { forecasts } = getState();
   if (!forecasts.find(({ countyName: name }) => name === countyName)) {
     // TODO: mv nprogress into loadForecasts...
-    nprogress.start();
+    // nprogress.start();
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
+        // nprogress.done();
         return dispatch(fetchForecast({ countyName, coords }));
       })
   }
@@ -151,8 +151,8 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
 
 export const loadForecasts = (counties = []) => (dispatch, getState) => {
   dispatch(fetchForecastIfNeeded(counties[0]));
-  // TODO: account for setForecastFilter...
+  // TODO: ...
   // nprogress.start();
-  // return Promise.all(counties.map(county => dispatch(fetchForecastIfNeeded(county))))
+  // return Promise.all(counties.map(county => dispatch.bind(null, fetchForecastIfNeeded(county))))
   //   .then(() => nprogress.done())
 }

@@ -8,6 +8,7 @@ import { createSelector } from 'reselect';
 import FilterBar from './components/FilterBar';
 import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
+// import * as selectors from './selectors';
 import { selectState, fetchSoybeanProductionIfNeeded } from './actions';
 
 class Dashboard extends PureComponent {
@@ -107,6 +108,12 @@ const getActiveCounties = createSelector(
     })
   )
 )
+
+// TODO: ...
+// const getPrecipForecastCountyPayloadPairs = createSelector(
+//   [getActiveCounties, getPrecipForecasts],
+//   () => {}
+// )
 
 function mapStateToProps(state) {
   const { selectedState } = state;

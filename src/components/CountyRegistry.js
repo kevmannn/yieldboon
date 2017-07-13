@@ -28,4 +28,4 @@ export default class CountyRegistry extends PureComponent {
   }
 }
 
-// export default connect({ filterActiveCounties })(CountyRegistry);
+// export default connect({ setForecastFilter })(CountyRegistry);

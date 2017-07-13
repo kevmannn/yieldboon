@@ -6,7 +6,7 @@ import {
   FAIL_TO_RECEIVE_FORECAST
 } from '../actions';
 
-export default (state = { blacklist: [], forecasts: [] }, action) => {
+export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   const { type, blacklist = [] } = action;
   switch (type) {
     case SET_FORECAST_FILTER:
@@ -19,14 +19,14 @@ export default (state = { blacklist: [], forecasts: [] }, action) => {
     case RECEIVE_FORECAST:
       return {
         ...state,
-        forecasts: forecasts(state.forecasts, action)
+        precipForecasts: precipForecasts(state.precipForecasts, action)
       }
     default:
       return state;
   }
 }
 
-function forecasts(state = [], { type, countyName, coords, series, err }) {
+function precipForecasts(state = [], { type, countyName, coords, series, err }) {
   switch (type) {
     case FAIL_TO_RECEIVE_FORECAST:
       return [
@@ -49,7 +49,7 @@ function forecasts(state = [], { type, countyName, coords, series, err }) {
       // Append the new forecast to the prexisting, removing any that are now stale.
       return [
         ...state.filter(({ countyName: name, lastUpdated }) => {
-          return name !== countyName && Date.now() - lastUpdated < 7 * MS_IN_DAY;
+          return name !== countyName && Date.now() - lastUpdated < MS_IN_DAY;
         }),
         {
           countyName,
