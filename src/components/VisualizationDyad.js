@@ -20,6 +20,10 @@ class VisualizationDyad extends PureComponent {
     }
   }
 
+  componentDidUpdate() {
+    // console.log(this.props);
+  }
+
   onNearestX = (highlighted = {}) => {
     this.setState({ highlighted });
   };

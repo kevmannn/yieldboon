@@ -26,14 +26,13 @@ class Dashboard extends PureComponent {
 
   // Make state 'catch up to' an incongruous path.
   componentWillReceiveProps({ match: { params }, activePayloads }) {
-    const { loadForecasts, selectState, selectedState } = this.props;
-    if (params.selectedState !== selectedState) {
-      selectState(params.selectedState);
+    if (params.selectedState !== this.props.selectedState) {
+      this.props.selectState(params.selectedState);
     }
 
-    // if (activePayloads.length) {
-    //   loadForecasts(activePayloads);
-    // }
+    if (activePayloads.length) {
+      this.props.loadForecasts(activePayloads);
+    }
   }
 
   onSelectState = (selectedState) => {

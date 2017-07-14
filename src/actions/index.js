@@ -105,7 +105,7 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
 }
 
 const yesterday = moment(Date.now() - MS_IN_DAY).format('YYYY-MM-DDTHH:mm:ss');
-const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, getState) => {
+const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
@@ -142,23 +142,22 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, g
 }
 
 // Find coordinates and the forecast for a given county if inexistent (or not up to date).
+// TODO: does this still work with the new reducer composition?
 const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
   const { precipForecasts } = getState().forecasts;
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
-    // TODO: mv nprogress into loadForecasts...
-    // nprogress.start();
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
-        // nprogress.done();
         return dispatch(fetchForecast({ countyName, coords }));
       })
   }
 }
 
-export const loadForecasts = (counties = []) => (dispatch, getState) => {
-  counties.forEach(county => dispatch(fetchForecastIfNeeded(county)));
-  // TODO: ...
-  // nprogress.start();
-  // return Promise.all(counties.map(county => dispatch(fetchForecastIfNeeded(county))))
+// TODO: ...
+export const loadForecasts = (activePayloads = []) => (dispatch) => {
+  nprogress.start();
+  return dispatch(fetchForecastIfNeeded(activePayloads[0]))
+    .then(() => nprogress.done())
+  // return Promise.all(activePayloads.map(county => dispatch(fetchForecastIfNeeded(county))))
   //   .then(() => nprogress.done())
 }

@@ -35,7 +35,8 @@ export const getActiveForecasts = createSelector(
   )
 )
 
-// TODO: Lessen / avoid the O(n^2) work that the `meanSeries` calc entails by using https://github.com/HeyImAlex/reselect-map?
+// TODO: Lessen / avoid the O(n^2) work that the `meanSeries` calc entails by using
+// https://github.com/HeyImAlex/reselect-map?
 // export const getAggregateActiveForecastSeries = createArraySelector(
 //   [getActiveForecasts],
 //   (activeForecast) => {}

@@ -22,14 +22,14 @@ class CountyRegistry extends PureComponent {
     activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  componentWillReceiveProps({ activeForecasts }) {
-    console.log(activeForecasts);
+  componentDidUpdate() {
+    // console.log(this.props);
   }
 
   render() {
     return (
-      <div style={{ fontSize: '0.7em' }}>
-        {/*this.props.activeForecasts.map(({ countyName }, i) => <p key={i}>{countyName}</p>)*/}
+      <div style={{ fontSize: '0.7em', padding: '20px' }}>
+        {this.props.activeForecasts.slice(0, 2).map(({ countyName }, i) => <p key={i}>{countyName}</p>)}
       </div>
     )
   }
