@@ -12,6 +12,7 @@ import Dashboard from './Dashboard';
 class App extends Component {
   static propTypes = {
     // Provided via connect:
+    // errorMessage: PropTypes.string,
     selectedState: PropTypes.string
   };
 
@@ -22,6 +23,8 @@ class App extends Component {
       toastIsOpen: false
     }
   }
+
+  // renderErrorMessage() {}
 
   onError = (message: toastMessage) => {
     this.setState({ toastMessage, toastIsOpen: true });
@@ -47,6 +50,7 @@ class App extends Component {
               {...props}
               onError={this.onError} />
           )} />
+        {/*this.renderErrorMessage()*/}
         <Toast
           isOpen={toastIsOpen}
           message={toastMessage}

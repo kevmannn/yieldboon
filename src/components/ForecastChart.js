@@ -7,6 +7,7 @@ import {
   // Hint,
   // XAxis,
   // YAxis,
+  // GridLines,
   XYPlot,
   LineSeries,
   makeWidthFlexible

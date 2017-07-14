@@ -8,7 +8,7 @@ const getSoybeanYieldBounds = ({ soybeanYieldBounds }) => soybeanYieldBounds;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
 // Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
-const getActivePayloads = createSelector(
+export const getActivePayloads = createSelector(
   [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
   (selectedState = '', { lowerbound = 0, upperbound = 1e8 }, payload = []) => (
     payload.filter(({ stateAbbr: abbr, soybeanYield: soy }) => {
@@ -17,9 +17,7 @@ const getActivePayloads = createSelector(
   )
 )
 
-// Correlate allowed precipForecasts with their soybean payloads.
-// TODO: Lessen / avoid the O(n^2) work that the `meanSeries` calc entails by using
-// https://github.com/HeyImAlex/reselect-map?
+// Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
 export const getActiveForecasts = createSelector(
   [getBlacklist, getPrecipForecasts, getActivePayloads],
   (blacklist, precipForecasts, activePayloads) => (
@@ -36,3 +34,9 @@ export const getActiveForecasts = createSelector(
       })
   )
 )
+
+// TODO: Lessen / avoid the O(n^2) work that the `meanSeries` calc entails by using https://github.com/HeyImAlex/reselect-map?
+// export const getAggregateActiveForecastSeries = createArraySelector(
+//   [getActiveForecasts],
+//   (activeForecast) => {}
+// )

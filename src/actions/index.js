@@ -93,7 +93,10 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
   return fetch(`https://lat-lng.now.sh/?address=${countyName},${stateAbbr}`)
     .then(
       res => res.json(),
-      err => dispatch(failToReceiveForecast({ countyName, err }))
+      err => {
+        dispatch(failToReceiveForecast({ countyName, err }));
+        throw err;
+      }
     )
     .then(({ lat, lng }) => ({
       countyName,
@@ -109,7 +112,10 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, g
   return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
     .then(
       res => res.json(),
-      err => dispatch(failToReceiveForecast({ countyName, err }))
+      err => {
+        dispatch(failToReceiveForecast({ countyName, err }));
+        throw err;
+      }
     )
     .then(({ hourly: { data } }) => {
       // Mapreduce the response to form a series with y values expressing the accumulated precipIntensity
@@ -137,8 +143,8 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch, g
 
 // Find coordinates and the forecast for a given county if inexistent (or not up to date).
 const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
-  const { forecasts } = getState();
-  if (!forecasts.find(({ countyName: name }) => name === countyName)) {
+  const { precipForecasts } = getState().forecasts;
+  if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     // TODO: mv nprogress into loadForecasts...
     // nprogress.start();
     return dispatch(fetchCoords({ countyName, stateAbbr }))
@@ -150,9 +156,9 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
 }
 
 export const loadForecasts = (counties = []) => (dispatch, getState) => {
-  dispatch(fetchForecastIfNeeded(counties[0]));
+  counties.forEach(county => dispatch(fetchForecastIfNeeded(county)));
   // TODO: ...
   // nprogress.start();
-  // return Promise.all(counties.map(county => dispatch.bind(null, fetchForecastIfNeeded(county))))
+  // return Promise.all(counties.map(county => dispatch(fetchForecastIfNeeded(county))))
   //   .then(() => nprogress.done())
 }

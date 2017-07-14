@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import isEqual from 'lodash/isEqual';
 
-// import * as selectors from './selectors';
+import * as selectors from '../selectors';
 // import ForecastMap from './ForecastMap';
 // import ForecastChart from './ForecastChart';
-import { loadForecasts } from '../actions';
+// import { loadForecasts } from '../actions';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
-    // activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
+    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   constructor(props) {
@@ -18,11 +18,6 @@ class VisualizationDyad extends PureComponent {
     this.state = {
       highlighted: null
     }
-  }
-
-  // TODO: mv to Dashboard?
-  componentWillReceiveProps({ activeForecasts, loadForecasts }) {
-    // loadForecasts(activeForecasts);
   }
 
   onNearestX = (highlighted = {}) => {
@@ -42,9 +37,8 @@ class VisualizationDyad extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    // activePrecipForecasts: selectors.getActiveForecasts(state),
-    // aggregatedPrecipSeries: selectors.getAggregatePrecipSeries(state)
-  }
+    activeForecasts: selectors.getActiveForecasts(state)
+  }  
 }
 
-export default connect(mapStateToProps, { loadForecasts })(VisualizationDyad);
+export default connect(mapStateToProps)(VisualizationDyad);

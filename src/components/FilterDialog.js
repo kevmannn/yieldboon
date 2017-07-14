@@ -1,26 +1,48 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+// import { data as uspsStates } from 'usps-states';
 // import Button from 'material-ui/Button';
-// import List, { ListItem, ListItemText } from 'material-ui/List';
 // import { MuiThemeProvider } from 'material-ui/styles';
-// import { LabelRadio as Radio, RadioGroup } from 'material-ui/Radio';
+// import { withStyles, createStyleSheet } from 'material-ui/styles';
+// import List, { ListItem, ListItemText } from 'material-ui/List';
+import { LabelRadio as Radio, RadioGroup } from 'material-ui/Radio';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
 export default class FilterDialog extends PureComponent {
   static defaultProps = {
     isOpen: PropTypes.bool.isRequired,
-    // onRequestClose: PropTypes.func.isRequired
+    selectedState: PropTypes.string.isRequired,
+    onRequestClose: PropTypes.func.isRequired
   };
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {}
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedValue: null
+    }
+  }
 
-  onEntering = () => {};
+  radioGroup = null;
+
+  onEntering = () => {
+    this.radioGroup.focus();
+  };
+
+  onCancel = () => {};
+
+  onAcceptance = () => {
+    const { selectedValue } = this.state;
+    this.props.onRequestClose(selectedValue);
+  };
+
+  onChange = (event, selectedValue) => {
+    this.setState({ selectedValue });
+  }
+
+  // availableStates = uspsStates.filter(({ abbr }) => {})
 
   render() {
-    const { selectedValue, children, ...rest } = this.props;
+    const { children, ...rest } = this.props;
     return (
       <Dialog
         {...rest}
@@ -28,7 +50,18 @@ export default class FilterDialog extends PureComponent {
         ignoreEscapeKeyUp
         ignoreBackdropClick
         onEntering={this.onEntering}>
-        {/*children*/}
+        <DialogTitle>Select a state</DialogTitle>
+        <DialogContent
+          innerRef={node => this.radioGroup = node}>
+          <RadioGroup>
+            {/*availableStates.map(({ abbr, name }) => (
+              <Radio
+                key={abbr}
+                label={name}
+                value={abbr} />
+            ))*/}
+          </RadioGroup>
+        </DialogContent>
       </Dialog>
     )
   }

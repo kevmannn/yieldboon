@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+// import Paper from 'material-ui/Paper';
 // import Button from 'material-ui/Button';
-// import { byAbbr, byName } from 'usps-states';
 // import { MuiThemeProvider } from 'material-ui/styles';
 
 // import FilterDialog from './FilterDialog';
@@ -21,18 +21,18 @@ export default class FilterBar extends PureComponent {
   }
 
   onRequestClose = (stateName = '') => {
-    this.props.selectState(stateName);
     this.setState({ isOpen: false });
+    this.props.onSelectState(stateName);
   };
 
   render() {
     // const { selectedState } = this.props;
     // const { isOpen } = this.state;
     return (
-      <div>
+      <div style={{ display: 'block' }}>
         {/*<FilterDialog
           isOpen={isOpen}
-          selectedValue={selectedState}
+          selectedState={selectedState}
           onRequestClose={this.onRequestClose}></FilterDialog>*/}
       </div>
     )

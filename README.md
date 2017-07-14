@@ -25,7 +25,7 @@
 
 * The interpretation of the problem will fluctuate, and given its extreme importance (with respect to how all subsequent thinking takes shape) thus demands attention to how it is "heard".
 
-* Much thinking can be contingent on (apparent) API limitations and assumptions about response formats.
+* Much thinking can be contingent on (apparent) API limitations and assumptions about their response formats.
 
 ## Future:
 * Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history (which should also be accomodated in the app)).

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import Table, {
 //   TableRow,
 //   TableBody,
@@ -14,18 +14,31 @@ import PropTypes from 'prop-types';
 // import IconButton from 'material-ui/IconButton';
 // import FilterListIcon from 'material-ui-icons/FilterList';
 
-// import { setForecastFilter } from '../actions';
+import * as selectors from '../selectors';
+import { setForecastFilter } from '../actions';
 
-export default class CountyRegistry extends PureComponent {
+class CountyRegistry extends PureComponent {
   static propTypes = {
     activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
+  componentWillReceiveProps({ activeForecasts }) {
+    console.log(activeForecasts);
+  }
+
   render() {
     return (
-      <div>{this.props.activeForecasts.length}</div>
+      <div style={{ fontSize: '0.7em' }}>
+        {/*this.props.activeForecasts.map(({ countyName }, i) => <p key={i}>{countyName}</p>)*/}
+      </div>
     )
   }
 }
 
-// export default connect({ setForecastFilter })(CountyRegistry);
+function mapStateToProps(state) {
+  return {
+    activeForecasts: selectors.getActiveForecasts(state)
+  }
+}
+
+export default connect(mapStateToProps, { setForecastFilter })(CountyRegistry);
