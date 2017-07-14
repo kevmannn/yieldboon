@@ -1,8 +1,6 @@
 # soyfall [![Build Status](https://img.shields.io/travis/kevmannn/soyfall/master.svg?style=flat-square)](https://travis-ci.org/kevmannn/soyfall)
 
-> A React / Redux app to monitor daily rainfall in soybean-saturated locales
-
-> [soyfall](https://soyfall.now.sh)
+> [A React / Redux app to monitor daily rainfall in soybean-saturated locales](https://soyfall.now.sh)
 
 ## The problem (and a solution):
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
@@ -14,11 +12,11 @@
 > React, Redux, React-mapbox-gl, React-vis, Reselect, Material-ui
 
 ## Challenges & Tradeoffs:
-> trying not to represent too much data at a given moment
-> chasing down bugs related to working with cached state
-> imagining what would bring the most utility to an agriculturally-minded user
-> opting not to implement an [`immutable`](https://github.com/facebook/immutable-js/) store.
-> opting not to implement [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically set `soybeanYieldBounds`.
+* trying not to represent too much data at a given moment
+* chasing down bugs related to working with cached state
+* imagining what would bring the most utility to an agriculturally-minded user
+* opting not to implement an [`immutable`](https://github.com/facebook/immutable-js/) store.
+* opting not to implement [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically set `soybeanYieldBounds`.
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.
