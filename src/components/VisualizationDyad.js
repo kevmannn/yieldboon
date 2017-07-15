@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 import * as selectors from '../selectors';
 // import ForecastMap from './ForecastMap';
 // import ForecastChart from './ForecastChart';
-// import { loadForecasts } from '../actions';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
-    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
+    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
+    aggregateSeriesExtremes: PropTypes.array.isRequired,
+    aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   constructor(props) {
@@ -21,7 +22,7 @@ class VisualizationDyad extends PureComponent {
   }
 
   componentDidUpdate() {
-    // console.log(this.props);
+    console.log(this.props);
   }
 
   onNearestX = (highlighted = {}) => {
@@ -30,10 +31,22 @@ class VisualizationDyad extends PureComponent {
 
   render() {
     // const { highlighted } = this.state;
+    // const {
+    //   activeForecasts,
+    //   aggregateSeriesExtremes,
+    //   aggregateActiveForecastSeries
+    // } = this.props;
     return (
       <div>
-        {/*<ForecastChart />
-        <ForecastMap />*/}
+        {/*<ForecastChart
+          highlighted={highlighted}
+          onNearestX={this.onNearestX}
+          activeForecasts={activeForecasts}
+          ySeriesExtremes={aggregateSeriesExtremes}
+          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />
+        <ForecastMap
+          highlighted={highlighted}
+          activeForecasts={activeForecasts} />*/}
       </div>
     )
   }
@@ -41,7 +54,9 @@ class VisualizationDyad extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    activeForecasts: selectors.getActiveForecasts(state)
+    activeForecasts: selectors.getActiveForecasts(state),
+    aggregateSeriesExtremes: selectors.getAggregateSeriesExtremes(state),
+    aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(state)
   }  
 }
 

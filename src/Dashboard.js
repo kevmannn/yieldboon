@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { spring, presets, TransitionMotion } from 'react-motion';
 
 import * as selectors from './selectors';
 import FilterBar from './components/FilterBar';
@@ -24,8 +23,8 @@ class Dashboard extends PureComponent {
     this.props.fetchSoybeanProductionIfNeeded();
   }
 
-  // Make state 'catch up to' an incongruous path.
   componentWillReceiveProps({ match: { params }, activePayloads }) {
+    // Make state 'catch up to' an incongruous path.
     if (params.selectedState !== this.props.selectedState) {
       this.props.selectState(params.selectedState);
     }
@@ -40,27 +39,6 @@ class Dashboard extends PureComponent {
     selectState(selectedState);
     history.push(`/dashboard/${selectedState}`);
   };
-
-  // springConfig = { ...presets.stiff, precision: 0.9 };
-
-  // motionStyle = {
-  //   opacity: spring(1, this.springConfig),
-  //   translation: spring(0, this.springConfig)
-  // };
-
-  // willEnter = () => {
-  //   return {
-  //     opacity: 0.8,
-  //     translation: -170
-  //   }
-  // };
-
-  // willLeave = () => {
-  //   return {
-  //     opacity: spring(0, this.springConfig),
-  //     translation: spring(40, this.springConfig)
-  //   }
-  // };
 
   render() {
     const { selectedState } = this.props;

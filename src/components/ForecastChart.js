@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 // import moment from 'moment';
-// import { createSelector } from 'reselect';
 import {
   // Hint,
   // XAxis,
@@ -19,7 +18,8 @@ export default class ForecastChart extends Component {
   static propTypes = {
     onNearestX: PropTypes.func.isRequired,
     highlighted: PropTypes.object,
-    // aggregatedPrecipSeries: PropTypes.arrayOf(PropTypes.object).isRequired
+    // ySeriesExtremes: PropTypes.array.isRequired,
+    // aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   shouldComponentUpdate({ highlighted }) {

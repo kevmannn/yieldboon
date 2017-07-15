@@ -27,17 +27,40 @@ export const getActiveForecasts = createSelector(
         const correlatedPayload = activePayloads.find(({ countyName: name }) => name === countyName);
         return {
           ...rest,
-          countyName,
-          // meanSeries,
-          correlatedPayload
+          ...correlatedPayload,
+          countyName
         }
       })
   )
 )
 
-// TODO: Lessen / avoid the O(n^2) work that the `meanSeries` calc entails by using
-// https://github.com/HeyImAlex/reselect-map?
-// export const getAggregateActiveForecastSeries = createArraySelector(
-//   [getActiveForecasts],
-//   (activeForecast) => {}
-// )
+export const getActiveCounties = createSelector(
+  getActiveForecasts,
+  (activeForecasts) => (
+    activeForecasts.map(({ countyName, soybeanYield, series }) => ({
+      countyName,
+      soybeanYield,
+      totalRainfall: series[series.length - 1].y
+    }))
+  )
+)
+
+// TODO: Lessen the O(nm) work that this calc entails by using https://github.com/HeyImAlex/reselect-map (?)
+// Map the first activeForecast's series to a new series with each y value as the mean of all forecasts.
+export const getAggregateActiveForecastSeries = createSelector(
+  [getActiveForecasts],
+  ([ firstForecast, ...otherForecasts ]) => (
+    firstForecast.series.map(({ y, ...rest }) => ({
+      ...rest,
+      y: (y + otherForecasts.reduce((acc, { series }) => series.y + acc, 0)) / otherForecasts.length + 1
+    }))
+  )
+)
+
+export const getAggregateSeriesExtremes = createSelector(
+  [getAggregateActiveForecastSeries],
+  (series) => {
+    const yValues = series.map(({ y }) => y);
+    return [0.95 * Math.min(...yValues), 1.05 * Math.max(...yValues)];
+  }
+)

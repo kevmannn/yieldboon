@@ -20,6 +20,8 @@ export default class FilterBar extends PureComponent {
     }
   }
 
+  onClick = () => {};
+
   onRequestClose = (stateName = '') => {
     this.setState({ isOpen: false });
     this.props.onSelectState(stateName);

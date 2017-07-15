@@ -25,7 +25,7 @@
     "react-scripts": "^1.0.10",
     "react-tap-event-plugin": "^2.0.1",
     "react-vis": "^1.6.7",
-    "redux": "^3.7.1",
+    "redux": "^3.7.2",
     "redux-action-buffer": "^1.1.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.8.2",
