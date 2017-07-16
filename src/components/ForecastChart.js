@@ -16,10 +16,11 @@ const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
-    onNearestX: PropTypes.func.isRequired,
     highlighted: PropTypes.object,
-    // ySeriesExtremes: PropTypes.array.isRequired,
-    // aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
+    onNearestX: PropTypes.func.isRequired,
+    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
+    aggregateSeriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
+    aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   shouldComponentUpdate({ highlighted }) {
@@ -33,8 +34,6 @@ export default class ForecastChart extends Component {
     margin: { top: 15, right: 20, bottom: 20, left: 30 }
   };
 
-  ySeriesExtremes = [];
-
   onMouseLeave = () => {
     this.props.onNearestX(null);
   };
@@ -44,8 +43,13 @@ export default class ForecastChart extends Component {
   };
 
   render() {
-    const { data } = this.props;
-    const [ yMin, yMax ] = this.ySeriesExtremes;
+    // const {
+    //   highlighted,
+    //   onNearestX,
+    //   activeForecasts,
+    //   aggregateSeriesExtremes,
+    //   aggregateActiveForecastSeries
+    // } = this.props;
     return (
       <div style={{
         height: '300px',
@@ -58,10 +62,10 @@ export default class ForecastChart extends Component {
       }}>
         {/*<FlexibleXYPlot
           {...this.flexibleXYPlotProps}
-          yDomain={[yMin, yMax]}
+          yDomain={aggregateSeriesExtremes}
           onMouseLeave={this.onMouseLeave}>
           <LineSeries
-            data={data}
+            data={aggregateActiveForecastSeries}
             curve={this.curve}
             stroke={this.defaultStroke}
             strokeWidth={2}

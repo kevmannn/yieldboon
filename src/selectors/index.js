@@ -36,29 +36,36 @@ export const getActiveForecasts = createSelector(
 
 export const getActiveCounties = createSelector(
   getActiveForecasts,
-  (activeForecasts) => (
-    activeForecasts.map(({ countyName, soybeanYield, series }) => ({
-      countyName,
-      soybeanYield,
-      totalRainfall: series[series.length - 1].y
-    }))
+  (activeForecasts = []) => (
+    activeForecasts.length
+      ? activeForecasts.map(({ countyName, soybeanYield, series }) => ({
+          countyName,
+          soybeanYield,
+          totalRainfall: series ? series[series.length - 1].y : null
+        }))
+      : []
   )
 )
 
 // TODO: Lessen the O(nm) work that this calc entails by using https://github.com/HeyImAlex/reselect-map (?)
-// Map the first activeForecast's series to a new series with each y value as the mean of all forecasts.
+// Construct a new series (= collection) of the forecast's mean y value at each i.
 export const getAggregateActiveForecastSeries = createSelector(
-  [getActiveForecasts],
-  ([ firstForecast, ...otherForecasts ]) => (
-    firstForecast.series.map(({ y, ...rest }) => ({
-      ...rest,
-      y: (y + otherForecasts.reduce((acc, { series }) => series.y + acc, 0)) / otherForecasts.length + 1
-    }))
+  getActiveForecasts,
+  ([ firstForecast = {}, ...otherForecasts ]) => (
+    !firstForecast.isFetching && firstForecast.series
+      ? firstForecast.series.map(({ i, y, ...rest }) => {
+        return ({
+          ...rest,
+          i,
+          y: ([...otherForecasts].reduce((acc, { series }) => series[i].y + acc, 0) + y) / (otherForecasts.length + 1)
+        })
+      })
+      : []
   )
 )
 
 export const getAggregateSeriesExtremes = createSelector(
-  [getAggregateActiveForecastSeries],
+  getAggregateActiveForecastSeries,
   (series) => {
     const yValues = series.map(({ y }) => y);
     return [0.95 * Math.min(...yValues), 1.05 * Math.max(...yValues)];

@@ -42,7 +42,7 @@ class VisualizationDyad extends PureComponent {
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           activeForecasts={activeForecasts}
-          ySeriesExtremes={aggregateSeriesExtremes}
+          aggregateSeriesExtremes={aggregateSeriesExtremes}
           aggregateActiveForecastSeries={aggregateActiveForecastSeries} />
         <ForecastMap
           highlighted={highlighted}

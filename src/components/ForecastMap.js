@@ -9,7 +9,7 @@ const MapGL = ReactMapboxGL({ accessToken });
 export default class ForecastMap extends PureComponent {
   static propTypes = {
     highlighted: PropTypes.object,
-    activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
+    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   // getMapBounds() {}

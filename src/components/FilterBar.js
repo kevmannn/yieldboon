@@ -32,6 +32,8 @@ export default class FilterBar extends PureComponent {
     // const { isOpen } = this.state;
     return (
       <div style={{ display: 'block' }}>
+        {/*<MuiThemeProvider>
+        </MuiThemeProvider>*/}
         {/*<FilterDialog
           isOpen={isOpen}
           selectedState={selectedState}

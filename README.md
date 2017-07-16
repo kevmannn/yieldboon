@@ -35,7 +35,7 @@
 <!-- finding a path: -->
 <!-- "Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results." -->
 > The Chart plots the mean cumulative precipIntensity series, with the chart's hint showing the y value at that (highlighted) point and the top 5 counties with _most rainfall / soybeanYield_ (= in/bu).
-> The purpose of the Map is to light up the salient 'features' (= "top 5 counties...") of the particular highlighted.i, revealing their context (with respect to all other counties).
+> The purpose of the Map is to light up the salient 'features' (= "top 5 counties...") of the particular highlighted.i, revealing their geographic context.
 
 ## License
 
