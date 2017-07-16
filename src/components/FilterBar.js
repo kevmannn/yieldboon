@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import Paper from 'material-ui/Paper';
-// import Button from 'material-ui/Button';
-// import { MuiThemeProvider } from 'material-ui/styles';
+import { MuiThemeProvider } from 'material-ui/styles';
+import { ListItem, ListItemText } from 'material-ui/List';
+// import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 // import FilterDialog from './FilterDialog';
 // import YieldRheostat from './YieldRheostat';
@@ -20,7 +20,9 @@ export default class FilterBar extends PureComponent {
     }
   }
 
-  onClick = () => {};
+  onClick = () => {
+    this.setState({ isOpen: true });
+  };
 
   onRequestClose = (stateName = '') => {
     this.setState({ isOpen: false });
@@ -28,12 +30,17 @@ export default class FilterBar extends PureComponent {
   };
 
   render() {
-    // const { selectedState } = this.props;
+    const { selectedState } = this.props;
     // const { isOpen } = this.state;
     return (
-      <div style={{ display: 'block' }}>
-        {/*<MuiThemeProvider>
-        </MuiThemeProvider>*/}
+      <div>
+        <MuiThemeProvider>
+          <ListItem button divider onClick={this.onClick}>
+            <ListItemText
+              primary="Selected state"
+              secondary={selectedState} />
+          </ListItem>
+        </MuiThemeProvider>
         {/*<FilterDialog
           isOpen={isOpen}
           selectedState={selectedState}

@@ -150,6 +150,8 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
       .then(({ countyName, coords }) => {
         return dispatch(fetchForecast({ countyName, coords }));
       })
+  } else {
+    return Promise.resolve();
   }
 }
 

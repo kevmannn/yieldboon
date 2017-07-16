@@ -52,7 +52,7 @@ class CountyRegistry extends PureComponent {
   render() {
     return (
       <div style={{ fontSize: '0.7em', padding: '20px' }}>
-        {this.props.activeCounties.slice(0, 2).map(({ countyName }, i) => <p key={i}>{countyName}</p>)}
+        {/*this.props.activeCounties.slice(0, 2).map(({ countyName }, i) => <p key={i}>{countyName}</p>)*/}
       </div>
     )
   }

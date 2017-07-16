@@ -28,7 +28,7 @@ const store = createStore(
   )
 )
 
-persistStore(store, { storage }).purge();
+persistStore(store, { storage });
 render(
   <Provider store={store}>
     <BrowserRouter>

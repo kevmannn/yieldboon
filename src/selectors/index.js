@@ -31,6 +31,10 @@ export const getActiveForecasts = createSelector(
           countyName
         }
       })
+      .sort(({ series: a, soybeanYield: c }, { series: b, soybeanYield: d }) => {
+        // Sort with respect to total rainfall / soybean yield.
+        return (a[a.length - 1] / c) - (b[b.length - 1] / d);
+      })
   )
 )
 
@@ -48,7 +52,7 @@ export const getActiveCounties = createSelector(
 )
 
 // TODO: Lessen the O(nm) work that this calc entails by using https://github.com/HeyImAlex/reselect-map (?)
-// Construct a new series (= collection) of the forecast's mean y value at each i.
+// Construct a new series (= collection) of the mean y value at each i.
 export const getAggregateActiveForecastSeries = createSelector(
   getActiveForecasts,
   ([ firstForecast = {}, ...otherForecasts ]) => (
