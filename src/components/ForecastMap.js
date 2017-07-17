@@ -5,6 +5,10 @@ import ReactMapboxGL, { Layer, Feature } from 'react-mapbox-gl';
 import { MAPBOX_API_KEY as accessToken } from '../constants';
 
 const MapGL = ReactMapboxGL({ accessToken });
+const containerStyle = {
+  height: '400px',
+  width: '100%'
+}
 
 export default class ForecastMap extends PureComponent {
   static propTypes = {
@@ -12,22 +16,29 @@ export default class ForecastMap extends PureComponent {
     activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  // getMapBounds() {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      zoom: [7],
+      center: [-48.5852037, -1.3083065],
+      // fitBounds: null
+    }
+  }
+
+  onDrag = () => {};
 
   render() {
+    const { zoom, center } = this.state;
     return (
-      <MapGL
-        style="mapbox://styles/mapbox/light-v9" // eslint-disable-line
-        zoom={8}
-        center={[-70.4065859, -24.6274856]}
-        containerStyle={{
-          height: '100%',
-          width: '500px'
-        }}>
-        {/*<Layer>
-          <Feature coordinates={[-70.4065859, -24.6274856]} />
-        </Layer>*/}
-      </MapGL>
+      <div>
+        <MapGL
+          style="mapbox://styles/mapbox/light-v9" // eslint-disable-line
+          zoom={zoom}
+          center={center}
+          onDrag={this.onDrag}
+          containerStyle={containerStyle}>
+        </MapGL>
+      </div>
     )
   }
 }

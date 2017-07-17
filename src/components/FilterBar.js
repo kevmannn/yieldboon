@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from 'material-ui/styles';
-import { ListItem, ListItemText } from 'material-ui/List';
-// import { withStyles, createStyleSheet } from 'material-ui/styles';
+import Toolbar from 'material-ui/Toolbar';
+import Button from 'material-ui/Button';
+// import IconButton from 'material-ui/IconButton';
+// import FilterListIcon from 'material-ui-icons/FilterList';
 
 // import FilterDialog from './FilterDialog';
 // import YieldRheostat from './YieldRheostat';
@@ -35,11 +37,9 @@ export default class FilterBar extends PureComponent {
     return (
       <div>
         <MuiThemeProvider>
-          <ListItem button divider onClick={this.onClick}>
-            <ListItemText
-              primary="Selected state"
-              secondary={selectedState} />
-          </ListItem>
+          <Toolbar>
+            <Button onClick={this.onClick}>{selectedState}</Button>
+          </Toolbar>
         </MuiThemeProvider>
         {/*<FilterDialog
           isOpen={isOpen}

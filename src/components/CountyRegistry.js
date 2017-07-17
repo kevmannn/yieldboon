@@ -1,32 +1,40 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import Table, {
-//   TableRow,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableSortLabel,
-// } from 'material-ui/Table';
-// import Paper from 'material-ui/Paper';
-// import Toolbar from 'material-ui/Toolbar';
-// import Checkbox from 'material-ui/Checkbox';
-// import IconButton from 'material-ui/IconButton';
-// import FilterListIcon from 'material-ui-icons/FilterList';
-// import { MuiThemeProvider } from 'material-ui/styles';
+import Table, {
+  TableRow,
+  TableBody,
+  TableCell,
+  // TableHead,
+  // TableSortLabel,
+} from 'material-ui/Table';
+import Paper from 'material-ui/Paper';
+import Checkbox from 'material-ui/Checkbox';
+import { MuiThemeProvider } from 'material-ui/styles';
+// import { withStyles, createStyleSheet } from 'material-ui/styles';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
+// import FilterBar from './FilterBar';
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
 
 class CountyRegistry extends PureComponent {
   static propTypes = {
+    selectedState: PropTypes.string.isRequired,
+    onSelectState: PropTypes.func.isRequired,
+    // Provided via connect:
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   componentDidUpdate() {
-    // console.log(this.props);
+    console.log(this.props);
   }
+
+  onSelectState = (state) => {
+    this.props.onSelectState(state);
+  };
+
+  onClick = () => {};
 
   // springConfig = { ...presets.stiff, precision: 0.9 };
 
@@ -50,9 +58,42 @@ class CountyRegistry extends PureComponent {
   // };
 
   render() {
+    const { activeCounties } = this.props;
     return (
-      <div style={{ fontSize: '0.7em', padding: '20px' }}>
-        {/*this.props.activeCounties.slice(0, 2).map(({ countyName }, i) => <p key={i}>{countyName}</p>)*/}
+      <div style={{ padding: '20px' }}>
+        <MuiThemeProvider>
+          <Paper>
+            <Table>
+              <TableBody>
+                {activeCounties.map(({ countyName, isFetching, soybeanYield, totalRainfall }, i) => (
+                  isFetching
+                    ? <div>...loading</div>
+                    : <TableRow
+                        hover
+                        key={i}
+                        onClick={this.onClick}
+                        selected={false}>
+                      <TableCell checkbox>
+                        <Checkbox checked={true} />
+                      </TableCell>
+                      <TableCell>
+                        {countyName}
+                      </TableCell>
+                      <TableCell>
+                        {soybeanYield}
+                      </TableCell>
+                      <TableCell>
+                        {totalRainfall}
+                      </TableCell>
+                      <TableCell>
+                        {(soybeanYield / totalRainfall).toFixed(3)}
+                      </TableCell>
+                    </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </MuiThemeProvider>
       </div>
     )
   }

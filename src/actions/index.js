@@ -36,7 +36,7 @@ const receiveSoybeanProduction = (payload) => ({
 
 const fetchSoybeanProduction = () => (dispatch) => {
   dispatch(requestSoybeanProduction());
-  nprogress.start();
+  // nprogress.start();
   return fetch(USDA_URL)
     // Map the response to the values we care about and remove vaguely attributed data.
     .then(res => res.json())
@@ -53,7 +53,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
     ))
     .then((payload) => {
       dispatch(receiveSoybeanProduction(payload));
-      nprogress.done();
+      // nprogress.done();
     })
 }
 
@@ -156,11 +156,8 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
 }
 
 // TODO: ...
-export const loadForecasts = (activePayloads = []) => (dispatch) => {
+export const loadForecasts = (activePayloads) => (dispatch) => {
   nprogress.start();
-  // console.log(activePayloads);
-  return dispatch(fetchForecastIfNeeded(activePayloads[0]))
+  return Promise.all(activePayloads.slice(0, 5).map(county => dispatch(fetchForecastIfNeeded(county))))
     .then(() => nprogress.done())
-  // return Promise.all(activePayloads.map(county => dispatch(fetchForecastIfNeeded(county))))
-  //   .then(() => nprogress.done())
 }

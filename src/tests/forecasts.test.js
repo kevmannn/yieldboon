@@ -1,25 +1,16 @@
 import React from 'react';
 import thunk from 'redux-thunk';
+// import nock from 'nock';
 import configureStore from 'redux-mock-store';
-import { shallow } from 'enzyme';
 
-import App from '../App';
 import forecasts from '../reducers/forecasts';
 import * as actions from '../actions';
-// import VisualizationDyad from '../components/VisualizationDyad';
+import * as selectors from '../selectors';
 
 const mockStore = configureStore([thunk]);
 
-describe('app initialization', () => {
-  const store = mockStore();
-  const appWrapper = shallow(<App store={store} />).shallow();
-  it('renders app', () => {
-    expect(appWrapper.find('div').children()).toHaveLength(3);
-  })
-})
-
 describe('forecasts reducer', () => {
-  it('returns default state', () => {
+  it('has default state', () => {
     expect(forecasts(undefined, {})).toEqual({
       blacklist: [],
       precipForecasts: []
@@ -27,16 +18,18 @@ describe('forecasts reducer', () => {
   })
 })
 
-describe('forecast action creators', () => {
-  const initialState = {
-    soybeanProduction: {},
-    forecasts: {
-      blacklist: [],
-      precipForecasts: []
-    }
+const emptyState = {
+  soybeanProduction: {},
+  forecasts: {
+    blacklist: [],
+    precipForecasts: []
   }
-  const store = mockStore(initialState);
+}
+
+describe.skip('forecast action creators', () => {
+  const store = mockStore(emptyState);
   afterEach(() => {
+    // nock.cleanAll();
     store.clearActions();
   })
 
@@ -50,5 +43,15 @@ describe('forecast action creators', () => {
     expect(storeActions).toHaveLength(4);
     expect(storeActions.find(({ type }) => type === actions.RECEIVE_FORECAST)).toBeTruthy();
     expect(Object.keys(storeActions[storeActions.length - 1])).toEqual(['type', 'countyName', 'coords', 'series']);
+  })
+})
+
+describe.skip('forecast selectors', () => {
+  it('can derive activeForecasts from state', () => {
+    expect(selectors.getActiveForecasts(emptyState)).toEqual([]);
+  })
+
+  it('can derive the aggregateActiveForecastSeries from state', () => {
+    expect(selectors.getAggregateActiveForecastSeries(emptyState)).toEqual([]);
   })
 })

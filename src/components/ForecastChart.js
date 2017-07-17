@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
-// import moment from 'moment';
+import moment from 'moment';
+// import Paper from 'material-ui/Paper';
 import {
   // Hint,
   // XAxis,
@@ -23,16 +24,19 @@ export default class ForecastChart extends Component {
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  shouldComponentUpdate({ highlighted }) {
-    return !isEqual(highlighted, this.props.highlighted);
+  shouldComponentUpdate({ highlighted, aggregateActiveForecastSeries }) {
+    return !isEqual(highlighted, this.props.highlighted)
+      || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)
   }
 
   curve = 'curveMonotoneX';
   defaultStroke = '#4264FB';
   flexibleXYPlotProps = {
-    height: 140,
+    height: 220,
     margin: { top: 15, right: 20, bottom: 20, left: 30 }
   };
+
+  axisStyle = { text: { fontSize: '0.6em' } };
 
   onMouseLeave = () => {
     this.props.onNearestX(null);
@@ -42,17 +46,20 @@ export default class ForecastChart extends Component {
     this.props.onNearestX(highlighted);
   };
 
+  xTickFormat = (date) => {
+    return moment(new Date(date)).format('MM/DD h:mm a');
+  };
+
   render() {
-    // const {
-    //   highlighted,
-    //   onNearestX,
-    //   activeForecasts,
-    //   aggregateSeriesExtremes,
-    //   aggregateActiveForecastSeries
-    // } = this.props;
+    const {
+      highlighted,
+      // activeForecasts,
+      aggregateSeriesExtremes,
+      aggregateActiveForecastSeries
+    } = this.props;
     return (
       <div style={{
-        height: '300px',
+        height: '220px',
         display: 'block',
         padding: '10px',
         margin: '5px',
@@ -60,17 +67,26 @@ export default class ForecastChart extends Component {
         background: '#fff',
         boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
       }}>
-        {/*<FlexibleXYPlot
+        <FlexibleXYPlot
           {...this.flexibleXYPlotProps}
           yDomain={aggregateSeriesExtremes}
           onMouseLeave={this.onMouseLeave}>
+          {highlighted &&
+            <LineSeries
+              stroke={this.defaultStroke}
+              opacity={0.4}
+              strokeWidth={1}
+              data={[
+                { x: highlighted.x, y: aggregateSeriesExtremes[0] },
+                { x: highlighted.x, y: aggregateSeriesExtremes[1] }
+              ]} />}
           <LineSeries
             data={aggregateActiveForecastSeries}
             curve={this.curve}
             stroke={this.defaultStroke}
             strokeWidth={2}
             onNearestX={this.onNearestX} />
-        </FlexibleXYPlot>*/}
+        </FlexibleXYPlot>
       </div>
     )
   }

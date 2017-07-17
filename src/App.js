@@ -24,8 +24,6 @@ class App extends Component {
     }
   }
 
-  // renderErrorMessage() {}
-
   onError = (message: toastMessage) => {
     this.setState({ toastMessage, toastIsOpen: true });
   };
@@ -50,7 +48,6 @@ class App extends Component {
               {...props}
               onError={this.onError} />
           )} />
-        {/*this.renderErrorMessage()*/}
         <Toast
           isOpen={toastIsOpen}
           message={toastMessage}

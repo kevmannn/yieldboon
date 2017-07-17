@@ -10,7 +10,7 @@ const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payl
 // Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
 export const getActivePayloads = createSelector(
   [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
-  (selectedState = '', { lowerbound = 0, upperbound = 1e8 }, payload = []) => (
+  (selectedState = '', { lowerbound = 0, upperbound = 1e8 } = {}, payload = []) => (
     payload.filter(({ stateAbbr: abbr, soybeanYield: soy }) => {
       return abbr === selectedState && (soy > lowerbound && soy < upperbound);
     })
@@ -31,7 +31,7 @@ export const getActiveForecasts = createSelector(
           countyName
         }
       })
-      .sort(({ series: a, soybeanYield: c }, { series: b, soybeanYield: d }) => {
+      .sort(({ series: a = [], soybeanYield: c }, { series: b = [], soybeanYield: d }) => {
         // Sort with respect to total rainfall / soybean yield.
         return (a[a.length - 1] / c) - (b[b.length - 1] / d);
       })
@@ -42,10 +42,11 @@ export const getActiveCounties = createSelector(
   getActiveForecasts,
   (activeForecasts = []) => (
     activeForecasts.length
-      ? activeForecasts.map(({ countyName, soybeanYield, series }) => ({
+      ? activeForecasts.map(({ countyName, isFetching, soybeanYield, series }) => ({
           countyName,
+          isFetching,
           soybeanYield,
-          totalRainfall: series ? series[series.length - 1].y : null
+          totalRainfall: series ? series[series.length - 1].y.toFixed(3) : null
         }))
       : []
   )
@@ -61,7 +62,7 @@ export const getAggregateActiveForecastSeries = createSelector(
         return ({
           ...rest,
           i,
-          y: ([...otherForecasts].reduce((acc, { series }) => series[i].y + acc, 0) + y) / (otherForecasts.length + 1)
+          y: ([...otherForecasts].reduce((acc, { series = [] }) => series[i].y + acc, 0) + y) / (otherForecasts.length + 1)
         })
       })
       : []

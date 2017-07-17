@@ -26,8 +26,6 @@ body {
   pointer-events: none;
 }
 
-/*background: #4264FB;*/
-
 #nprogress .bar {
   background: #4264FB;
   position: fixed;
