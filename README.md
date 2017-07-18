@@ -9,9 +9,10 @@
 > Frontend
 
 ## Stack & Technical choices:
-> React, Redux, React-mapbox-gl, React-vis, Reselect, Material-ui
+> React, Redux, React-vis, Reselect, Material-ui
 
 ## Challenges & Tradeoffs:
+* opting for a new (simpler) way of showing context
 * trying not to represent too much data at a given moment
 * chasing down bugs related to working with cached state
 * imagining what would bring the most utility to an agriculturally-minded user

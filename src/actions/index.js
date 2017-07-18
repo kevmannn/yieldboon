@@ -65,12 +65,6 @@ export const fetchSoybeanProductionIfNeeded = () => (dispatch, getState) => {
   }
 }
 
-// export const changeSoybeanYieldBounds = ({ lowerbound, upperbound }) => ({
-//   type: CHANGE_SOYBEAN_YIELD_BOUNDS,
-//   lowerbound,
-//   upperbound
-// })
-
 const requestForecast = (countyName) => ({
   type: REQUEST_FORECAST,
   countyName

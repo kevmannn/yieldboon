@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import isEqual from 'lodash/isEqual';
 
-// import ForecastMap from './ForecastMap';
-import ForecastChart from './ForecastChart';
+import ForecastMap from './ForecastMap';
+// import ForecastChart from './ForecastChart';
 import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
@@ -33,20 +33,20 @@ class VisualizationDyad extends PureComponent {
     const { highlighted } = this.state;
     const {
       activeForecasts,
-      aggregateSeriesExtremes,
-      aggregateActiveForecastSeries
+      // aggregateSeriesExtremes,
+      // aggregateActiveForecastSeries
     } = this.props;
     return (
       <div>
-        <ForecastChart
+        {/*<ForecastChart
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           activeForecasts={activeForecasts}
           aggregateSeriesExtremes={aggregateSeriesExtremes}
-          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />
-        {/*<ForecastMap
+          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />*/}
+        <ForecastMap
           highlighted={highlighted}
-          activeForecasts={activeForecasts} />*/}
+          activeForecasts={activeForecasts} />
       </div>
     )
   }

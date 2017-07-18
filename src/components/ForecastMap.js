@@ -5,9 +5,10 @@ import ReactMapboxGL, { Layer, Feature } from 'react-mapbox-gl';
 import { MAPBOX_API_KEY as accessToken } from '../constants';
 
 const MapGL = ReactMapboxGL({ accessToken });
+const { width } = document.body.getBoundingClientRect();
 const containerStyle = {
-  height: '400px',
-  width: '100%'
+  height: '600px',
+  width: width / 2
 }
 
 export default class ForecastMap extends PureComponent {
@@ -19,7 +20,7 @@ export default class ForecastMap extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      zoom: [7],
+      zoom: [8],
       center: [-48.5852037, -1.3083065],
       // fitBounds: null
     }

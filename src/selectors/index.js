@@ -46,7 +46,7 @@ export const getActiveCounties = createSelector(
           countyName,
           isFetching,
           soybeanYield,
-          totalRainfall: series ? series[series.length - 1].y.toFixed(3) : null
+          totalRainfall: series ? parseFloat(series[series.length - 1].y.toFixed(2)) : null
         }))
       : []
   )

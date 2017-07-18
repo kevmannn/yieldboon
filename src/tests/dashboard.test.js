@@ -29,8 +29,8 @@ describe('app initialization', () => {
   })
 })
 
-describe.skip('dashboard state filtering', () => {})
+describe.skip('chart series', () => {})
 
-describe.skip('dashboard forecast chart', () => {})
+describe.skip('state filtering', () => {})
 
-describe.skip('dashboard forecast map', () => {})
+describe.skip('county table filtering', () => {})

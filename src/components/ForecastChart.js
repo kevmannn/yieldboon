@@ -5,11 +5,9 @@ import moment from 'moment';
 // import Paper from 'material-ui/Paper';
 import {
   // Hint,
-  // XAxis,
-  // YAxis,
-  // GridLines,
   XYPlot,
   LineSeries,
+  AreaSeries,
   makeWidthFlexible
 } from 'react-vis';
 
@@ -30,9 +28,9 @@ export default class ForecastChart extends Component {
   }
 
   curve = 'curveMonotoneX';
-  defaultStroke = '#4264FB';
+  defaultStroke = '#7795f8';
   flexibleXYPlotProps = {
-    height: 220,
+    height: 200,
     margin: { top: 15, right: 20, bottom: 20, left: 30 }
   };
 
@@ -59,7 +57,7 @@ export default class ForecastChart extends Component {
     } = this.props;
     return (
       <div style={{
-        height: '220px',
+        height: '200px',
         display: 'block',
         padding: '10px',
         margin: '5px',
@@ -86,6 +84,11 @@ export default class ForecastChart extends Component {
             stroke={this.defaultStroke}
             strokeWidth={2}
             onNearestX={this.onNearestX} />
+          {/*<AreaSeries
+            data={aggregateActiveForecastSeries}
+            opacity={0.5}
+            color={this.defaultStroke}
+            curve={this.curve} />*/}
         </FlexibleXYPlot>
       </div>
     )

@@ -60,7 +60,7 @@ class CountyRegistry extends PureComponent {
   render() {
     const { activeCounties } = this.props;
     return (
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: '40px' }}>
         <MuiThemeProvider>
           <Paper>
             <Table>
