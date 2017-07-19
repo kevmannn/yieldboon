@@ -8,7 +8,7 @@ const getSoybeanYieldBounds = ({ soybeanYieldBounds }) => soybeanYieldBounds;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
 // Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
-export const getActivePayloads = createSelector(
+export const getPayloadSubset = createSelector(
   [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
   (selectedState = '', { lowerbound = 0, upperbound = 1e8 } = {}, payload = []) => (
     payload.filter(({ stateAbbr: abbr, soybeanYield: soy }) => {
@@ -19,22 +19,22 @@ export const getActivePayloads = createSelector(
 
 // Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
 export const getActiveForecasts = createSelector(
-  [getBlacklist, getPrecipForecasts, getActivePayloads],
-  (blacklist, precipForecasts, activePayloads) => (
+  [getBlacklist, getPrecipForecasts, getPayloadSubset],
+  (blacklist, precipForecasts, payloadSubset) => (
     precipForecasts
       .filter(({ countyName }) => blacklist.indexOf(countyName) === -1)
       .map(({ countyName, ...rest }) => {
-        const correlatedPayload = activePayloads.find(({ countyName: name }) => name === countyName);
+        const correlatedPayload = payloadSubset.find(({ countyName: name }) => name === countyName);
         return {
           ...rest,
           ...correlatedPayload,
           countyName
         }
       })
-      .sort(({ series: a = [], soybeanYield: c }, { series: b = [], soybeanYield: d }) => {
-        // Sort with respect to total rainfall / soybean yield.
-        return (a[a.length - 1] / c) - (b[b.length - 1] / d);
-      })
+      // .sort(({ series: a = [], soybeanYield: c }, { series: b = [], soybeanYield: d }) => {
+      //   // Sort with respect to total rainfall / soybean yield.
+      //   return (a[a.length - 1] / c) - (b[b.length - 1] / d);
+      // })
   )
 )
 

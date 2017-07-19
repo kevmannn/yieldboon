@@ -34,6 +34,8 @@ describe.skip('forecast action creators', () => {
     store.clearActions();
   })
 
+  it('removes any stale forecasts when a new one is received', () => {})
+
   it('fetches forecasts for soybeanProduction sites', async () => {
     expect.assertions(3);
     await store.dispatch(actions.fetchSoybeanProductionIfNeeded());

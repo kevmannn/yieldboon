@@ -41,7 +41,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
     .then(({ data }) => (
       data
         .map(({ Value, state_name, state_alpha, county_name, unit_desc }) => ({
-          soybeanYield: parseInt(Value, 10) * 1000,
+          soybeanYield: parseFloat(Value, 10) * 1000,
           stateName: capitalize(state_name),
           stateAbbr: state_alpha,
           countyName: capitalize(county_name),
@@ -93,9 +93,8 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
     }))
 }
 
-// TODO: shouldCascadeYs implementation.
 const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm:ss');
-const fetchForecast = ({ countyName, coords }, time = yesterday, shouldCascadeYs = false) => (dispatch) => {
+const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
@@ -108,8 +107,6 @@ const fetchForecast = ({ countyName, coords }, time = yesterday, shouldCascadeYs
       }
     )
     .then(({ hourly: { data } }) => {
-      // Mapreduce the response to form a series with y values expressing the accumulated precipIntensity
-      // (where precipIntensity = "inches of liquid water per hour").
       const series = data
         .map(({ time, precipIntensity: y, precipProbability: z }, i) => ({
           i,
@@ -117,38 +114,28 @@ const fetchForecast = ({ countyName, coords }, time = yesterday, shouldCascadeYs
           y,
           z
         }))
-        .reduce((acc, { i, x, y, z }) => ([
-          ...acc,
-          {
-            i,
-            x,
-            y: i > 0 ? y + acc[i - 1].y : y,
-            z
-          }
-        ]), [])
 
       dispatch(receiveForecast({ countyName, coords, series }));
     })
 }
 
-// Find coordinates and the forecast for a given county if inexistent (or not up to date).
-// TODO: does this still work with the new reducer composition?
-// TODO: https://github.com/lelandrichardson/redux-pack (?)
-const fetchForecastIfNeeded = ({ countyName, stateAbbr }, time) => (dispatch, getState) => {
+// TODO: use https://github.com/lelandrichardson/redux-pack (?)
+// Get the forecast for a given county if it's not in the store (= inexistent or stale).
+const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
   const { precipForecasts } = getState().forecasts;
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
-        return dispatch(fetchForecast({ countyName, coords }, time));
+        return dispatch(fetchForecast({ countyName, coords }, undefined));
       })
   } else {
     return Promise.resolve();
   }
 }
 
-// TODO: Account for week-long forecast histories.
-export const loadForecasts = (activePayloads) => (dispatch) => {
+export const loadForecasts = (payloadSubset) => (dispatch) => {
+  // Promise.all(payloadSubset.map(county => dispatch(fetchForecastIfNeeded(county))))
   nprogress.start();
-  dispatch(fetchForecastIfNeeded(activePayloads[0]))
+  dispatch(fetchForecastIfNeeded(payloadSubset[0]))
     .then(() => nprogress.done())
 }

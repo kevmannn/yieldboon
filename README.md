@@ -37,8 +37,6 @@
 > The Chart plots the mean cumulative precipIntensity series, with the chart's hint showing the y value at that (highlighted) point and the top 5 counties with _most rainfall / soybeanYield_ (= in/bu).
 > The purpose of the Map is to light up the salient 'features' (= "top 5 counties...") of the particular highlighted.i, revealing their geographic context.
 
-<!-- || -->
-
 ## License
 
 MIT © [Kevin Donahue](https://twitter.com/nonnontrivial)

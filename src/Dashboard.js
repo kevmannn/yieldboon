@@ -15,7 +15,7 @@ class Dashboard extends PureComponent {
     onError: PropTypes.func.isRequired,
     // Provided via connect:
     selectedState: PropTypes.string.isRequired,
-    activePayloads: PropTypes.arrayOf(PropTypes.object).isRequired,
+    payloadSubset: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchSoybeanProductionIfNeeded: PropTypes.func.isRequired
   };
 
@@ -23,14 +23,15 @@ class Dashboard extends PureComponent {
     this.props.fetchSoybeanProductionIfNeeded();
   }
 
-  componentWillReceiveProps({ match: { params }, activePayloads }) {
+  componentWillReceiveProps({ match: { params }, payloadSubset }) {
     // Make state 'catch up to' an incongruous path.
     if (params.selectedState !== this.props.selectedState) {
       this.props.selectState(params.selectedState);
     }
 
-    if (activePayloads.length) {
-      this.props.loadForecasts(activePayloads);
+    // Fetch any necessary forecasts for the counties in the selectedState.
+    if (payloadSubset.length) {
+      this.props.loadForecasts(payloadSubset);
     }
   }
 
@@ -57,7 +58,7 @@ function mapStateToProps(state) {
   const { selectedState } = state;
   return {
     selectedState,
-    activePayloads: selectors.getActivePayloads(state)
+    payloadSubset: selectors.getPayloadSubset(state)
   }
 }
 

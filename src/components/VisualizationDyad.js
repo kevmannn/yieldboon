@@ -60,7 +60,9 @@ class VisualizationDyad extends PureComponent {
     } = this.props;
     return (
       <div>
-        {/*<ForecastScorecard activeForecasts={activeForecasts} />*/}
+        {/*<ForecastScorecard
+          highlighted={highlighted}
+          activeForecasts={activeForecasts} />*/}
         <ForecastChart
           highlighted={highlighted}
           onNearestX={this.onNearestX}

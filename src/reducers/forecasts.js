@@ -1,3 +1,4 @@
+// import { handle } from 'redux-pack';
 import { MS_IN_DAY } from '../constants';
 import {
   REQUEST_FORECAST,
@@ -47,7 +48,7 @@ function precipForecasts(state = [], { type, countyName, coords, series, err }) 
       ]
     case RECEIVE_FORECAST:
       // Append the new forecast to the prexisting, removing any that are now stale.
-      // TODO: Account for progressively receiving week-long forecast histories (within `series`).
+      // TODO: state.find (and append the series of (?)) previous nonstale entry for this entity.
       return [
         ...state.filter(({ countyName: name, lastUpdated }) => {
           return name !== countyName && Date.now() - lastUpdated < MS_IN_DAY;
