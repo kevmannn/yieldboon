@@ -12,7 +12,6 @@ import Paper from 'material-ui/Paper';
 import Checkbox from 'material-ui/Checkbox';
 import { MuiThemeProvider } from 'material-ui/styles';
 // import { withStyles, createStyleSheet } from 'material-ui/styles';
-// import { spring, presets, TransitionMotion } from 'react-motion';
 
 // import FilterBar from './FilterBar';
 import * as selectors from '../selectors';
@@ -27,7 +26,7 @@ class CountyRegistry extends PureComponent {
   };
 
   componentDidUpdate() {
-    console.log(this.props);
+    // console.log(this.props);
   }
 
   onSelectState = (state) => {
@@ -35,27 +34,6 @@ class CountyRegistry extends PureComponent {
   };
 
   onClick = () => {};
-
-  // springConfig = { ...presets.stiff, precision: 0.9 };
-
-  // motionStyle = {
-  //   opacity: spring(1, this.springConfig),
-  //   translation: spring(0, this.springConfig)
-  // };
-
-  // willEnter = () => {
-  //   return {
-  //     opacity: 0.8,
-  //     translation: -170
-  //   }
-  // };
-
-  // willLeave = () => {
-  //   return {
-  //     opacity: spring(0, this.springConfig),
-  //     translation: spring(40, this.springConfig)
-  //   }
-  // };
 
   render() {
     const { activeCounties } = this.props;

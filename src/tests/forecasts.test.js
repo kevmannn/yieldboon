@@ -83,4 +83,9 @@ describe('forecast selectors', () => {
       totalRainfall: 0.01
     }])
   })
+
+  it('can derive aggregateSeriesExtremes from state', () => {
+    expect(selectors.getAggregateSeriesExtremes(emptyState)).toEqual([+Infinity, -Infinity]);
+    expect(selectors.getAggregateSeriesExtremes(fullState)).toEqual([0.0095, 0.0105]);
+  })
 })

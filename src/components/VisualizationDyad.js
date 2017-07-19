@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import isEqual from 'lodash/isEqual';
+// import { spring, presets, TransitionMotion } from 'react-motion';
 
-import ForecastMap from './ForecastMap';
-// import ForecastChart from './ForecastChart';
+import ForecastChart from './ForecastChart';
+// import ForecastScorecard from './ForecastScorecard';
 import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
@@ -25,6 +26,27 @@ class VisualizationDyad extends PureComponent {
     // console.log(this.props);
   }
 
+  // springConfig = { ...presets.stiff, precision: 0.9 };
+
+  // motionStyle = {
+  //   opacity: spring(1, this.springConfig),
+  //   translation: spring(0, this.springConfig)
+  // };
+
+  // willEnter = () => {
+  //   return {
+  //     opacity: 0.8,
+  //     translation: -170
+  //   }
+  // };
+
+  // willLeave = () => {
+  //   return {
+  //     opacity: spring(0, this.springConfig),
+  //     translation: spring(40, this.springConfig)
+  //   }
+  // };
+
   onNearestX = (highlighted = {}) => {
     this.setState({ highlighted });
   };
@@ -33,20 +55,18 @@ class VisualizationDyad extends PureComponent {
     const { highlighted } = this.state;
     const {
       activeForecasts,
-      // aggregateSeriesExtremes,
-      // aggregateActiveForecastSeries
+      aggregateSeriesExtremes,
+      aggregateActiveForecastSeries
     } = this.props;
     return (
       <div>
-        {/*<ForecastChart
+        {/*<ForecastScorecard activeForecasts={activeForecasts} />*/}
+        <ForecastChart
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           activeForecasts={activeForecasts}
           aggregateSeriesExtremes={aggregateSeriesExtremes}
-          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />*/}
-        <ForecastMap
-          highlighted={highlighted}
-          activeForecasts={activeForecasts} />
+          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />
       </div>
     )
   }

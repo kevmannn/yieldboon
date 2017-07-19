@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as selectors from './selectors';
-import CountyRegistry from './components/CountyRegistry';
+// import CountyRegistry from './components/CountyRegistry';
+// import AsyncComponent from './components/AsyncComponent';
 // import VisualizationDyad from './components/VisualizationDyad';
 import { loadForecasts, selectState, fetchSoybeanProductionIfNeeded } from './actions';
 
@@ -43,10 +44,10 @@ class Dashboard extends PureComponent {
     const { selectedState } = this.props;
     return (
       <div>
-        <CountyRegistry
-          selectedState={selectedState}
-          onSelectState={this.onSelectState } />
         {/*<VisualizationDyad />*/}
+        {/*<CountyRegistry
+          selectedState={selectedState}
+          onSelectState={this.onSelectState } />*/}
       </div>
     )
   }

@@ -27,16 +27,17 @@
 * Much thinking can be contingent on (apparent) API limitations and assumptions about their response formats.
 
 ## Future:
-* Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history (which should also be accomodated in the app)).
+* Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history / growth stage (which should also be accomodated in the app)).
 
 * For the sake of triage, use the mapbox API to show shortest paths (and directions) between farm locations the user cares about.
 
 * Account for the fact of weather forecasting (possibly) being [PSPACE-hard](http://www.sigecom.org/exchanges/volume_7/3/FORTNOW.pdf)
 
-<!-- finding a path: -->
 <!-- "Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results." -->
 > The Chart plots the mean cumulative precipIntensity series, with the chart's hint showing the y value at that (highlighted) point and the top 5 counties with _most rainfall / soybeanYield_ (= in/bu).
 > The purpose of the Map is to light up the salient 'features' (= "top 5 counties...") of the particular highlighted.i, revealing their geographic context.
+
+<!-- || -->
 
 ## License
 

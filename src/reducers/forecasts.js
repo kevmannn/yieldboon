@@ -47,6 +47,7 @@ function precipForecasts(state = [], { type, countyName, coords, series, err }) 
       ]
     case RECEIVE_FORECAST:
       // Append the new forecast to the prexisting, removing any that are now stale.
+      // TODO: Account for progressively receiving week-long forecast histories (within `series`).
       return [
         ...state.filter(({ countyName: name, lastUpdated }) => {
           return name !== countyName && Date.now() - lastUpdated < MS_IN_DAY;

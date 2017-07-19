@@ -11,14 +11,12 @@
     "isomorphic-fetch": "^2.2.1",
     "localforage": "^1.5.0",
     "lodash": "^4.17.4",
-    "mapbox-gl": "^0.37.0",
     "material-ui": "^1.0.0-alpha.21",
     "moment": "^2.18.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-mapbox-gl": "^2.1.0",
     "react-motion": "^0.5.0",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
@@ -31,7 +29,6 @@
     "redux-persist": "^4.8.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "reselect-map": "^1.0.2",
     "usps-states": "0.0.1"
   },
   "scripts": {

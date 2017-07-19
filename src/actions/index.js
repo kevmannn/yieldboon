@@ -3,7 +3,6 @@ import moment from 'moment';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
-// import { schemas } from '../middleware';
 import { MS_IN_DAY, USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constants';
 
 export const SELECT_STATE = 'SELECT_STATE';
@@ -36,7 +35,6 @@ const receiveSoybeanProduction = (payload) => ({
 
 const fetchSoybeanProduction = () => (dispatch) => {
   dispatch(requestSoybeanProduction());
-  // nprogress.start();
   return fetch(USDA_URL)
     // Map the response to the values we care about and remove vaguely attributed data.
     .then(res => res.json())
@@ -51,10 +49,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
         }))
         .filter(({ countyName }) => countyName !== 'Other (combined) counties')
     ))
-    .then((payload) => {
-      dispatch(receiveSoybeanProduction(payload));
-      // nprogress.done();
-    })
+    .then(payload => dispatch(receiveSoybeanProduction(payload)))
 }
 
 // Pull soybean production data from usda.gov if inexistent or stale.
@@ -98,8 +93,9 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
     }))
 }
 
-const yesterday = moment(Date.now() - MS_IN_DAY).format('YYYY-MM-DDTHH:mm:ss');
-const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) => {
+// TODO: shouldCascadeYs implementation.
+const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm:ss');
+const fetchForecast = ({ countyName, coords }, time = yesterday, shouldCascadeYs = false) => (dispatch) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
@@ -137,21 +133,22 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) =
 
 // Find coordinates and the forecast for a given county if inexistent (or not up to date).
 // TODO: does this still work with the new reducer composition?
-const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
+// TODO: https://github.com/lelandrichardson/redux-pack (?)
+const fetchForecastIfNeeded = ({ countyName, stateAbbr }, time) => (dispatch, getState) => {
   const { precipForecasts } = getState().forecasts;
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
-        return dispatch(fetchForecast({ countyName, coords }));
+        return dispatch(fetchForecast({ countyName, coords }, time));
       })
   } else {
     return Promise.resolve();
   }
 }
 
-// TODO: ...
+// TODO: Account for week-long forecast histories.
 export const loadForecasts = (activePayloads) => (dispatch) => {
   nprogress.start();
-  return Promise.all(activePayloads.slice(0, 5).map(county => dispatch(fetchForecastIfNeeded(county))))
+  dispatch(fetchForecastIfNeeded(activePayloads[0]))
     .then(() => nprogress.done())
 }

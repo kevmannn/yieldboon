@@ -29,8 +29,8 @@ describe('app initialization', () => {
   })
 })
 
-describe.skip('chart series', () => {})
+describe.skip('ForecastChart series', () => {})
 
-describe.skip('state filtering', () => {})
+describe.skip('CountyRegistry state filtering', () => {})
 
-describe.skip('county table filtering', () => {})
+describe.skip('CountyRegistry forecast filtering', () => {})
