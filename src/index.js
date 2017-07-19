@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { REHYDRATE } from 'redux-persist/constants';
 import { createLogger } from 'redux-logger';
 import createActionBuffer from 'redux-action-buffer';
+// import { middleware as pack } from 'redux-pack';
 import { Route, BrowserRouter } from 'react-router-dom';
 import { localforage as storage } from 'localforage';
 import { persistStore, autoRehydrate } from 'redux-persist';

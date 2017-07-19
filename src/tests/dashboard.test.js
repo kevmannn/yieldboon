@@ -29,7 +29,9 @@ describe('app initialization', () => {
   })
 })
 
-describe.skip('ForecastChart series', () => {})
+describe.skip('ForecastChart series', () => {
+  // const [ store, appWrapper ] = renderAppWithState({});
+})
 
 describe.skip('CountyRegistry state filtering', () => {})
 

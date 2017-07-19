@@ -10,8 +10,9 @@ import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
+    seriesExtremes: PropTypes.array.isRequired,
     activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    aggregateSeriesExtremes: PropTypes.array.isRequired,
+    inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
@@ -22,9 +23,7 @@ class VisualizationDyad extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
-    // console.log(this.props);
-  }
+  // shouldComponentUpdate(nextProps, nextState) {}
 
   // springConfig = { ...presets.stiff, precision: 0.9 };
 
@@ -54,8 +53,9 @@ class VisualizationDyad extends PureComponent {
   render() {
     // const { highlighted } = this.state;
     // const {
+    //   seriesExtremes,
     //   activeForecasts,
-    //   aggregateSeriesExtremes,
+    //   inclementForecasts,
     //   aggregateActiveForecastSeries
     // } = this.props;
     return (
@@ -66,8 +66,8 @@ class VisualizationDyad extends PureComponent {
         {/*<ForecastChart
           highlighted={highlighted}
           onNearestX={this.onNearestX}
+          seriesExtremes={seriesExtremes}
           activeForecasts={activeForecasts}
-          aggregateSeriesExtremes={aggregateSeriesExtremes}
           aggregateActiveForecastSeries={aggregateActiveForecastSeries} />*/}
       </div>
     )
@@ -76,8 +76,9 @@ class VisualizationDyad extends PureComponent {
 
 function mapStateToProps(state) {
   return {
+    seriesExtremes: selectors.getSeriesExtremes(state),
     activeForecasts: selectors.getActiveForecasts(state),
-    aggregateSeriesExtremes: selectors.getAggregateSeriesExtremes(state),
+    inclementForecasts: selectors.getInclementForecasts(state),
     aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(state)
   }  
 }

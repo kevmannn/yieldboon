@@ -8,7 +8,6 @@ import Table, {
   // TableHead,
   // TableSortLabel,
 } from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
 import Checkbox from 'material-ui/Checkbox';
 import { MuiThemeProvider } from 'material-ui/styles';
 // import { withStyles, createStyleSheet } from 'material-ui/styles';
@@ -26,52 +25,50 @@ class CountyRegistry extends PureComponent {
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  componentDidUpdate() {
-    // console.log(this.props);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {}
+  // }
 
   onSelectState = (state) => {
     this.props.onSelectState(state);
   };
 
-  onClick = () => {};
+  onClick = () => {
+    // const { deselectedCountyNames } = this.state;
+  };
 
   render() {
     const { activeCounties } = this.props;
+    // const { isSelected } = this.state;
     return (
       <div style={{ padding: '40px' }}>
         <MuiThemeProvider>
-          <Paper>
-            <Table>
-              <TableBody>
-                {activeCounties.map(({ countyName, isFetching, soybeanYield, totalRainfall }, i) => (
-                  isFetching
-                    ? <div>...loading</div>
-                    : <TableRow
-                        hover
-                        key={i}
-                        onClick={this.onClick}
-                        selected={false}>
-                      <TableCell checkbox>
-                        <Checkbox checked={true} />
-                      </TableCell>
-                      <TableCell>
-                        {countyName}
-                      </TableCell>
-                      <TableCell>
-                        {soybeanYield}
-                      </TableCell>
-                      <TableCell>
-                        {totalRainfall}
-                      </TableCell>
-                      <TableCell>
-                        {(soybeanYield / totalRainfall).toFixed(3)}
-                      </TableCell>
-                    </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Paper>
+          {/*activeCounties.some(({ isFetching }) => isFetching)*/}
+          <Table>
+            <TableBody>
+              {activeCounties.map(({ countyName, soybeanYield, totalRainfall }, i) => (
+                <TableRow
+                  hover
+                  key={i}
+                  onClick={this.onClick}
+                  selected={false}>
+                  <TableCell checkbox>
+                    <Checkbox checked={true} />
+                  </TableCell>
+                  <TableCell>
+                    {countyName}
+                  </TableCell>
+                  <TableCell>
+                    {soybeanYield}
+                  </TableCell>
+                  <TableCell>
+                    {totalRainfall}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </MuiThemeProvider>
       </div>
     )

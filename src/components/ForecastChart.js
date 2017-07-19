@@ -18,8 +18,8 @@ export default class ForecastChart extends Component {
   static propTypes = {
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
-    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    aggregateSeriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
+    seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
+    inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
@@ -29,7 +29,10 @@ export default class ForecastChart extends Component {
   }
 
   curve = 'curveMonotoneX';
-  defaultStroke = '#7795f8';
+  primaryStroke = '#7795f8';
+  // secondaryStroke = '';
+  // tertiaryStroke = '';
+  // quaternaryStroke = '';
   flexibleXYPlotProps = {
     height: 200,
     margin: { top: 15, right: 20, bottom: 20, left: 30 }
@@ -52,8 +55,8 @@ export default class ForecastChart extends Component {
   render() {
     const {
       highlighted,
-      // activeForecasts,
-      aggregateSeriesExtremes,
+      seriesExtremes,
+      // inclementForecasts,
       aggregateActiveForecastSeries
     } = this.props;
     return (
@@ -68,21 +71,21 @@ export default class ForecastChart extends Component {
       }}>
         <FlexibleXYPlot
           {...this.flexibleXYPlotProps}
-          yDomain={aggregateSeriesExtremes}
+          yDomain={seriesExtremes}
           onMouseLeave={this.onMouseLeave}>
           {highlighted &&
             <LineSeries
-              stroke={this.defaultStroke}
+              stroke={this.primaryStroke}
               opacity={0.4}
               strokeWidth={1}
               data={[
-                { x: highlighted.x, y: aggregateSeriesExtremes[0] },
-                { x: highlighted.x, y: aggregateSeriesExtremes[1] }
+                { x: highlighted.x, y: seriesExtremes[0] },
+                { x: highlighted.x, y: seriesExtremes[1] }
               ]} />}
           <LineSeries
             data={aggregateActiveForecastSeries}
             curve={this.curve}
-            stroke={this.defaultStroke}
+            stroke={this.primaryStroke}
             strokeWidth={2}
             onNearestX={this.onNearestX} />
         </FlexibleXYPlot>

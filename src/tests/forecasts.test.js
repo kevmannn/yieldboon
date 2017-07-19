@@ -75,6 +75,12 @@ describe('forecast selectors', () => {
     expect(selectors.getAggregateActiveForecastSeries(fullState)).toEqual(precipForecasts[0].series);
   })
 
+  it('can derive inclementForecasts from state', () => {
+    expect(selectors.getInclementForecasts(emptyState)).toEqual([]);
+    // TODO: add n > 2 elements to series for precision.
+    expect(selectors.getInclementForecasts(fullState)).toEqual(precipForecasts);
+  })
+
   it('can derive activeCounties from state', () => {
     const { countyName, isFetching } = precipForecasts[0];
     expect(selectors.getActiveCounties(emptyState)).toEqual([]);
@@ -87,7 +93,7 @@ describe('forecast selectors', () => {
   })
 
   it('can derive aggregateSeriesExtremes from state', () => {
-    expect(selectors.getAggregateSeriesExtremes(emptyState)).toEqual([+Infinity, -Infinity]);
-    expect(selectors.getAggregateSeriesExtremes(fullState)).toEqual([0.008, 0.012]);
+    expect(selectors.getSeriesExtremes(emptyState)).toEqual([+Infinity, -Infinity]);
+    expect(selectors.getSeriesExtremes(fullState)).toEqual([0.008, 0.012]);
   })
 })

@@ -34,8 +34,7 @@
 * Account for the fact of weather forecasting (possibly) being [PSPACE-hard](http://www.sigecom.org/exchanges/volume_7/3/FORTNOW.pdf)
 
 <!-- "Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results." -->
-> The Chart plots the mean cumulative precipIntensity series, with the chart's hint showing the y value at that (highlighted) point and the top 5 counties with _most rainfall / soybeanYield_ (= in/bu).
-> The purpose of the Map is to light up the salient 'features' (= "top 5 counties...") of the particular highlighted.i, revealing their geographic context.
+> The Chart plots the mean precipIntensity series, with the hint showing the y value at that (highlighted) point and the top 5 counties with highest singular mean precipIntensity series.
 
 ## License
 

@@ -31,14 +31,8 @@ export const getActiveForecasts = createSelector(
           countyName
         }
       })
-      // TODO: Only sort where it is useful to do so...
-      // .sort(({ series: a = [] }, { series: b = [] }) => getSeriesMean(b) - getSeriesMean(a))
   )
 )
-
-// function getSeriesMean(series) {
-//   return series.reduce((acc, { y }) => y + acc, 0) / series.length;
-// }
 
 // Get data to display in CountyRegistry's table.
 export const getActiveCounties = createSelector(
@@ -72,9 +66,22 @@ export const getAggregateActiveForecastSeries = createSelector(
   )
 )
 
-// Find the extremes across all y series within activeForecasts.
-export const getAggregateSeriesExtremes = createSelector(
+export const getInclementForecasts = createSelector(
   getActiveForecasts,
+  (forecasts) => (
+    forecasts
+      .sort(({ series: a = [] }, { series: b = [] }) => findYMean(b) - findYMean(a))
+      .slice(0, 2)
+  )
+)
+
+function findYMean(series) {
+  return series.reduce((acc, { y }) => acc + y, 0);
+}
+
+// Find the extremes across all y series within activeForecasts.
+export const getSeriesExtremes = createSelector(
+  getInclementForecasts,
   (forecasts) => {
     const allYValues = forecasts
       .map(({ series = [] }) => series.map(({ y }) => y))
