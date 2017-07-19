@@ -31,12 +31,14 @@ export const getActiveForecasts = createSelector(
           countyName
         }
       })
-      // .sort(({ series: a = [] }, { series: b = [] }) => {
-      //   const getSeriesMean = series => series.reduce((acc, { y }) => y + acc, 0) / series.length;
-      //   return getSeriesMean(a) + getSeriesMean(b);
-      // })
+      // TODO: Only sort where it is useful to do so...
+      // .sort(({ series: a = [] }, { series: b = [] }) => getSeriesMean(b) - getSeriesMean(a))
   )
 )
+
+// function getSeriesMean(series) {
+//   return series.reduce((acc, { y }) => y + acc, 0) / series.length;
+// }
 
 // Get data to display in CountyRegistry's table.
 export const getActiveCounties = createSelector(
@@ -54,18 +56,18 @@ export const getActiveCounties = createSelector(
 )
 
 // TODO: Lessen the O(nm) work that this calc entails by using https://github.com/HeyImAlex/reselect-map (?)
-// Construct a new series (= collection) of the mean y value at each i.
+// Construct a new series (= collection) of the mean y value at each i across all series within activeForecasts.
 export const getAggregateActiveForecastSeries = createSelector(
   getActiveForecasts,
-  ([ firstForecast = {}, ...otherForecasts ]) => (
-    !firstForecast.isFetching && firstForecast.series
-      ? firstForecast.series.map(({ i, y, ...rest }) => {
-        return ({
+  ([ firstForecast = {}, ...others ]) => (
+    [firstForecast].concat([...others]).every(({ series }) => series)
+      ? firstForecast.series.map(({ i, y, ...rest }) => (
+        ({
           ...rest,
           i,
-          y: ([...otherForecasts].reduce((acc, { series = [] }) => series[i].y + acc, 0) + y) / (otherForecasts.length + 1)
+          y: ([...others].reduce((acc, { series = [] }) => series[i].y + acc, 0) + y) / (others.length + 1)
         })
-      })
+      ))
       : []
   )
 )
@@ -75,7 +77,7 @@ export const getAggregateSeriesExtremes = createSelector(
   getActiveForecasts,
   (forecasts) => {
     const allYValues = forecasts
-      .map(({ series }) => series.map(({ y }) => y))
+      .map(({ series = [] }) => series.map(({ y }) => y))
       .reduce((acc, yValues) => [...acc, ...yValues], [])
 
     return [0.8 * Math.min(...allYValues), 1.2 * Math.max(...allYValues)];

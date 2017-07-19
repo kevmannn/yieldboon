@@ -134,8 +134,7 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
 }
 
 export const loadForecasts = (payloadSubset) => (dispatch) => {
-  // Promise.all(payloadSubset.map(county => dispatch(fetchForecastIfNeeded(county))))
   nprogress.start();
-  dispatch(fetchForecastIfNeeded(payloadSubset[0]))
+  Promise.all(payloadSubset.map(county => dispatch(fetchForecastIfNeeded(county))))
     .then(() => nprogress.done())
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import isEqual from 'lodash/isEqual';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
-import ForecastChart from './ForecastChart';
+// import ForecastChart from './ForecastChart';
 // import ForecastScorecard from './ForecastScorecard';
 import * as selectors from '../selectors';
 
@@ -52,23 +52,23 @@ class VisualizationDyad extends PureComponent {
   };
 
   render() {
-    const { highlighted } = this.state;
-    const {
-      activeForecasts,
-      aggregateSeriesExtremes,
-      aggregateActiveForecastSeries
-    } = this.props;
+    // const { highlighted } = this.state;
+    // const {
+    //   activeForecasts,
+    //   aggregateSeriesExtremes,
+    //   aggregateActiveForecastSeries
+    // } = this.props;
     return (
       <div>
         {/*<ForecastScorecard
           highlighted={highlighted}
           activeForecasts={activeForecasts} />*/}
-        <ForecastChart
+        {/*<ForecastChart
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           activeForecasts={activeForecasts}
           aggregateSeriesExtremes={aggregateSeriesExtremes}
-          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />
+          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />*/}
       </div>
     )
   }

@@ -48,7 +48,6 @@ function precipForecasts(state = [], { type, countyName, coords, series, err }) 
       ]
     case RECEIVE_FORECAST:
       // Append the new forecast to the prexisting, removing any that are now stale.
-      // TODO: state.find (and append the series of (?)) previous nonstale entry for this entity.
       return [
         ...state.filter(({ countyName: name, lastUpdated }) => {
           return name !== countyName && Date.now() - lastUpdated < MS_IN_DAY;
