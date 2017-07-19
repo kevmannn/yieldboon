@@ -66,12 +66,13 @@ export const getAggregateActiveForecastSeries = createSelector(
   )
 )
 
+// Find the three forecasts with the highest mean y value.
 export const getInclementForecasts = createSelector(
   getActiveForecasts,
   (forecasts) => (
     forecasts
       .sort(({ series: a = [] }, { series: b = [] }) => findYMean(b) - findYMean(a))
-      .slice(0, 2)
+      .slice(0, 3)
   )
 )
 

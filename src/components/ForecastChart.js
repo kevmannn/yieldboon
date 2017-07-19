@@ -66,8 +66,7 @@ export default class ForecastChart extends Component {
         padding: '10px',
         margin: '5px',
         position: 'relative',
-        background: '#fff',
-        boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
+        background: '#fff'
       }}>
         <FlexibleXYPlot
           {...this.flexibleXYPlotProps}

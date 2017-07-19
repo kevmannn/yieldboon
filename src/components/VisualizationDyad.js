@@ -23,8 +23,6 @@ class VisualizationDyad extends PureComponent {
     }
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {}
-
   // springConfig = { ...presets.stiff, precision: 0.9 };
 
   // motionStyle = {
@@ -59,7 +57,9 @@ class VisualizationDyad extends PureComponent {
     //   aggregateActiveForecastSeries
     // } = this.props;
     return (
-      <div>
+      <div style={{
+        boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
+      }}>
         {/*<ForecastScorecard
           highlighted={highlighted}
           activeForecasts={activeForecasts} />*/}
@@ -67,7 +67,7 @@ class VisualizationDyad extends PureComponent {
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           seriesExtremes={seriesExtremes}
-          activeForecasts={activeForecasts}
+          inclementForecasts={inclementForecasts}
           aggregateActiveForecastSeries={aggregateActiveForecastSeries} />*/}
       </div>
     )
