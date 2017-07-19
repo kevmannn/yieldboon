@@ -31,13 +31,14 @@ export const getActiveForecasts = createSelector(
           countyName
         }
       })
-      // .sort(({ series: a = [], soybeanYield: c }, { series: b = [], soybeanYield: d }) => {
-      //   // Sort with respect to total rainfall / soybean yield.
-      //   return (a[a.length - 1] / c) - (b[b.length - 1] / d);
+      // .sort(({ series: a = [] }, { series: b = [] }) => {
+      //   const getSeriesMean = series => series.reduce((acc, { y }) => y + acc, 0) / series.length;
+      //   return getSeriesMean(a) + getSeriesMean(b);
       // })
   )
 )
 
+// Get data to display in CountyRegistry's table.
 export const getActiveCounties = createSelector(
   getActiveForecasts,
   (activeForecasts = []) => (
@@ -69,10 +70,14 @@ export const getAggregateActiveForecastSeries = createSelector(
   )
 )
 
+// Find the extremes across all y series within activeForecasts.
 export const getAggregateSeriesExtremes = createSelector(
-  getAggregateActiveForecastSeries,
-  (series) => {
-    const yValues = series.map(({ y }) => y);
-    return [0.95 * Math.min(...yValues), 1.05 * Math.max(...yValues)];
+  getActiveForecasts,
+  (forecasts) => {
+    const allYValues = forecasts
+      .map(({ series }) => series.map(({ y }) => y))
+      .reduce((acc, yValues) => [...acc, ...yValues], [])
+
+    return [0.8 * Math.min(...allYValues), 1.2 * Math.max(...allYValues)];
   }
 )

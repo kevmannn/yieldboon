@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
-// import Paper from 'material-ui/Paper';
 import {
   // Hint,
+  // XAxis,
+  // YAxis,
   XYPlot,
   LineSeries,
-  AreaSeries,
+  // MarkSeries,
   makeWidthFlexible
 } from 'react-vis';
 
@@ -44,9 +45,9 @@ export default class ForecastChart extends Component {
     this.props.onNearestX(highlighted);
   };
 
-  xTickFormat = (date) => {
-    return moment(new Date(date)).format('MM/DD h:mm a');
-  };
+  // xTickFormat = (date) => {
+  //   return moment(new Date(date)).format('MM/DD h:mm a');
+  // };
 
   render() {
     const {
@@ -84,11 +85,6 @@ export default class ForecastChart extends Component {
             stroke={this.defaultStroke}
             strokeWidth={2}
             onNearestX={this.onNearestX} />
-          {/*<AreaSeries
-            data={aggregateActiveForecastSeries}
-            opacity={0.5}
-            color={this.defaultStroke}
-            curve={this.curve} />*/}
         </FlexibleXYPlot>
       </div>
     )

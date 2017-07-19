@@ -70,6 +70,8 @@ describe('forecast selectors', () => {
     expect(selectors.getActiveForecasts(fullState)).toEqual(precipForecasts);
   })
 
+  // it('sorts activeForecasts with respect to the mean y value within their series', () => {})
+
   it('can derive aggregateActiveForecastSeries from state', () => {
     expect(selectors.getAggregateActiveForecastSeries(emptyState)).toEqual([]);
     expect(selectors.getAggregateActiveForecastSeries(fullState)).toEqual(precipForecasts[0].series);
@@ -88,6 +90,6 @@ describe('forecast selectors', () => {
 
   it('can derive aggregateSeriesExtremes from state', () => {
     expect(selectors.getAggregateSeriesExtremes(emptyState)).toEqual([+Infinity, -Infinity]);
-    expect(selectors.getAggregateSeriesExtremes(fullState)).toEqual([0.0095, 0.0105]);
+    expect(selectors.getAggregateSeriesExtremes(fullState)).toEqual([0.008, 0.012]);
   })
 })

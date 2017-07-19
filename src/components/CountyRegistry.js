@@ -13,6 +13,7 @@ import Checkbox from 'material-ui/Checkbox';
 import { MuiThemeProvider } from 'material-ui/styles';
 // import { withStyles, createStyleSheet } from 'material-ui/styles';
 
+// import Loader from './Loader';
 // import FilterBar from './FilterBar';
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
