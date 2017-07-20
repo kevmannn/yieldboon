@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
-import moment from 'moment';
 import { v4 } from 'uuid';
+import moment from 'moment';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
@@ -42,7 +42,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
     .then(({ data }) => (
       data
         .map(({ Value, state_name, state_alpha, county_name, unit_desc }) => ({
-          soybeanYield: parseFloat(Value, 10) * 1000,
+          soybeanYield: parseFloat(Value) * 1000,
           stateName: capitalize(state_name),
           stateAbbr: state_alpha,
           countyName: capitalize(county_name),

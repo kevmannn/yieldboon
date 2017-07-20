@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 // import isEqual from 'lodash/isEqual';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
-// import ForecastChart from './ForecastChart';
 // import ForecastScorecard from './ForecastScorecard';
+// import ForecastChart from './ForecastChart';
 import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
-    // isFetching: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool,
     seriesExtremes: PropTypes.array.isRequired,
     activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -78,7 +78,7 @@ class VisualizationDyad extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    // isFetching: selectors.getIsFetching(state),
+    isFetching: selectors.getIsFetching(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
     activeForecasts: selectors.getActiveForecasts(state),
     inclementForecasts: selectors.getInclementForecasts(state),

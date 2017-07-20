@@ -11,7 +11,7 @@
     "isomorphic-fetch": "^2.2.1",
     "localforage": "^1.5.0",
     "lodash": "^4.17.4",
-    "material-ui": "^1.0.0-alpha.21",
+    "material-ui": "^1.0.0-alpha.22",
     "moment": "^2.18.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.5.10",

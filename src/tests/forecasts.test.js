@@ -59,9 +59,9 @@ describe('forecast selectors', () => {
     forecasts: {
       blacklist: [],
       precipForecasts: [{
+        id: 1,
         coords: {},
         countyName: 'x',
-        isFetching: false,
         lastUpdated: Date.now(),
         series: [
           { i: 0, x: Date.now(), y: 0.01 },
@@ -88,11 +88,11 @@ describe('forecast selectors', () => {
   })
 
   it('can derive activeCounties from state', () => {
-    const { countyName, isFetching } = precipForecasts[0];
+    const { id, countyName } = precipForecasts[0];
     expect(selectors.getActiveCounties(emptyState)).toEqual([]);
     expect(selectors.getActiveCounties(fullState)).toEqual([{
+      id,
       countyName,
-      isFetching,
       soybeanYield: undefined,
       totalRainfall: 0.12
     }])

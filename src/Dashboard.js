@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+// import AsyncComponent from './components/AsyncComponent';
 import * as selectors from './selectors';
 // import CountyRegistry from './components/CountyRegistry';
-// import AsyncComponent from './components/AsyncComponent';
 import VisualizationDyad from './components/VisualizationDyad';
 import { loadForecasts, selectState, fetchSoybeanProductionIfNeeded } from './actions';
 
