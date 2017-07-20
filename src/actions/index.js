@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
+// import { v4 } from 'node-uuid';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
@@ -82,10 +83,7 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
   return fetch(`https://lat-lng.now.sh/?address=${countyName},${stateAbbr}`)
     .then(
       res => res.json(),
-      err => {
-        dispatch(failToReceiveForecast({ countyName, err }));
-        throw err;
-      }
+      err => Promise.reject(err)
     )
     .then(({ lat, lng }) => ({
       countyName,
@@ -127,6 +125,8 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
         return dispatch(fetchForecast({ countyName, coords }, undefined));
+      }, (err) => {
+        console.error(err);
       })
   } else {
     return Promise.resolve();

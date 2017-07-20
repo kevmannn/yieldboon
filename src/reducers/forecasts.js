@@ -20,6 +20,7 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
     case RECEIVE_FORECAST:
       return {
         ...state,
+        errorMessage: errorMessage(state, action),
         precipForecasts: precipForecasts(state.precipForecasts, action)
       }
     default:
@@ -60,6 +61,18 @@ function precipForecasts(state = [], { type, countyName, coords, series, err }) 
           lastUpdated: Date.now()
         }
       ]
+    default:
+      return state;
+  }
+}
+
+function errorMessage(state = null, { type, message }) {
+  switch (type) {
+    case FAIL_TO_RECEIVE_FORECAST:
+      return message;
+    case REQUEST_FORECAST:
+    case RECEIVE_FORECAST:
+      return null;
     default:
       return state;
   }

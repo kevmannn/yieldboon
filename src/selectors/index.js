@@ -10,7 +10,7 @@ const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payl
 // Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
 export const getPayloadSubset = createSelector(
   [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
-  (selectedState = '', { lowerbound = 0, upperbound = 1e8 } = {}, payload = []) => (
+  (selectedState, { lowerbound = 0, upperbound = 1e8 } = {}, payload = []) => (
     payload.filter(({ stateAbbr: abbr, soybeanYield: soy }) => {
       return abbr === selectedState && (soy > lowerbound && soy < upperbound);
     })
@@ -38,12 +38,12 @@ export const getActiveForecasts = createSelector(
 export const getActiveCounties = createSelector(
   getActiveForecasts,
   (activeForecasts = []) => (
-    activeForecasts.length
+    activeForecasts.every(({ series }) => series)
       ? activeForecasts.map(({ countyName, isFetching, soybeanYield, series }) => ({
           countyName,
           isFetching,
           soybeanYield,
-          totalRainfall: series ? parseFloat(series[series.length - 1].y.toFixed(2)) : null
+          totalRainfall: series.reduce((acc, { y }) => acc + y, 0)
         }))
       : []
   )

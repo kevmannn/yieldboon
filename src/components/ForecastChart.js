@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
+// import { spring, Motion } from 'react-motion';
 import {
   // Hint,
   // XAxis,

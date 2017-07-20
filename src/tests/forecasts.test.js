@@ -6,6 +6,7 @@ import configureStore from 'redux-mock-store';
 import forecasts from '../reducers/forecasts';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
+// import errorMessage from '../reducers/error-message';
 // import { USDA_URL } from '../constants';
 
 const mockStore = configureStore([thunk]);
@@ -59,7 +60,10 @@ describe('forecast selectors', () => {
         countyName: 'x',
         isFetching: false,
         lastUpdated: Date.now(),
-        series: [{ i: 0, x: Date.now(), y: 0.01 }]
+        series: [
+          { i: 0, x: Date.now(), y: 0.01 },
+          { i: 1, x: Date.now(), y: 0.11 }
+        ]
       }]
     }
   }
@@ -77,7 +81,6 @@ describe('forecast selectors', () => {
 
   it('can derive inclementForecasts from state', () => {
     expect(selectors.getInclementForecasts(emptyState)).toEqual([]);
-    // TODO: add n > 2 elements to series for precision.
     expect(selectors.getInclementForecasts(fullState)).toEqual(precipForecasts);
   })
 
@@ -88,12 +91,12 @@ describe('forecast selectors', () => {
       countyName,
       isFetching,
       soybeanYield: undefined,
-      totalRainfall: 0.01
+      totalRainfall: 0.12
     }])
   })
 
-  it('can derive aggregateSeriesExtremes from state', () => {
+  it('can derive seriesExtremes from state', () => {
     expect(selectors.getSeriesExtremes(emptyState)).toEqual([+Infinity, -Infinity]);
-    expect(selectors.getSeriesExtremes(fullState)).toEqual([0.008, 0.012]);
+    expect(selectors.getSeriesExtremes(fullState)).toEqual([0.008, 0.132]);
   })
 })
