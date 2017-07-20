@@ -27,7 +27,7 @@
 * Much thinking can be contingent on (apparent) API limitations and assumptions about their response formats.
 
 ## Future:
-* Retry failed forecast requests / better error handling in general.
+* Retry failed forecast requests & better error handling in general.
 
 * Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history / growth stage (which should also be accomodated in the app)).
 

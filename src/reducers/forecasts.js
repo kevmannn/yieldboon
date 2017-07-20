@@ -20,6 +20,7 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
     case RECEIVE_FORECAST:
       return {
         ...state,
+        isFetching: isFetching(state, action),
         errorMessage: errorMessage(state, action),
         precipForecasts: precipForecasts(state.precipForecasts, action)
       }
@@ -28,25 +29,11 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   }
 }
 
-function precipForecasts(state = [], { type, countyName, coords, series, err }) {
+function precipForecasts(state = [], { type, countyName, coords, series }) {
   switch (type) {
-    case FAIL_TO_RECEIVE_FORECAST:
-      return [
-        ...state.filter(({ countyName: name }) => name !== countyName),
-        {
-          countyName,
-          err,
-          isFetching: false
-        }
-      ]
     case REQUEST_FORECAST:
-      return [
-        ...state,
-        {
-          countyName,
-          isFetching: true
-        }
-      ]
+    case FAIL_TO_RECEIVE_FORECAST:
+      return state;
     case RECEIVE_FORECAST:
       // Append the new forecast to the prexisting, removing any that are now stale.
       return [
@@ -57,7 +44,6 @@ function precipForecasts(state = [], { type, countyName, coords, series, err }) 
           countyName,
           coords,
           series,
-          isFetching: false,
           lastUpdated: Date.now()
         }
       ]
@@ -73,6 +59,18 @@ function errorMessage(state = null, { type, message }) {
     case REQUEST_FORECAST:
     case RECEIVE_FORECAST:
       return null;
+    default:
+      return state;
+  }
+}
+
+function isFetching(state = false, { type }) {
+  switch (type) {
+    case REQUEST_FORECAST:
+      return true;
+    case RECEIVE_FORECAST:
+    case FAIL_TO_RECEIVE_FORECAST:
+      return false;
     default:
       return state;
   }

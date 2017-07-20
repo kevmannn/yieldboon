@@ -6,7 +6,6 @@ import configureStore from 'redux-mock-store';
 import forecasts from '../reducers/forecasts';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
-// import errorMessage from '../reducers/error-message';
 // import { USDA_URL } from '../constants';
 
 const mockStore = configureStore([thunk]);
@@ -18,6 +17,8 @@ describe('forecasts reducer', () => {
       precipForecasts: []
     })
   })
+
+  // it('contains all previously fetched non-stale forecasts', () => {})
 })
 
 const emptyState = {

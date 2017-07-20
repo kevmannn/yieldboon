@@ -73,10 +73,10 @@ const receiveForecast = ({ countyName, coords, series }) => ({
   series
 })
 
-const failToReceiveForecast = ({ countyName, err }) => ({
+const failToReceiveForecast = ({ countyName, message }) => ({
   type: FAIL_TO_RECEIVE_FORECAST,
   countyName,
-  err
+  message
 })
 
 const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
@@ -100,7 +100,7 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) =
     .then(
       res => res.json(),
       err => {
-        dispatch(failToReceiveForecast({ countyName, err }));
+        dispatch(failToReceiveForecast({ countyName, message: err.message }));
         throw err;
       }
     )
@@ -124,9 +124,11 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
+        // TODO: chain request (to get previous day)
         return dispatch(fetchForecast({ countyName, coords }, undefined));
-      }, (err) => {
-        console.error(err);
+      }, ({ message = 'something went wrong' }) => {
+        // console.error(err);
+        dispatch(failToReceiveForecast({ countyName, message }));
       })
   } else {
     return Promise.resolve();

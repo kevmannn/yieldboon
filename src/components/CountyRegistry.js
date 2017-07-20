@@ -45,11 +45,12 @@ class CountyRegistry extends PureComponent {
       <div style={{ padding: '40px' }}>
         <MuiThemeProvider>
           {/*activeCounties.some(({ isFetching }) => isFetching)*/}
+          {/*<FilterBar
+            selectedState={selectedState}
+            onSelectState={this.onSelectState}
+            onSelectAllClick={this.onSelectAllClick} />*/}
           <Table>
-            {/*<FilterBar
-              selectedState={selectedState}
-              onSelectState={this.onSelectState}
-              onSelectAllClick={this.onSelectAllClick} />*/}
+            {/*<TableHead></TableHead>*/}
             <TableBody>
               {activeCounties.map(({ countyName, soybeanYield, totalRainfall }, i) => (
                 <TableRow
