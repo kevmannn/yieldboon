@@ -12,7 +12,6 @@ import Checkbox from 'material-ui/Checkbox';
 import { MuiThemeProvider } from 'material-ui/styles';
 // import { withStyles, createStyleSheet } from 'material-ui/styles';
 
-// import Loader from './Loader';
 // import FilterBar from './FilterBar';
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
@@ -22,29 +21,38 @@ class CountyRegistry extends PureComponent {
     selectedState: PropTypes.string.isRequired,
     onSelectState: PropTypes.func.isRequired,
     // Provided via connect:
+    // isFetching: PropTypes.bool.isRequired,
+    // errorMessage: PropTypes.string.isRequired,
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {}
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCounties: []
+    }
+  }
 
   onSelectState = (state) => {
     this.props.onSelectState(state);
   };
 
-  onClick = () => {
-    // const { deselectedCountyNames } = this.state;
+  onClick = () => {};
+
+  onSelectAllClick = () => {
+    this.setState({ selectedCounties: this.props.activeCounties });
   };
 
   render() {
-    const { activeCounties } = this.props;
+    const {
+      // isFetching,
+      // errorMessage,
+      activeCounties
+    } = this.props;
     // const { isSelected } = this.state;
     return (
       <div style={{ padding: '40px' }}>
         <MuiThemeProvider>
-          {/*activeCounties.some(({ isFetching }) => isFetching)*/}
           {/*<FilterBar
             selectedState={selectedState}
             onSelectState={this.onSelectState}
@@ -82,6 +90,8 @@ class CountyRegistry extends PureComponent {
 
 function mapStateToProps(state) {
   return {
+    // isFetching: selectors.getIsFetching(state),
+    // errorMessage: selectors.getErrorMessage(state),
     activeCounties: selectors.getActiveCounties(state)
   }
 }

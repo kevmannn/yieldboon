@@ -29,7 +29,8 @@
     "redux-persist": "^4.8.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "usps-states": "0.0.1"
+    "usps-states": "0.0.1",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -12,7 +12,6 @@ import Dashboard from './Dashboard';
 class App extends Component {
   static propTypes = {
     // Provided via connect:
-    // errorMessage: PropTypes.string,
     selectedState: PropTypes.string
   };
 

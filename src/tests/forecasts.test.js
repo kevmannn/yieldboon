@@ -18,7 +18,9 @@ describe('forecasts reducer', () => {
     })
   })
 
-  // it('contains all previously fetched non-stale forecasts', () => {})
+  it('only contains non-stale forecasts', () => {})
+
+  it('contains all previously fetched forecasts', () => {})
 })
 
 const emptyState = {

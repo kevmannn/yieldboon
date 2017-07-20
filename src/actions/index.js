@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
-// import { v4 } from 'node-uuid';
+import { v4 } from 'uuid';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
@@ -70,7 +70,8 @@ const receiveForecast = ({ countyName, coords, series }) => ({
   type: RECEIVE_FORECAST,
   countyName,
   coords,
-  series
+  series,
+  id: v4()
 })
 
 const failToReceiveForecast = ({ countyName, message }) => ({

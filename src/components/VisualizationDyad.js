@@ -10,6 +10,7 @@ import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
+    // isFetching: PropTypes.bool.isRequired,
     seriesExtremes: PropTypes.array.isRequired,
     activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -51,6 +52,7 @@ class VisualizationDyad extends PureComponent {
   render() {
     // const { highlighted } = this.state;
     // const {
+    //   isFetching,
     //   seriesExtremes,
     //   activeForecasts,
     //   inclementForecasts,
@@ -76,6 +78,7 @@ class VisualizationDyad extends PureComponent {
 
 function mapStateToProps(state) {
   return {
+    // isFetching: selectors.getIsFetching(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
     activeForecasts: selectors.getActiveForecasts(state),
     inclementForecasts: selectors.getInclementForecasts(state),

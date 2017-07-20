@@ -7,6 +7,9 @@ const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecas
 const getSoybeanYieldBounds = ({ soybeanYieldBounds }) => soybeanYieldBounds;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
+// export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
+// export const getErrorMessage = ({ forecasts: { errorMessage } }) => errorMessage;
+
 // Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
 export const getPayloadSubset = createSelector(
   [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
@@ -39,7 +42,8 @@ export const getActiveCounties = createSelector(
   getActiveForecasts,
   (activeForecasts = []) => (
     activeForecasts.every(({ series }) => series)
-      ? activeForecasts.map(({ countyName, isFetching, soybeanYield, series }) => ({
+      ? activeForecasts.map(({ id, countyName, isFetching, soybeanYield, series }) => ({
+          id,
           countyName,
           isFetching,
           soybeanYield,

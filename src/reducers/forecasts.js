@@ -29,7 +29,7 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   }
 }
 
-function precipForecasts(state = [], { type, countyName, coords, series }) {
+function precipForecasts(state = [], { type, id, countyName, coords, series }) {
   switch (type) {
     case REQUEST_FORECAST:
     case FAIL_TO_RECEIVE_FORECAST:
@@ -37,13 +37,14 @@ function precipForecasts(state = [], { type, countyName, coords, series }) {
     case RECEIVE_FORECAST:
       // Append the new forecast to the prexisting, removing any that are now stale.
       return [
-        ...state.filter(({ countyName: name, lastUpdated }) => {
-          return name !== countyName && Date.now() - lastUpdated < MS_IN_DAY;
+        ...state.filter(({ id: identity, lastUpdated }) => {
+          return identity !== id && Date.now() - lastUpdated < MS_IN_DAY;
         }),
         {
           countyName,
           coords,
           series,
+          id,
           lastUpdated: Date.now()
         }
       ]
