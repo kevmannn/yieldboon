@@ -5,8 +5,6 @@ import moment from 'moment';
 // import { spring, Motion } from 'react-motion';
 import {
   Hint,
-  // XAxis,
-  // YAxis,
   XYPlot,
   LineSeries,
   MarkSeries,
@@ -17,7 +15,7 @@ const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
-    // isFetching: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -34,9 +32,11 @@ export default class ForecastChart extends Component {
     // console.log(this.props);
   }
 
+  // getOpacityForForecastId(id) {}
+
   curve = 'curveMonotoneX';
-  primaryStroke = '#7795f8';
-  strokeHierarchy = ['#6882d8', '#596fba', '#4b5e9e'];
+  primaryStroke = '#bdccfc';
+  strokeHierarchy = ['#7795f8', '#6883dd', '#5b72c1'];
   flexibleXYPlotProps = {
     height: 270,
     margin: { top: 0, right: 10, bottom: 20, left: 10 }
@@ -57,10 +57,6 @@ export default class ForecastChart extends Component {
     this.props.onNearestX(highlighted);
   };
 
-  // xTickFormat = (date) => {
-  //   return moment(new Date(date)).format('MM/DD h:mm a');
-  // };
-
   render() {
     const {
       // isFetching,
@@ -78,6 +74,7 @@ export default class ForecastChart extends Component {
         position: 'relative',
         background: '#151b2d'
       }}>
+        {/*isFetching && aggregateActiveForecastSeries.length !== 24*/}
         <FlexibleXYPlot
           {...this.flexibleXYPlotProps}
           yDomain={seriesExtremes}
@@ -114,10 +111,10 @@ export default class ForecastChart extends Component {
                     {`${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}"`}
                   </span>
                 </p>
-                <h2 style={{ ...this.hintParagraphStyle, fontSize: '0.8em' }}>Counties with most rain:</h2>
+                <h2 style={{ ...this.hintParagraphStyle, fontSize: '0.7em' }}>In counties with most rain:</h2>
                 {inclementForecasts.map(({ id, countyName, series }, i) => (
                   // TODO: inclementForecasts is perhaps not the source to use in this case.
-                  <p key={id} style={{ color: this.strokeHierarchy[i], fontSize: '0.65em' }}>
+                  <p key={id} style={{ color: this.strokeHierarchy[i], opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
                     {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
                   </p>
                 ))}
@@ -132,7 +129,7 @@ export default class ForecastChart extends Component {
           {inclementForecasts.map(({ id, series }, i) => (
             <LineSeries
               key={id}
-              opacity={0.3}
+              opacity={0.5 / (i + 1)}
               data={series}
               curve={this.curve}
               stroke={this.strokeHierarchy[i]}

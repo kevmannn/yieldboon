@@ -51,7 +51,7 @@ class VisualizationDyad extends PureComponent {
   render() {
     const { highlighted } = this.state;
     const {
-      // isFetching,
+      isFetching,
       seriesExtremes,
       // forecastTotals,
       inclementForecasts,
@@ -66,7 +66,7 @@ class VisualizationDyad extends PureComponent {
           highlighted={highlighted}
           forecastTotals={forecastTotals} />*/}
         <ForecastChart
-          // isFetching={isFetching}
+          isFetching={isFetching}
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           seriesExtremes={seriesExtremes}
