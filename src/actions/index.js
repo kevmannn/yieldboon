@@ -108,10 +108,10 @@ const fetchForecast = ({ countyName, coords }, time = today) => (dispatch) => {
     )
     .then(({ hourly: { data } }) => {
       const series = data
-        .map(({ time, precipIntensity, precipProbability: z }, i) => ({
+        .map(({ time, precipIntensity: y, precipProbability: z }, i) => ({
           i,
           x: time * 1000,
-          y: parseFloat(precipIntensity.toFixed(4)),
+          y,
           z
         }))
 

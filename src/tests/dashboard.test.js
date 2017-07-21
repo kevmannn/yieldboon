@@ -30,7 +30,11 @@ describe('app initialization', () => {
 })
 
 describe.skip('ForecastChart series', () => {
-  // const [ store, appWrapper ] = renderAppWithState({});
+  const [ store, appWrapper ] = renderAppWithState({
+    selectedState: 'NY',
+    soybeanProduction: { lastUpdated: Date.now() },
+    forecasts: {}
+  })
 })
 
 describe.skip('CountyRegistry state filtering', () => {})

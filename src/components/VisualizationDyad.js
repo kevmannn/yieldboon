@@ -59,7 +59,6 @@ class VisualizationDyad extends PureComponent {
     } = this.props;
     return (
       <div style={{
-        padding: '10px',
         // boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
       }}>
         {/*<ForecastScorecard

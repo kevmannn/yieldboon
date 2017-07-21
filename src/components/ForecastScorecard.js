@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class ForecastScorecard extends PureComponent {
   static propTypes = {
+    // isFetching: PropTypes.bool.isRequired,
     highlighted: PropTypes.object,
     forecastTotals: PropTypes.object.isRequired
   };

@@ -17,6 +17,7 @@ const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
+    // isFetching: PropTypes.bool.isRequired,
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -35,18 +36,17 @@ export default class ForecastChart extends Component {
 
   curve = 'curveMonotoneX';
   primaryStroke = '#7795f8';
-  strokeHierarchy = ['#6286fc', '#4671fc', '#3a69ff'];
+  strokeHierarchy = ['#6882d8', '#596fba', '#4b5e9e'];
   flexibleXYPlotProps = {
-    height: 220,
-    margin: { top: 0, right: 20, bottom: 20, left: 20 }
+    height: 270,
+    margin: { top: 0, right: 10, bottom: 20, left: 10 }
   };
 
   axisStyle = { text: { fontSize: '0.6em' } };
-
   hintParagraphStyle = {
-    fontSize: '0.9em',
+    fontSize: '0.8em',
     fontFamily: 'Noto Sans',
-    color: '#f4f7ff'
+    color: '#fcfdff'
   };
 
   onMouseLeave = () => {
@@ -63,6 +63,7 @@ export default class ForecastChart extends Component {
 
   render() {
     const {
+      // isFetching,
       highlighted,
       seriesExtremes,
       inclementForecasts,
@@ -70,7 +71,7 @@ export default class ForecastChart extends Component {
     } = this.props;
     return (
       <div style={{
-        height: '220px',
+        height: '270px',
         display: 'block',
         padding: '10px',
         margin: '5px',
@@ -99,13 +100,27 @@ export default class ForecastChart extends Component {
                 opacity: '0.95',
                 padding: '10px 20px',
                 borderRadius: '3px',
-                background: '#212b47',
+                background: '#1c243d',
                 boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.4)'
               }}>
-                <p style={this.hintParagraphStyle}>{moment(highlighted.x).calendar()}</p>
                 <p style={this.hintParagraphStyle}>
-                  {aggregateActiveForecastSeries[highlighted.i].y}
+                  {moment(highlighted.x).calendar()}
+                  <span style={{ ...this.hintParagraphStyle, opacity: '0.4' }}>
+                    {` (${moment(highlighted.x).fromNow()})`}
+                  </span>
                 </p>
+                <p style={{ ...this.hintParagraphStyle, fontSize: '1em' }}>
+                  mean rainfall: <span style={{ color: this.primaryStroke }}>
+                    {`${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}"`}
+                  </span>
+                </p>
+                <h2 style={{ ...this.hintParagraphStyle, fontSize: '0.8em' }}>Counties with most rain:</h2>
+                {inclementForecasts.map(({ id, countyName, series }, i) => (
+                  // TODO: inclementForecasts is perhaps not the source to use in this case.
+                  <p key={id} style={{ color: this.strokeHierarchy[i], fontSize: '0.65em' }}>
+                    {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
+                  </p>
+                ))}
               </div>
             </Hint>}
           <LineSeries
@@ -117,7 +132,7 @@ export default class ForecastChart extends Component {
           {inclementForecasts.map(({ id, series }, i) => (
             <LineSeries
               key={id}
-              opacity={0.4}
+              opacity={0.3}
               data={series}
               curve={this.curve}
               stroke={this.strokeHierarchy[i]}
