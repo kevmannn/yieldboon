@@ -82,9 +82,12 @@ describe('forecast selectors', () => {
     expect(selectors.getAggregateActiveForecastSeries(fullState)).toEqual(precipForecasts[0].series);
   })
 
-  // it('can get forecast totals from state', () => {
-  //   expect(selectors.getForecastTotals(emptyState)).toEqual({});
-  // })
+  it('can get forecast totals from state', () => {
+    expect(selectors.getForecastTotals(emptyState)).toEqual({
+      totalRainfall: 0,
+      totalSoybeanYield: 0
+    })
+  })
 
   it('can derive inclementForecasts from state', () => {
     expect(selectors.getInclementForecasts(emptyState)).toEqual([]);
