@@ -12,7 +12,7 @@ class Dashboard extends PureComponent {
   static propTypes = {
     match: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
-    onError: PropTypes.func.isRequired,
+    // onToastRequest: PropTypes.func.isRequired,
     // Provided via connect:
     selectedState: PropTypes.string.isRequired,
     payloadSubset: PropTypes.arrayOf(PropTypes.object).isRequired,

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import isEqual from 'lodash/isEqual';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
 import ForecastScorecard from './ForecastScorecard';
@@ -60,7 +59,8 @@ class VisualizationDyad extends PureComponent {
     } = this.props;
     return (
       <div style={{
-        boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
+        padding: '20px',
+        // boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
       }}>
         <ForecastScorecard
           highlighted={highlighted}

@@ -95,10 +95,6 @@ export const getInclementForecasts = createSelector(
   )
 )
 
-function findYMean(series) {
-  return series.reduce((acc, { y }) => acc + y, 0);
-}
-
 // Find the extremes across all y series within activeForecasts.
 export const getSeriesExtremes = createSelector(
   getInclementForecasts,
@@ -107,6 +103,10 @@ export const getSeriesExtremes = createSelector(
     return [0.8 * min, 1.2 * max];
   }
 )
+
+function findYMean(series) {
+  return series.reduce((acc, { y }) => acc + y, 0);
+}
 
 function findExtremesAcrossForecasts(forecasts, field) {
   return forecasts

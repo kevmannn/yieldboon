@@ -23,9 +23,9 @@ class App extends Component {
     }
   }
 
-  onError = (message: toastMessage) => {
-    this.setState({ toastMessage, toastIsOpen: true });
-  };
+  // onError = (message: toastMessage) => {
+  //   this.setState({ toastMessage, toastIsOpen: true });
+  // };
 
   onRequestClose = () => {
     this.setState({ toastIsOpen: false });
@@ -43,9 +43,7 @@ class App extends Component {
           exact
           path="/dashboard/:selectedState"
           render={(props) => (
-            <Dashboard
-              {...props}
-              onError={this.onError} />
+            <Dashboard {...props} />
           )} />
         <Toast
           isOpen={toastIsOpen}

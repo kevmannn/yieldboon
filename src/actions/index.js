@@ -84,7 +84,9 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
   return fetch(`https://lat-lng.now.sh/?address=${countyName},${stateAbbr}`)
     .then(
       res => res.json(),
-      err => Promise.reject(err)
+      ({ message = 'Something went wrong.' }) => {
+        dispatch(failToReceiveForecast({ countyName, message }));
+      }
     )
     .then(({ lat, lng }) => ({
       countyName,
@@ -100,9 +102,8 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) =
   return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
     .then(
       res => res.json(),
-      err => {
-        dispatch(failToReceiveForecast({ countyName, message: err.message }));
-        throw err;
+      ({ message = 'Something went wrong.' }) => {
+        dispatch(failToReceiveForecast({ countyName, message }));
       }
     )
     .then(({ hourly: { data } }) => {
@@ -125,11 +126,10 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
-        // TODO: chain request (to get previous day)
-        return dispatch(fetchForecast({ countyName, coords }, undefined));
-      }, ({ message = 'something went wrong' }) => {
-        // console.error(err);
-        dispatch(failToReceiveForecast({ countyName, message }));
+        // TODO: Chain request (for previous day).
+        if (coords) {
+          return dispatch(fetchForecast({ countyName, coords }, undefined));
+        }
       })
   } else {
     return Promise.resolve();
