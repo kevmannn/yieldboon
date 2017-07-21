@@ -37,9 +37,7 @@ function precipForecasts(state = [], { type, id, countyName, coords, series }) {
     case RECEIVE_FORECAST:
       // Append the new forecast to the prexisting, removing any that are now stale.
       return [
-        ...state.filter(({ id: identity, lastUpdated }) => {
-          return identity !== id && Date.now() - lastUpdated < MS_IN_DAY;
-        }),
+        ...state.filter(({ lastUpdated }) => Date.now() - lastUpdated < MS_IN_DAY),
         {
           countyName,
           coords,

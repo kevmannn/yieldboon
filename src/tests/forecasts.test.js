@@ -38,7 +38,9 @@ describe.skip('forecast action creators', () => {
     store.clearActions();
   })
 
-  it('removes any stale forecasts when a new one is received', () => {})
+  it('removes any stale forecasts when a new one is received', async () => {})
+
+  it('handles requests that produce errors', async () => {})
 
   it('fetches forecasts for soybeanProduction sites', async () => {
     expect.assertions(3);
