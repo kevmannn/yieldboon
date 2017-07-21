@@ -94,8 +94,8 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
     }))
 }
 
-const yesterday = moment().subtract(1, 'days').format('YYYY-MM-DDTHH:mm:ss');
-const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) => {
+const today = moment().format('YYYY-MM-DDTHH:mm:ss');
+const fetchForecast = ({ countyName, coords }, time = today) => (dispatch) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
@@ -108,10 +108,10 @@ const fetchForecast = ({ countyName, coords }, time = yesterday) => (dispatch) =
     )
     .then(({ hourly: { data } }) => {
       const series = data
-        .map(({ time, precipIntensity: y, precipProbability: z }, i) => ({
+        .map(({ time, precipIntensity, precipProbability: z }, i) => ({
           i,
           x: time * 1000,
-          y,
+          y: parseFloat(precipIntensity.toFixed(4)),
           z
         }))
 

@@ -14,6 +14,7 @@ import { MuiThemeProvider } from 'material-ui/styles';
 // import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 // import FilterBar from './FilterBar';
+// import CountyTable from './CountyTable';
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
 
@@ -62,10 +63,10 @@ class CountyRegistry extends PureComponent {
             <Table>
               {/*<TableHead></TableHead>*/}
               <TableBody>
-                {activeCounties.map(({ countyName, soybeanYield, totalRainfall }, i) => (
+                {activeCounties.slice(0,5).map(({ id, countyName, soybeanYield, totalRainfall }) => (
                   <TableRow
                     hover
-                    key={i}
+                    key={id}
                     onClick={this.onClick}
                     selected={false}>
                     <TableCell checkbox>
@@ -74,10 +75,10 @@ class CountyRegistry extends PureComponent {
                     <TableCell>
                       {countyName}
                     </TableCell>
-                    <TableCell>
+                    <TableCell numeric>
                       {soybeanYield}
                     </TableCell>
-                    <TableCell>
+                    <TableCell numeric>
                       {totalRainfall}
                     </TableCell>
                   </TableRow>

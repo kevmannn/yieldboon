@@ -25,7 +25,7 @@ export const getActiveForecasts = createSelector(
   [getBlacklist, getPrecipForecasts, getPayloadSubset],
   (blacklist, precipForecasts, payloadSubset) => (
     precipForecasts
-      .filter(({ countyName }) => blacklist.indexOf(countyName) === -1)
+      .filter(({ id }) => blacklist.indexOf(id) === -1)
       .map(({ countyName, ...rest }) => {
         const correlatedPayload = payloadSubset.find(({ countyName: name }) => name === countyName);
         return {

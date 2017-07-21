@@ -4,7 +4,7 @@ body {
   text-rendering: geometricPrecision !important;
   font-family: 'Noto Sans', sans-serif;
   font-weight: 300;
-  background: #f9f9f9;
+  background: #f4f7ff;
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -41,7 +41,7 @@ body {
   right: 0px;
   width: 100px;
   height: 100%;
-  box-shadow: 0 0 10px #7795f8, 0 0 5px #7795f8;
+  box-shadow: 0 0 10px #151b2d, 0 0 5px #151b2d;
   opacity: 1.0;
   transform: rotate(3deg) translate(0px, -4px);
 }
