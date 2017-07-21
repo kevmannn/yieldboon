@@ -84,6 +84,7 @@ describe('forecast selectors', () => {
 
   it('can get forecast totals from state', () => {
     expect(selectors.getForecastTotals(emptyState)).toEqual({
+      timespan: [],
       totalRainfall: 0,
       totalSoybeanYield: 0
     })
@@ -106,7 +107,7 @@ describe('forecast selectors', () => {
   })
 
   it('can derive seriesExtremes from state', () => {
-    expect(selectors.getSeriesExtremes(emptyState)).toEqual([+Infinity, -Infinity]);
+    expect(selectors.getSeriesExtremes(emptyState)).toEqual([NaN, NaN]);
     expect(selectors.getSeriesExtremes(fullState)).toEqual([0.008, 0.132]);
   })
 })

@@ -43,7 +43,7 @@ export const getForecastTotals = createSelector(
   (forecasts = []) => (
     forecasts.every(({ series }) => series)
       ? {
-          // timespan: [Math.min(), Math.max()],
+          timespan: findExtremesAcrossForecasts(forecasts, 'x'),
           totalSoybeanYield: forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0),
           totalRainfall: forecasts
             .map(({ series }) => series.reduce((acc, { y }) => acc + y, 0))
@@ -103,10 +103,14 @@ function findYMean(series) {
 export const getSeriesExtremes = createSelector(
   getInclementForecasts,
   (forecasts) => {
-    const allYValues = forecasts
-      .map(({ series = [] }) => series.map(({ y }) => y))
-      .reduce((acc, yValues) => [...acc, ...yValues], [])
-
-    return [0.8 * Math.min(...allYValues), 1.2 * Math.max(...allYValues)];
+    const [ min, max ] = findExtremesAcrossForecasts(forecasts, 'y')
+    return [0.8 * min, 1.2 * max];
   }
 )
+
+function findExtremesAcrossForecasts(forecasts, field) {
+  return forecasts
+    .map(({ series = [] }) => series.map(dataPoint => dataPoint[field]))
+    .reduce((acc, fieldValues) => [...acc, ...fieldValues] , [])
+    .reduce((acc, value) => [Math.min(...acc, value), Math.max(...acc, value)] , [])
+}
