@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import isEqual from 'lodash/isEqual';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
-// import ForecastScorecard from './ForecastScorecard';
+import ForecastScorecard from './ForecastScorecard';
 // import ForecastChart from './ForecastChart';
 import * as selectors from '../selectors';
 
@@ -12,7 +12,7 @@ class VisualizationDyad extends PureComponent {
   static propTypes = {
     isFetching: PropTypes.bool,
     seriesExtremes: PropTypes.array.isRequired,
-    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
+    forecastTotals: PropTypes.object.isRequired,
     inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
@@ -50,21 +50,21 @@ class VisualizationDyad extends PureComponent {
   };
 
   render() {
-    // const { highlighted } = this.state;
-    // const {
-    //   isFetching,
-    //   seriesExtremes,
-    //   activeForecasts,
-    //   inclementForecasts,
-    //   aggregateActiveForecastSeries
-    // } = this.props;
+    const { highlighted } = this.state;
+    const {
+      // isFetching,
+      // seriesExtremes,
+      forecastTotals,
+      // inclementForecasts,
+      // aggregateActiveForecastSeries
+    } = this.props;
     return (
       <div style={{
         boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
       }}>
-        {/*<ForecastScorecard
+        <ForecastScorecard
           highlighted={highlighted}
-          activeForecasts={activeForecasts} />*/}
+          forecastTotals={forecastTotals} />
         {/*<ForecastChart
           highlighted={highlighted}
           onNearestX={this.onNearestX}
@@ -80,7 +80,7 @@ function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
-    activeForecasts: selectors.getActiveForecasts(state),
+    forecastTotals: selectors.getForecastTotals(state),
     inclementForecasts: selectors.getInclementForecasts(state),
     aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(state)
   }  

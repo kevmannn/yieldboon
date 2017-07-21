@@ -37,12 +37,28 @@ export const getActiveForecasts = createSelector(
   )
 )
 
+// Pull an object with totals across all current forecasts.
+export const getForecastTotals = createSelector(
+  getActiveForecasts,
+  (forecasts = []) => (
+    forecasts.every(({ series }) => series)
+      ? {
+          // timespan: [Math.min(), Math.max()],
+          totalSoybeanYield: forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0),
+          totalRainfall: forecasts
+            .map(({ series }) => series.reduce((acc, { y }) => acc + y, 0))
+            .reduce((acc, seriesTotal) => acc + seriesTotal, 0)
+        }
+      : []
+  )
+)
+
 // Get data to display in CountyRegistry's table.
 export const getActiveCounties = createSelector(
   getActiveForecasts,
-  (activeForecasts = []) => (
-    activeForecasts.every(({ series }) => series)
-      ? activeForecasts.map(({ id, countyName, soybeanYield, series }) => ({
+  (forecasts = []) => (
+    forecasts.every(({ series }) => series)
+      ? forecasts.map(({ id, countyName, soybeanYield, series }) => ({
           id,
           countyName,
           soybeanYield,
