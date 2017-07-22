@@ -55,11 +55,13 @@ class Dashboard extends PureComponent {
 }
 
 function mapStateToProps(state) {
-  const { selectedState } = state;
   return {
-    selectedState,
+    selectedState: selectors.getSelectedState(state),
     payloadSubset: selectors.getPayloadSubset(state)
   }
 }
 
-export default connect(mapStateToProps, { loadForecasts, selectState, fetchSoybeanProductionIfNeeded })(Dashboard);
+export default connect(
+  mapStateToProps,
+  { loadForecasts, selectState, fetchSoybeanProductionIfNeeded }
+)(Dashboard)

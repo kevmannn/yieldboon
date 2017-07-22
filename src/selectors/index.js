@@ -2,13 +2,13 @@ import { createSelector } from 'reselect';
 // import { createArraySelector } from 'reselect-map';
 
 const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
-const getSelectedState = ({ selectedState }) => selectedState;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanYieldBounds = ({ soybeanYieldBounds }) => soybeanYieldBounds;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getErrorMessage = ({ forecasts: { errorMessage } }) => errorMessage;
+export const getSelectedState = ({ selectedState }) => selectedState;
 
 // Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
 export const getPayloadSubset = createSelector(
@@ -43,7 +43,8 @@ export const getForecastTotals = createSelector(
   (forecasts = []) => (
     forecasts.every(({ series }) => series)
       ? {
-          timespan: findExtremesAcrossForecasts(forecasts, 'x'),
+          // timespan: findExtremesAcrossForecasts(forecasts, 'x'),
+          totalCounties: forecasts.length,
           totalSoybeanYield: forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0),
           totalRainfall: forecasts
             .map(({ series }) => series.reduce((acc, { y }) => acc + y, 0))

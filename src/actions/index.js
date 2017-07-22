@@ -126,7 +126,7 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
-        // TODO: Chain request (for previous day).
+        // TODO: Chain request (fetch previous day).
         if (coords) {
           return dispatch(fetchForecast({ countyName, coords }, undefined));
         }

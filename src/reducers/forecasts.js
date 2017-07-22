@@ -1,4 +1,6 @@
 // import { handle } from 'redux-pack';
+import { REHYDRATE } from 'redux-persist/constants';
+
 import { MS_IN_DAY } from '../constants';
 import {
   REQUEST_FORECAST,
@@ -7,13 +9,21 @@ import {
   FAIL_TO_RECEIVE_FORECAST
 } from '../actions';
 
+const isNonStaleForecast = ({ lastUpdated }) => Date.now() - lastUpdated < MS_IN_DAY;
+
 export default (state = { blacklist: [], precipForecasts: [] }, action) => {
-  const { type, blacklist = [] } = action;
+  const { type, blacklist = [], payload = {} } = action;
   switch (type) {
     case SET_FORECAST_FILTER:
       return {
         ...state,
         blacklist
+      }
+    // Remove any cached forecasts that have become stale.
+    case REHYDRATE:
+      return {
+        ...payload.forecasts,
+        precipForecasts: payload.forecasts.precipForecasts.filter(isNonStaleForecast)
       }
     case FAIL_TO_RECEIVE_FORECAST:
     case REQUEST_FORECAST:
@@ -29,15 +39,12 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   }
 }
 
+// TODO: turn state into an object which associates [stateName]: { ...forecast }
 function precipForecasts(state = [], { type, id, countyName, coords, series }) {
   switch (type) {
-    case REQUEST_FORECAST:
-    case FAIL_TO_RECEIVE_FORECAST:
-      return state;
     case RECEIVE_FORECAST:
-      // Append the new forecast to the prexisting, removing any that are now stale.
       return [
-        ...state.filter(({ lastUpdated }) => Date.now() - lastUpdated < MS_IN_DAY),
+        ...state.filter(isNonStaleForecast),
         {
           countyName,
           coords,

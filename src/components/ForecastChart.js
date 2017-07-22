@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
-// import { spring, Motion } from 'react-motion';
 import {
   Hint,
   XYPlot,
@@ -27,7 +26,8 @@ export default class ForecastChart extends Component {
       || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    // console.log(prevProps);
     // console.log(this.props);
   }
 
@@ -101,11 +101,13 @@ export default class ForecastChart extends Component {
                   </span>
                 </p>
                 <p style={{ ...this.hintParagraphStyle, fontSize: '1.2em' }}>
-                  mean rainfall: <span style={{ color: this.primaryStroke }}>
+                  Mean rainfall: <span style={{ color: this.primaryStroke }}>
                     {`${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}"`}
                   </span>
                 </p>
-                <h2 style={{ ...this.hintParagraphStyle, fontWeight: '300', fontSize: '0.7em' }}>Counties with most rain:</h2>
+                <h2 style={{ ...this.hintParagraphStyle, fontWeight: '300', fontSize: '0.7em' }}>
+                  In counties with highest mean rainfall:
+                </h2>
                 {inclementForecasts.map(({ id, countyName, series }, i) => (
                   // TODO: inclementForecasts is perhaps not the source to use in this case.
                   <p key={id} style={{ color: this.strokeHierarchy[i], opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>

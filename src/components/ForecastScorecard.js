@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+// import moment from 'moment';
 import lowerCase from 'lodash/lowerCase';
 
 export default class ForecastScorecard extends PureComponent {
@@ -13,15 +13,17 @@ export default class ForecastScorecard extends PureComponent {
     }).isRequired
   };
 
-  momentize(unixTime) {
-    return moment(unixTime).calendar();
-  }
+  // momentize(unixTime) {
+  //   return moment(unixTime).calendar();
+  // }
 
   renderTotal(key) {
     const { forecastTotals } = this.props;
     switch (key) {
       // case 'timespan':
       //   return `${this.momentize(forecastTotals[key][0])} - ${this.momentize(forecastTotals[key][1])}`;
+      case 'totalCounties':
+        return forecastTotals[key];
       case 'totalSoybeanYield':
         return `${forecastTotals[key]} bu`;
       case 'totalRainfall':
