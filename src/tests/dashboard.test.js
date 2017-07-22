@@ -23,7 +23,7 @@ const renderAppWithState = (state) => {
 describe('app initialization', () => {
   const [ store, appWrapper ] = renderAppWithState({});
   it('renders app', () => {
-    expect(appWrapper.find('div').children()).toHaveLength(3);
+    expect(appWrapper.find('div').children()).toHaveLength(2);
     expect(appWrapper.find('Dashboard')).toBeTruthy();
     expect(store.getState()).toEqual({});
   })

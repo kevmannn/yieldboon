@@ -51,7 +51,7 @@ export default class ForecastScorecard extends PureComponent {
             <p style={{ color: '#1c243d', fontSize: '1em', fontWeight: '300', margin: '10px 0px' }}>
               {highlighted && key === 'totalRainfall'
                 ? <span>
-                    <span style={{ opacity: '0.5', fontSize: '0.7em' }}>
+                    <span style={{ opacity: '0.5', fontSize: '0.8em' }}>
                       {forecastTotals[key](highlighted.i + 1).toFixed(2)} /
                     </span> {this.renderTotal(key)}
                   </span>

@@ -86,7 +86,6 @@ describe('forecast selectors', () => {
 
   it('can get forecast totals from state', () => {
     expect(selectors.getForecastTotals(emptyState)).toEqual(expect.objectContaining({
-      // timespan: expect.any(Array),
       totalCounties: expect.any(Number),
       totalSoybeanYield: expect.any(Number),
       totalRainfall: expect.any(Function)

@@ -21,7 +21,6 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-scripts": "^1.0.10",
-    "react-tap-event-plugin": "^2.0.1",
     "react-vis": "^1.6.7",
     "redux": "^3.7.2",
     "redux-action-buffer": "^1.1.0",
@@ -29,7 +28,6 @@
     "redux-persist": "^4.8.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "usps-states": "0.0.1",
     "uuid": "^3.1.0"
   },
   "scripts": {

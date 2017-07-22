@@ -10,6 +10,9 @@ export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getErrorMessage = ({ forecasts: { errorMessage } }) => errorMessage;
 export const getSelectedState = ({ selectedState }) => selectedState;
 
+// Correlate states with the number of soybean-producing counties within them.
+// export const getActiveStates = createSelector()
+
 // Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
 export const getPayloadSubset = createSelector(
   [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],

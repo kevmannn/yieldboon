@@ -6,34 +6,26 @@ import { Route, Redirect } from 'react-router-dom';
 import './app.css';
 import 'react-vis/dist/style.css';
 
-import Toast from './Toast';
+// import Toast from './Toast';
 import Dashboard from './Dashboard';
+import * as selectors from './selectors';
 
 class App extends Component {
   static propTypes = {
-    // Provided via connect:
     selectedState: PropTypes.string
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      toastMessage: null,
-      toastIsOpen: false
-    }
-  }
-
-  // onError = (message: toastMessage) => {
+  // onToastRequest = (message: toastMessage) => {
   //   this.setState({ toastMessage, toastIsOpen: true });
   // };
 
-  onRequestClose = () => {
-    this.setState({ toastIsOpen: false });
-  };
+  // onRequestClose = () => {
+  //   this.setState({ toastIsOpen: false });
+  // };
 
   render() {
     const { selectedState } = this.props;
-    const { toastMessage, toastIsOpen } = this.state;
+    // const { toastMessage, toastIsOpen } = this.state;
     return (
       <div>
         <Route path="/" render={(props) => (
@@ -45,17 +37,19 @@ class App extends Component {
           render={(props) => (
             <Dashboard {...props} />
           )} />
-        <Toast
+        {/*<Toast
           isOpen={toastIsOpen}
           message={toastMessage}
-          onRequestClose={this.onRequestClose} />
+          onRequestClose={this.onRequestClose} />*/}
       </div>
     )
   }
 }
 
-function mapStateToProps({ selectedState }) {
-  return { selectedState };
+function mapStateToProps(state) {
+  return {
+    selectedState: selectors.getSelectedState(state)
+  }
 }
 
 export default connect(mapStateToProps)(App);

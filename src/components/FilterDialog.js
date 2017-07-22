@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import { data as uspsStates } from 'usps-states';
 import Button from 'material-ui/Button';
 import { MuiThemeProvider } from 'material-ui/styles';
 import { LabelRadio as Radio, RadioGroup } from 'material-ui/Radio';

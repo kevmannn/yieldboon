@@ -9,7 +9,7 @@
 > Frontend
 
 ## Stack & Technical choices:
-> React, Redux, React-vis, Reselect, Material-ui
+> React, Redux, Reselect, React-vis, Material-ui
 
 ## Challenges & Tradeoffs:
 * opting for a new (simpler) way of showing (meaningful) context
