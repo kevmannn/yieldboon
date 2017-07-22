@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { spring, presets, TransitionMotion } from 'react-motion';
 
-// import ForecastScorecard from './ForecastScorecard';
+import ForecastScorecard from './ForecastScorecard';
 import ForecastChart from './ForecastChart';
 import * as selectors from '../selectors';
 
@@ -51,22 +51,21 @@ class VisualizationDyad extends PureComponent {
   render() {
     const { highlighted } = this.state;
     const {
-      isFetching,
+      // isFetching,
       seriesExtremes,
-      // forecastTotals,
+      forecastTotals,
       inclementForecasts,
       aggregateActiveForecastSeries
     } = this.props;
     return (
       <div style={{
-        // boxShadow: '0 1px 3px 0 rgba(36, 40, 53, 0.3), 0 1px 1px 0 rgba(36, 40, 53, 0.14), 0 2px 1px -1px rgba(36, 40, 53, 0.2)'
+        margin: '10px',
+        boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
-        {/*<ForecastScorecard
-          isFetching={isFetching}
-          highlighted={highlighted}
-          forecastTotals={forecastTotals} />*/}
+        <ForecastScorecard
+          // highlighted={highlighted}
+          forecastTotals={forecastTotals} />
         <ForecastChart
-          isFetching={isFetching}
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           seriesExtremes={seriesExtremes}

@@ -15,7 +15,6 @@ const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
-    isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -31,8 +30,6 @@ export default class ForecastChart extends Component {
   componentDidUpdate() {
     // console.log(this.props);
   }
-
-  // getOpacityForForecastId(id) {}
 
   curve = 'curveMonotoneX';
   primaryStroke = '#bdccfc';
@@ -59,7 +56,6 @@ export default class ForecastChart extends Component {
 
   render() {
     const {
-      // isFetching,
       highlighted,
       seriesExtremes,
       inclementForecasts,
@@ -70,11 +66,9 @@ export default class ForecastChart extends Component {
         height: '270px',
         display: 'block',
         padding: '10px',
-        margin: '5px',
         position: 'relative',
         background: '#151b2d'
       }}>
-        {/*isFetching && aggregateActiveForecastSeries.length !== 24*/}
         <FlexibleXYPlot
           {...this.flexibleXYPlotProps}
           yDomain={seriesExtremes}
@@ -106,12 +100,12 @@ export default class ForecastChart extends Component {
                     {` (${moment(highlighted.x).fromNow()})`}
                   </span>
                 </p>
-                <p style={{ ...this.hintParagraphStyle, fontSize: '1em' }}>
+                <p style={{ ...this.hintParagraphStyle, fontSize: '1.2em' }}>
                   mean rainfall: <span style={{ color: this.primaryStroke }}>
                     {`${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}"`}
                   </span>
                 </p>
-                <h2 style={{ ...this.hintParagraphStyle, fontSize: '0.7em' }}>In counties with most rain:</h2>
+                <h2 style={{ ...this.hintParagraphStyle, fontWeight: '300', fontSize: '0.7em' }}>Counties with most rain:</h2>
                 {inclementForecasts.map(({ id, countyName, series }, i) => (
                   // TODO: inclementForecasts is perhaps not the source to use in this case.
                   <p key={id} style={{ color: this.strokeHierarchy[i], opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
