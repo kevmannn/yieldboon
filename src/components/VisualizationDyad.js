@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import ForecastScorecard from './ForecastScorecard';
 import ForecastChart from './ForecastChart';
+// import Loader from './Loader';
 import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
@@ -63,7 +64,7 @@ class VisualizationDyad extends PureComponent {
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
         <ForecastScorecard
-          // highlighted={highlighted}
+          highlighted={highlighted}
           forecastTotals={forecastTotals} />
         <ForecastChart
           highlighted={highlighted}

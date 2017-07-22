@@ -5,11 +5,12 @@ import lowerCase from 'lodash/lowerCase';
 
 export default class ForecastScorecard extends PureComponent {
   static propTypes = {
-    // highlighted: PropTypes.object,
+    highlighted: PropTypes.object,
     forecastTotals: PropTypes.shape({
-      timespan: PropTypes.array,
+      // timespan: PropTypes.array,
+      totalCounties: PropTypes.number,
       totalSoybeanYield: PropTypes.number,
-      totalRainfall: PropTypes.number
+      totalRainfall: PropTypes.func
     }).isRequired
   };
 
@@ -27,17 +28,14 @@ export default class ForecastScorecard extends PureComponent {
       case 'totalSoybeanYield':
         return `${forecastTotals[key]} bu`;
       case 'totalRainfall':
-        return `${forecastTotals[key].toFixed(4)}"`;
+        return `${forecastTotals[key](24).toFixed(4)}"`;
       default:
         return null;
     }
   }
 
   render() {
-    const {
-      // highlighted,
-      forecastTotals
-    } = this.props;
+    const { highlighted, forecastTotals } = this.props;
     return (
       <div>
         {Object.keys(forecastTotals).reverse().map((key, i) => (
@@ -51,7 +49,13 @@ export default class ForecastScorecard extends PureComponent {
             }}>
             <p style={{ color: '#1c243d', opacity: '0.5', fontSize: '0.5em' }}>{lowerCase(key)}:</p>
             <p style={{ color: '#1c243d', fontSize: '1em', fontWeight: '300', margin: '10px 0px' }}>
-              {this.renderTotal(key)}
+              {highlighted && key === 'totalRainfall'
+                ? <span>
+                    <span style={{ opacity: '0.5', fontSize: '0.7em' }}>
+                      {forecastTotals[key](highlighted.i + 1).toFixed(2)} /
+                    </span> {this.renderTotal(key)}
+                  </span>
+                : this.renderTotal(key)}
             </p>
           </div>
         ))}

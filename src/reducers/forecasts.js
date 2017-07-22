@@ -39,7 +39,7 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   }
 }
 
-// TODO: turn state into an object which associates [stateName]: { ...forecast }
+// TODO: Turn state into an object which associates [stateName]: { ...forecast }.
 function precipForecasts(state = [], { type, id, countyName, coords, series }) {
   switch (type) {
     case RECEIVE_FORECAST:

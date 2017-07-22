@@ -13,7 +13,6 @@ import { MuiThemeProvider } from 'material-ui/styles';
 // import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 // import FilterBar from './FilterBar';
-// import CountyTable from './CountyTable';
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
 
