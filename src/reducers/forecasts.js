@@ -21,10 +21,12 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
       }
     // Remove any cached forecasts that have become stale.
     case REHYDRATE:
-      return {
-        ...payload.forecasts,
-        precipForecasts: payload.forecasts.precipForecasts.filter(isNonStaleForecast)
-      }
+      return payload.forecasts
+        ? {
+            ...payload.forecasts,
+            precipForecasts: payload.forecasts.precipForecasts.filter(isNonStaleForecast)
+          }
+        : state
     case FAIL_TO_RECEIVE_FORECAST:
     case REQUEST_FORECAST:
     case RECEIVE_FORECAST:

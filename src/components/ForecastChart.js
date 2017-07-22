@@ -109,7 +109,6 @@ export default class ForecastChart extends Component {
                   In counties with highest mean rainfall:
                 </h2>
                 {inclementForecasts.map(({ id, countyName, series }, i) => (
-                  // TODO: inclementForecasts is perhaps not the source to use in this case.
                   <p key={id} style={{ color: this.strokeHierarchy[i], opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
                     {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
                   </p>
