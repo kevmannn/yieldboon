@@ -26,9 +26,9 @@ Conceptul thinking (with respect to tools, data flow, component hierarchies, and
 * trying not to represent too much data at a given moment
 * chasing down bugs related to working with cached state
 * imagining what would bring the most utility to an agriculturally-minded user
-* opting not to implement an [`immutable`](https://github.com/facebook/immutable-js/) store
-* opting not to implement [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically filter by soybean yield
-* opting not to implement [`react-mapbox-gl`](https://github.com/alex3165/react-mapbox-gl) to geographically represent counties
+* opting not to implement an [Immutable](https://github.com/facebook/immutable-js/) store
+* opting not to implement [Rheostat](https://github.com/airbnb/rheostat) to allow the user to dynamically filter by soybean yield
+* opting not to implement [React-mapbox-gl](https://github.com/alex3165/react-mapbox-gl) to geographically represent counties
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.

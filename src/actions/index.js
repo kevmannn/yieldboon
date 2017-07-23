@@ -4,7 +4,7 @@ import moment from 'moment';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
-import { MS_IN_DAY, USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constants';
+import { USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constants';
 
 export const SELECT_STATE = 'SELECT_STATE';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
@@ -56,7 +56,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
 // Pull soybean production data from usda.gov if inexistent or stale.
 export const fetchSoybeanProductionIfNeeded = () => (dispatch, getState) => {
   const { lastUpdated } = getState().soybeanProduction;
-  if (!lastUpdated || Date.now() - lastUpdated > 365 * MS_IN_DAY) {
+  if (!lastUpdated || moment(lastUpdated).unix() < moment().startOf('year').unix()) {
     return dispatch(fetchSoybeanProduction());
   }
 }

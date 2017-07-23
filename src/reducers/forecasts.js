@@ -1,7 +1,7 @@
-// import { handle } from 'redux-pack';
+import moment from 'moment';
 import { REHYDRATE } from 'redux-persist/constants';
+// import { handle } from 'redux-pack';
 
-import { MS_IN_DAY } from '../constants';
 import {
   REQUEST_FORECAST,
   RECEIVE_FORECAST,
@@ -9,7 +9,7 @@ import {
   FAIL_TO_RECEIVE_FORECAST
 } from '../actions';
 
-const isNonStaleForecast = ({ lastUpdated }) => Date.now() - lastUpdated < MS_IN_DAY;
+const isForecastForToday = ({ lastUpdated }) => moment(lastUpdated).unix() > moment().startOf('day').unix();
 
 export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   const { type, blacklist = [], payload = {} } = action;
@@ -24,7 +24,7 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
       return payload.forecasts
         ? {
             ...payload.forecasts,
-            precipForecasts: payload.forecasts.precipForecasts.filter(isNonStaleForecast)
+            precipForecasts: payload.forecasts.precipForecasts.filter(isForecastForToday)
           }
         : state
     case FAIL_TO_RECEIVE_FORECAST:
@@ -41,12 +41,12 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   }
 }
 
-// TODO: Turn state into an object which associates [stateName]: { ...forecast }.
+// TODO: Turn state into an object which associates { [stateName]: [ ...forecasts ] }.
 function precipForecasts(state = [], { type, id, countyName, coords, series }) {
   switch (type) {
     case RECEIVE_FORECAST:
       return [
-        ...state.filter(isNonStaleForecast),
+        ...state.filter(isForecastForToday),
         {
           countyName,
           coords,
