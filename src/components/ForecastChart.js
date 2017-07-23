@@ -14,6 +14,7 @@ const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
+    // isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -26,20 +27,14 @@ export default class ForecastChart extends Component {
       || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)
   }
 
-  componentDidUpdate(prevProps) {
-    // console.log(prevProps);
-    // console.log(this.props);
-  }
-
   curve = 'curveMonotoneX';
   primaryStroke = '#bdccfc';
   strokeHierarchy = ['#7795f8', '#6883dd', '#5b72c1'];
   flexibleXYPlotProps = {
-    height: 270,
+    height: 340,
     margin: { top: 0, right: 10, bottom: 20, left: 10 }
   };
 
-  axisStyle = { text: { fontSize: '0.6em' } };
   hintParagraphStyle = {
     fontSize: '0.8em',
     fontFamily: 'Noto Sans',
@@ -56,6 +51,7 @@ export default class ForecastChart extends Component {
 
   render() {
     const {
+      // isFetching,
       highlighted,
       seriesExtremes,
       inclementForecasts,
@@ -63,7 +59,7 @@ export default class ForecastChart extends Component {
     } = this.props;
     return (
       <div style={{
-        height: '270px',
+        height: '340px',
         display: 'block',
         padding: '10px',
         position: 'relative',

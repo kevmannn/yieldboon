@@ -6,7 +6,7 @@
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
 
 The challenge was meaningfully interpreting the problem in the light of ostensible utility that its solution could provide.
-Conceptul thinking (with respect to tools, data flow, component hierarchies, and implementation) had to follow from this.
+Conceptul thinking (with respect to tools, data flow, and component hierarchies) had to follow from this.
 
 ## Focus:
 > Frontend
@@ -17,18 +17,23 @@ Conceptul thinking (with respect to tools, data flow, component hierarchies, and
 * [Reselect](https://github.com/reactjs/reselect)
 * [React-router](https://github.com/ReactTraining/react-router)
 * [React-vis](https://github.com/uber/react-vis)
+* [Create-react-app](https://github.com/facebookincubator/create-react-app)
 * [Material-ui](https://github.com/callemall/material-ui)
 * [Jest](https://github.com/facebook/jest)
 * [Enzyme](https://github.com/airbnb/enzyme)
 
 ## Challenges & Tradeoffs:
-* opting for a new (simpler) way of showing (meaningful) context
-* trying not to represent too much data at a given moment
-* chasing down bugs related to working with cached state
-* imagining what would bring the most utility to an agriculturally-minded user
-* opting not to implement an [Immutable](https://github.com/facebook/immutable-js/) store
-* opting not to implement [Rheostat](https://github.com/airbnb/rheostat) to allow the user to dynamically filter by soybean yield
-* opting not to implement [React-mapbox-gl](https://github.com/alex3165/react-mapbox-gl) to geographically represent counties
+### Opting for a new (simpler) way of showing (meaningful) context
+> ...
+
+### Trying not to represent too much data at a given moment
+> ...
+
+### Chasing down bugs related to working with cached state
+> ...
+
+### Imagining what would bring the most utility to an agriculturally-minded user
+> ...
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.
@@ -40,11 +45,15 @@ Conceptul thinking (with respect to tools, data flow, component hierarchies, and
 ## Future (in order of priority):
 * The ability to retry failed forecast requests (and better error handling in general).
 
+* Better test coverage.
+
 * Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history / growth stage (which should also be accomodated in the app)).
+
+* Generalize to support other crop types.
 
 * For the sake of triage, use the mapbox API to show shortest paths (and directions) between farm locations the user cares about.
 
-* Account for the fact of weather forecasting (possibly) being [PSPACE-hard](http://www.sigecom.org/exchanges/volume_7/3/FORTNOW.pdf)
+* Account for the fact of weather forecasting (possibly) being [PSPACE-hard](http://www.sigecom.org/exchanges/volume_7/3/FORTNOW.pdf).
 
 ## License
 

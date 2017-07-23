@@ -64,9 +64,6 @@ function errorMessage(state = null, { type, message }) {
   switch (type) {
     case FAIL_TO_RECEIVE_FORECAST:
       return message;
-    case REQUEST_FORECAST:
-    case RECEIVE_FORECAST:
-      return null;
     default:
       return state;
   }

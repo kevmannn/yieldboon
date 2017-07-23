@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import ForecastScorecard from './ForecastScorecard';
 import ForecastChart from './ForecastChart';
-// import Loader from './Loader';
 import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
@@ -23,27 +22,6 @@ class VisualizationDyad extends PureComponent {
       highlighted: null
     }
   }
-
-  // springConfig = { ...presets.stiff, precision: 0.9 };
-
-  // motionStyle = {
-  //   opacity: spring(1, this.springConfig),
-  //   translation: spring(0, this.springConfig)
-  // };
-
-  // willEnter = () => {
-  //   return {
-  //     opacity: 0.8,
-  //     translation: -170
-  //   }
-  // };
-
-  // willLeave = () => {
-  //   return {
-  //     opacity: spring(0, this.springConfig),
-  //     translation: spring(40, this.springConfig)
-  //   }
-  // };
 
   onNearestX = (highlighted = {}) => {
     this.setState({ highlighted });
@@ -67,6 +45,7 @@ class VisualizationDyad extends PureComponent {
           highlighted={highlighted}
           forecastTotals={forecastTotals} />
         <ForecastChart
+          // isFetching={isFetching}
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           seriesExtremes={seriesExtremes}
