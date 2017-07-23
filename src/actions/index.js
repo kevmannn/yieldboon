@@ -13,7 +13,7 @@ export const SET_FORECAST_FILTER = 'SET_FORECAST_FILTER';
 export const FAIL_TO_RECEIVE_FORECAST = 'FAIL_TO_RECEIVE_FORECAST';
 export const REQUEST_SOYBEAN_PRODUCTION = 'REQUEST_SOYBEAN_PRODUCTION';
 export const RECEIVE_SOYBEAN_PRODUCTION = 'RECEIVE_SOYBEAN_PRODUCTION';
-export const CHANGE_SOYBEAN_YIELD_BOUNDS = 'CHANGE_SOYBEAN_YIELD_BOUNDS';
+// export const CHANGE_SOYBEAN_YIELD_BOUNDS = 'CHANGE_SOYBEAN_YIELD_BOUNDS';
 
 export const selectState = (name) => ({
   type: SELECT_STATE,
@@ -100,10 +100,9 @@ const fetchForecast = ({ countyName, coords }, time = today) => (dispatch) => {
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
   return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
     .then(
-      res => 
-        res.status >= 400
-          ? dispatch(failToReceiveForecast({ countyName, message: 'Something went wrong.' }))
-          : res.json()
+      res => res.status >= 400
+        ? dispatch(failToReceiveForecast({ countyName, message: 'Something went wrong.' }))
+        : res.json()
     )
     .then(({ hourly: { data } }) => {
       const series = data

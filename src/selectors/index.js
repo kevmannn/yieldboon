@@ -3,26 +3,32 @@ import { createSelector } from 'reselect';
 
 const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
-const getSoybeanYieldBounds = ({ soybeanYieldBounds }) => soybeanYieldBounds;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getErrorMessage = ({ forecasts: { errorMessage } }) => errorMessage;
 export const getSelectedState = ({ selectedState }) => selectedState;
 
-// Correlate states with their soybean yield.
-// export const getActiveStates = createSelector()
-
-// Filter soybeanProduction.payload for entities that fall within the criteria of state membership and yield bounds.
-export const getPayloadSubset = createSelector(
-  [getSelectedState, getSoybeanYieldBounds, getSoybeanProductionPayload],
-  (selectedState, { lowerbound = 0, upperbound = 1e8 } = {}, payload = []) => (
-    payload.filter(({ stateAbbr: abbr, soybeanYield: soy }) => {
-      return abbr === selectedState && (soy > lowerbound && soy < upperbound);
-    })
+// Correlate states with their total (= across all of their counties) soybean yield.
+export const getActiveStates = createSelector(
+  [getSoybeanProductionPayload],
+  (payload = []) => (
+    payload.reduce((acc, { stateAbbr, soybeanYield }) => ({
+      ...acc,
+      [stateAbbr]: (acc[stateAbbr] || 0) + soybeanYield
+    }), {})
   )
 )
 
+// Filter soybeanProduction payload for entities that are within the selectedState.
+export const getPayloadSubset = createSelector(
+  [getSelectedState, getSoybeanProductionPayload],
+  (selectedState, payload = []) => (
+    payload.filter(({ stateAbbr }) => stateAbbr === selectedState)
+  )
+)
+
+// TODO: Account for precipForecasts becoming an object which associates { [stateName]: [ ...forecasts ] }.
 // Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
 export const getActiveForecasts = createSelector(
   [getBlacklist, getPrecipForecasts, getPayloadSubset],

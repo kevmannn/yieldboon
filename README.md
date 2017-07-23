@@ -1,6 +1,6 @@
 # soyfall [![Build Status](https://img.shields.io/travis/kevmannn/soyfall/master.svg?style=flat-square)](https://travis-ci.org/kevmannn/soyfall)
 
-> [A React / Redux app to monitor daily rainfall in soybean-saturated locales](https://soyfall.now.sh)
+[A React / Redux app to monitor daily rainfall in soybean-saturated locales](https://soyfall.now.sh)
 
 ## The problem (and a solution):
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
@@ -9,7 +9,7 @@ The challenge was meaningfully interpreting the problem in the light of ostensib
 Conceptul thinking (with respect to tools, data flow, and component hierarchies) had to follow from this.
 
 ## Focus:
-> Frontend
+Frontend
 
 ## Stack & Technical choices:
 * [React](https://github.com/facebook/react)
@@ -21,6 +21,8 @@ Conceptul thinking (with respect to tools, data flow, and component hierarchies)
 * [Material-ui](https://github.com/callemall/material-ui)
 * [Jest](https://github.com/facebook/jest)
 * [Enzyme](https://github.com/airbnb/enzyme)
+
+> ...
 
 ## Challenges & Tradeoffs:
 ### Opting for a new (simpler) way of showing (meaningful) context

@@ -32,8 +32,8 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
     case RECEIVE_FORECAST:
       return {
         ...state,
-        isFetching: isFetching(state, action),
-        errorMessage: errorMessage(state, action),
+        isFetching: isFetching(state.isFetching, action),
+        errorMessage: errorMessage(state.errorMessage, action),
         precipForecasts: precipForecasts(state.precipForecasts, action)
       }
     default:
@@ -62,6 +62,12 @@ function precipForecasts(state = [], { type, id, countyName, coords, series }) {
 
 function errorMessage(state = null, { type, message }) {
   switch (type) {
+    // TODO: Turn state into an object which associates { [countyName]: [ ...errorMessages ] }.
+    // case RECEIVE_FORECAST:
+    //   return {
+    //     ...state,
+    //     [countyName]: [ ...state[countyName], message ]
+    //   }
     case FAIL_TO_RECEIVE_FORECAST:
       return message;
     default:

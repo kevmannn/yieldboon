@@ -6,12 +6,10 @@ import Table, {
   TableBody,
   TableCell,
   // TableHead,
-  // TableSortLabel,
 } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import { MuiThemeProvider } from 'material-ui/styles';
 
-// import Loader from './Loader';
 // import FilterBar from './FilterBar';
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
@@ -21,8 +19,8 @@ class CountyRegistry extends PureComponent {
     selectedState: PropTypes.string.isRequired,
     onSelectState: PropTypes.func.isRequired,
     // Provided via connect:
-    isFetching: PropTypes.bool,
-    errorMessage: PropTypes.string,
+    // isFetching: PropTypes.bool,
+    // errorMessage: PropTypes.string,
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
@@ -44,12 +42,8 @@ class CountyRegistry extends PureComponent {
   };
 
   render() {
-    const {
-      // isFetching,
-      // errorMessage,
-      activeCounties
-    } = this.props;
-    // const { isSelected } = this.state;
+    const { activeCounties } = this.props;
+    // const { selectedCounties } = this.state;
     return (
       <div style={{
         margin: '10px',
@@ -63,12 +57,13 @@ class CountyRegistry extends PureComponent {
           <Table>
             {/*<TableHead></TableHead>*/}
             <TableBody>
-              {activeCounties.slice(0,5).map(({ id, countyName, soybeanYield, totalRainfall }) => (
+              {activeCounties.slice(0, 2).map(({ id, countyName, soybeanYield, totalRainfall }) => (
                 <TableRow
                   key={id}
-                  onClick={this.onClick}
                   selected={false}>
-                  <TableCell checkbox>
+                  <TableCell
+                    checkbox
+                    onClick={this.onClick}>
                     <Checkbox checked={true} />
                   </TableCell>
                   <TableCell>
@@ -92,8 +87,8 @@ class CountyRegistry extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    isFetching: selectors.getIsFetching(state),
-    errorMessage: selectors.getErrorMessage(state),
+    // isFetching: selectors.getIsFetching(state),
+    // errorMessage: selectors.getErrorMessage(state),
     activeCounties: selectors.getActiveCounties(state)
   }
 }
