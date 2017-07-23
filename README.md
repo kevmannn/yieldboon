@@ -5,11 +5,21 @@
 ## The problem (and a solution):
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
 
+The challenge was meaningfully interpreting the problem in the light of ostensible utility that its solution could provide.
+Conceptul thinking (with respect to tools, data flow, component hierarchies, and implementation) had to follow from this.
+
 ## Focus:
 > Frontend
 
 ## Stack & Technical choices:
-> React, Redux, Reselect, React-vis, Material-ui
+* [React](https://github.com/facebook/react)
+* [Redux](https://github.com/reactjs/redux)
+* [Reselect](https://github.com/reactjs/reselect)
+* [React-router](https://github.com/ReactTraining/react-router)
+* [React-vis](https://github.com/uber/react-vis)
+* [Material-ui](https://github.com/callemall/material-ui)
+* [Jest](https://github.com/facebook/jest)
+* [Enzyme](https://github.com/airbnb/enzyme)
 
 ## Challenges & Tradeoffs:
 * opting for a new (simpler) way of showing (meaningful) context
@@ -17,7 +27,8 @@
 * chasing down bugs related to working with cached state
 * imagining what would bring the most utility to an agriculturally-minded user
 * opting not to implement an [`immutable`](https://github.com/facebook/immutable-js/) store
-* opting not to implement [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically set `soybeanYieldBounds`
+* opting not to implement [`rheostat`](https://github.com/airbnb/rheostat) to allow the user to dynamically filter by soybean yield
+* opting not to implement [`react-mapbox-gl`](https://github.com/alex3165/react-mapbox-gl) to geographically represent counties
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.
@@ -26,7 +37,7 @@
 
 * Much thinking can be contingent on (apparent) API limitations and assumptions about their response formats.
 
-## Future:
+## Future (in order of priority):
 * The ability to retry failed forecast requests (and better error handling in general).
 
 * Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history / growth stage (which should also be accomodated in the app)).
