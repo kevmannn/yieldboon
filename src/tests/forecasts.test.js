@@ -24,6 +24,7 @@ describe('forecasts reducer', () => {
 })
 
 const emptyState = {
+  selectedState: '',
   soybeanProduction: {},
   forecasts: {
     blacklist: [],
@@ -54,6 +55,13 @@ describe.skip('forecast action creators', () => {
 describe('forecast selectors', () => {
   const fullState = {
     ...emptyState,
+    selectedState: '',
+    soybeanProduction: {
+      payload: [{
+        stateAbbr: 'NY',
+        soybeanYield: 1e7
+      }]
+    },
     forecasts: {
       blacklist: [],
       precipForecasts: [{
@@ -78,6 +86,13 @@ describe('forecast selectors', () => {
   it('can derive aggregateActiveForecastSeries from state', () => {
     expect(selectors.getAggregateActiveForecastSeries(emptyState)).toEqual([]);
     expect(selectors.getAggregateActiveForecastSeries(fullState)).toEqual(precipForecasts[0].series);
+  })
+
+  it('can derive activeStates from state', () => {
+    expect(selectors.getActiveStates(emptyState)).toEqual({});
+    expect(selectors.getActiveStates(fullState)).toEqual({
+      NY: 1e7
+    })
   })
 
   it('can get forecast totals from state', () => {

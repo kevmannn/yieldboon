@@ -49,6 +49,8 @@ Frontend
 
 * Better test coverage.
 
+* Indicate which of the selectable states have forecasts which are already cached.
+
 * Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history / growth stage (which should also be accomodated in the app)).
 
 * Generalize to support other crop types.

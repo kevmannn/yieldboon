@@ -7,7 +7,7 @@ import lowerCase from 'lodash/lowerCase';
 
 export default class ForecastSynopsis extends PureComponent {
   static propTypes = {
-    errorLog: PropTypes.object,
+    // errorLog: PropTypes.object,
     highlighted: PropTypes.object,
     forecastTotals: PropTypes.shape({
       // timespan: PropTypes.array,
