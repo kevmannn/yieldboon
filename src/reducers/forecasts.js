@@ -28,6 +28,7 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
             precipForecasts: payload.forecasts.precipForecasts.filter(isForecastForToday)
           }
         : state
+    case REACH_FORECAST_REQ_LIMIT:
     case FAIL_TO_RECEIVE_FORECAST:
     case REQUEST_FORECAST:
     case RECEIVE_FORECAST:
@@ -73,8 +74,17 @@ function errorLog(state = {}, { type, countyName, message }) {
         [countyName]: [ ...state[countyName], message ]
       }
     case RECEIVE_FORECAST:
+      // If it exists, remove the key corresponding to the received countyName.
+      const stateWithErroredCounties = !state[countyName]
+        ? state
+        : Object.keys(state)
+            .filter(key => key !== countyName)
+            .reduce((acc, erroredCountyName) => ({
+              ...acc,
+              [erroredCountyName]: state[erroredCountyName]
+            }), {})
       return {
-        ...state,
+        ...stateWithErroredCounties,
         reachedLimitAt: null
       }
     default:

@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import moment from 'moment';
 import lowerCase from 'lodash/lowerCase';
 
-// import FilterDialog from './FilterDialog';
+// import ErrorLogger from './ErrorLogger';
+// import DialogInitiator from './DialogInitiator';
 
 export default class ForecastSynopsis extends PureComponent {
   static propTypes = {
-    // errorLog: PropTypes.object,
     highlighted: PropTypes.object,
     forecastTotals: PropTypes.shape({
       // timespan: PropTypes.array,
@@ -18,15 +17,9 @@ export default class ForecastSynopsis extends PureComponent {
     }).isRequired
   };
 
-  // momentize(unixTime) {
-  //   return moment(unixTime).calendar();
-  // }
-
   renderTotal(key) {
     const { forecastTotals } = this.props;
     switch (key) {
-      // case 'timespan':
-      //   return `${this.momentize(forecastTotals[key][0])} - ${this.momentize(forecastTotals[key][1])}`;
       case 'totalSoybeanYield':
         return `${forecastTotals[key]} bu`;
       case 'totalRainfall':

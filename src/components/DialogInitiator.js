@@ -7,10 +7,11 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import { LabelRadio as Radio, RadioGroup } from 'material-ui/Radio';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
+// import StateDialog from './StateDialog';
 import * as selectors from '../selectors';
 import { selectState } from '../actions';
 
-class FilterDialog extends PureComponent {
+class StateDialog extends PureComponent {
   static defaultProps = {
     history: PropTypes.object,
     isOpen: PropTypes.bool.isRequired,
@@ -32,12 +33,14 @@ class FilterDialog extends PureComponent {
     this.radioGroup.focus();
   };
 
-  onCancel = () => {};
+  onCancel = () => {
+    this.props.onRequestClose();
+  };
 
   onAccept = () => {
     const { selectedValue } = this.state;
     const { onRequestClose, selectState, history } = this.props;
-    // onRequestClose(selectedValue);
+    // onRequestClose();
     // selectState(selectedValue);
     // history.push(`/dashboard/${selectedValue}`);
   };
@@ -78,10 +81,24 @@ class FilterDialog extends PureComponent {
   }
 }
 
+// class DialogInitiator extends PureComponent {
+//   constructor(props) {
+//     super(props);
+//     this.state = {}
+//   }
+
+//   render() {
+//     <div>
+//       <StateDialog
+//         isOpen={} />
+//     </div>
+//   }
+// }
+
 function mapStateToProps(state) {
   return {
     activeStates: selectors.getActiveStates(state)
   }
 }
 
-export withRouter(connect(mapStateToProps, { selectState })(FilterDialog));
+export withRouter(connect(mapStateToProps, { selectState })(StateDialog));
