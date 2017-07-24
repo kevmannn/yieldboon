@@ -6,7 +6,6 @@ import { Route, Redirect } from 'react-router-dom';
 import './app.css';
 import 'react-vis/dist/style.css';
 
-// import Toast from './Toast';
 import Dashboard from './Dashboard';
 import * as selectors from './selectors';
 
@@ -15,14 +14,8 @@ class App extends Component {
     selectedState: PropTypes.string
   };
 
-  state = {
-    toastMessage: null,
-    toastIsOpen: false
-  };
-
   render() {
     const { selectedState } = this.props;
-    // const { toastMessage, toastIsOpen } = this.state;
     return (
       <div>
         <Route path="/" render={(props) => (
@@ -34,10 +27,6 @@ class App extends Component {
           render={(props) => (
             <Dashboard {...props} />
           )} />
-        {/*<Toast
-          isOpen={toastIsOpen}
-          message={toastMessage}
-          onRequestClose={this.onRequestClose} />*/}
       </div>
     )
   }

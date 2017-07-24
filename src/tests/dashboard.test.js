@@ -29,7 +29,7 @@ describe('app initialization', () => {
   })
 })
 
-describe.skip('ForecastScorecard', () => {})
+describe.skip('ForecastSynopsis', () => {})
 
 describe.skip('ForecastChart', () => {})
 
