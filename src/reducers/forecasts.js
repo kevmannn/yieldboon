@@ -42,7 +42,6 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   }
 }
 
-// TODO: Turn state into an object which associates { [stateName]: [ ...forecasts ] }.
 function precipForecasts(state = [], { type, id, countyName, coords, series }) {
   switch (type) {
     case RECEIVE_FORECAST:
@@ -68,10 +67,14 @@ function errorLog(state = {}, { type, countyName, message }) {
         ...state,
         reachedLimitAt: Date.now()
       }
+    case FAIL_TO_RECEIVE_FORECAST:
+      return {
+        ...state,
+        [countyName]: [ ...state[countyName], message ]
+      }
     case RECEIVE_FORECAST:
       return {
         ...state,
-        [countyName]: [ ...state[countyName], message ],
         reachedLimitAt: null
       }
     default:

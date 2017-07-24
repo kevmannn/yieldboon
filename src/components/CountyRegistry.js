@@ -16,7 +16,6 @@ import { setForecastFilter } from '../actions';
 class CountyRegistry extends PureComponent {
   static propTypes = {
     selectedState: PropTypes.string.isRequired,
-    onSelectState: PropTypes.func.isRequired,
     // Provided via connect:
     // errorLog: PropTypes.object,
     // isFetching: PropTypes.bool,
@@ -29,10 +28,6 @@ class CountyRegistry extends PureComponent {
       selectedCounties: props.activeCounties.map(({ id }) => id)
     }
   }
-
-  onSelectState = (state) => {
-    this.props.onSelectState(state);
-  };
 
   onClick = () => {};
 

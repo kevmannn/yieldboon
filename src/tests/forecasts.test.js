@@ -55,10 +55,10 @@ describe.skip('forecast action creators', () => {
 describe('forecast selectors', () => {
   const fullState = {
     ...emptyState,
-    selectedState: '',
+    selectedState: 'NY',
     soybeanProduction: {
       payload: [{
-        stateAbbr: 'NY',
+        stateAbbr: 'CA',
         soybeanYield: 1e7
       }]
     },
@@ -90,9 +90,7 @@ describe('forecast selectors', () => {
 
   it('can derive activeStates from state', () => {
     expect(selectors.getActiveStates(emptyState)).toEqual({});
-    expect(selectors.getActiveStates(fullState)).toEqual({
-      NY: 1e7
-    })
+    expect(selectors.getActiveStates(fullState)).toEqual({ CA: 1e7 });
   })
 
   it('can get forecast totals from state', () => {

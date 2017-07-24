@@ -1,15 +1,22 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import { MuiThemeProvider } from 'material-ui/styles';
 import { LabelRadio as Radio, RadioGroup } from 'material-ui/Radio';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
-export default class FilterDialog extends PureComponent {
+import * as selectors from '../selectors';
+import { selectState } from '../actions';
+
+class FilterDialog extends PureComponent {
   static defaultProps = {
+    history: PropTypes.object,
     isOpen: PropTypes.bool.isRequired,
-    selectedState: PropTypes.string.isRequired,
-    onRequestClose: PropTypes.func.isRequired
+    onRequestClose: PropTypes.func.isRequired,
+    // Provided via connect:
+    activeStates: PropTypes.object.isRequired,
   };
 
   constructor(props) {
@@ -29,7 +36,10 @@ export default class FilterDialog extends PureComponent {
 
   onAccept = () => {
     const { selectedValue } = this.state;
-    this.props.onRequestClose(selectedValue);
+    const { onRequestClose, selectState, history } = this.props;
+    // onRequestClose(selectedValue);
+    // selectState(selectedValue);
+    // history.push(`/dashboard/${selectedValue}`);
   };
 
   onChange = (event, selectedValue) => {
@@ -67,3 +77,11 @@ export default class FilterDialog extends PureComponent {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    activeStates: selectors.getActiveStates(state)
+  }
+}
+
+export withRouter(connect(mapStateToProps, { selectState })(FilterDialog));

@@ -1,9 +1,9 @@
 import { SELECT_STATE } from '../actions';
 
-export default (state = 'NY', { type, name }) => {
+export default (state = 'NY', { type, stateName }) => {
   switch (type) {
     case SELECT_STATE:
-      return name;
+      return stateName;
     default:
       return state;
   }

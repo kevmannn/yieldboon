@@ -15,9 +15,9 @@ export const REACH_FORECAST_REQ_LIMIT = 'REACH_FORECAST_REQ_LIMIT';
 export const REQUEST_SOYBEAN_PRODUCTION = 'REQUEST_SOYBEAN_PRODUCTION';
 export const RECEIVE_SOYBEAN_PRODUCTION = 'RECEIVE_SOYBEAN_PRODUCTION';
 
-export const selectState = (name) => ({
+export const selectState = (stateName) => ({
   type: SELECT_STATE,
-  name
+  stateName
 })
 
 export const setForecastFilter = (blacklist) => ({

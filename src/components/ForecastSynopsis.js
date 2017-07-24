@@ -30,7 +30,7 @@ export default class ForecastSynopsis extends PureComponent {
       case 'totalSoybeanYield':
         return `${forecastTotals[key]} bu`;
       case 'totalRainfall':
-        return `${forecastTotals[key](24).toFixed(4)}"`;
+        return `${forecastTotals[key](24).toFixed(2)}"`;
       default:
         return forecastTotals[key];
     }
