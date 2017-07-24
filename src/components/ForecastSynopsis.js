@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import lowerCase from 'lodash/lowerCase';
 
 // import ErrorLogger from './ErrorLogger';
-// import DialogInitiator from './DialogInitiator';
+import DialogInitiator from './DialogInitiator';
 
 export default class ForecastSynopsis extends PureComponent {
   static propTypes = {
@@ -13,7 +13,7 @@ export default class ForecastSynopsis extends PureComponent {
       // timespan: PropTypes.array,
       selectedState: PropTypes.string,
       totalCounties: PropTypes.number,
-      totalSoybeanYield: PropTypes.number,
+      totalSoybeanYield: PropTypes.string,
       totalRainfall: PropTypes.func
     }).isRequired
   };
@@ -57,6 +57,7 @@ export default class ForecastSynopsis extends PureComponent {
             </p>
           </div>
         ))}
+        <DialogInitiator />
       </div>
     )
   }

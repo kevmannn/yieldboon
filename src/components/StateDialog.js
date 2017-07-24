@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import { MuiThemeProvider } from 'material-ui/styles';
 import { FormControlLabel } from 'material-ui/Form';
-import { LabelRadio as Radio, RadioGroup } from 'material-ui/Radio';
+import Radio, { RadioGroup } from 'material-ui/Radio';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
 import * as selectors from '../selectors';
@@ -50,15 +50,13 @@ class StateDialog extends PureComponent {
   }
 
   render() {
-    const { activeStates, ...rest } = this.props;
+    const { isOpen, activeStates, ...rest } = this.props;
     const { selectedValue } = this.state;
     return (
       <MuiThemeProvider>
         <Dialog
           {...rest}
-          maxWidth="xs"
-          ignoreEscapeKeyUp
-          ignoreBackdropClick
+          open={isOpen}
           onEntering={this.onEntering}>
           <DialogTitle>Select a state</DialogTitle>
           <DialogContent>
@@ -72,9 +70,9 @@ class StateDialog extends PureComponent {
                   key={i}
                   value={stateAbbr}
                   label={
-                    <p>
-                      {stateAbbr}: <span style={{ fontSize: '0.7em', opacity: '0.5em' }}>
-                        {activeStates[stateAbbr]}
+                    <p style={{ fontFamily: 'Noto Sans', fontSize: '0.8em', color: '#151b2d' }}>
+                      {stateAbbr} <span style={{ opacity: '0.5' }}>
+                        {`(${activeStates[stateAbbr]} bu)`}
                       </span>
                     </p>
                   }
@@ -83,8 +81,8 @@ class StateDialog extends PureComponent {
             </RadioGroup>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.onCancel}>cancel</Button>
-            <Button onClick={this.onAccept}>accept</Button>
+            <Button raised onClick={this.onCancel}>cancel</Button>
+            <Button raised onClick={this.onAccept}>accept</Button>
           </DialogActions>
         </Dialog>
       </MuiThemeProvider>

@@ -55,7 +55,7 @@ export const getForecastTotals = createSelector(
           // timespan: findExtremesAcrossForecasts(forecasts, 'x'),
           selectedState,
           totalCounties: forecasts.length,
-          totalSoybeanYield: forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0),
+          totalSoybeanYield: abbreviateInt(forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0)),
           totalRainfall: (i) => (
             forecasts
               .map(({ series }) => series.slice(0, i).reduce((acc, { y }) => acc + y, 0))
@@ -116,6 +116,14 @@ export const getSeriesExtremes = createSelector(
     return [0.8 * min, 1.2 * max];
   }
 )
+
+function abbreviateInt(n) {
+  return n >= 1e4
+    ? n >= 1e6
+      ? `${String(n).slice(0, -6)}.${String(n).slice(-6, -4)}m`
+      : `${String(n).slice(0, -4)}.${String(n).slice(-4, -2)}k`
+    : `${n}`
+}
 
 function findYMean(series) {
   return series.reduce((acc, { y }) => acc + y, 0);

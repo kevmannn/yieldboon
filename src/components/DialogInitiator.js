@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import SelectStateIcon from 'material-ui-icons/Mms';
 import { MuiThemeProvider } from 'material-ui/styles';
 
 import StateDialog from './StateDialog';
@@ -24,13 +24,11 @@ export default class DialogInitiator extends PureComponent {
   render() {
     const { dialogIsOpen } = this.state;
     return (
-      <div>
+      <div style={{ float: 'right', margin: '15px'  }}>
         <MuiThemeProvider>
-          <Button
-            raised
-            onClick={this.onClick}>
-            Select a state
-          </Button>
+          <IconButton disabled color="accent" onClick={this.onClick}>
+            <SelectStateIcon />
+          </IconButton>
         </MuiThemeProvider>
         <StateDialog
           isOpen={dialogIsOpen}

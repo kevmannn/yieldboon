@@ -10,7 +10,7 @@ import { loadForecasts, fetchSoybeanProductionIfNeeded } from './actions';
 
 class Dashboard extends PureComponent {
   static propTypes = {
-    match: PropTypes.object.isRequired,
+    // match: PropTypes.object.isRequired,
     // Provided via connect:
     selectedState: PropTypes.string.isRequired,
     payloadSubset: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -21,12 +21,7 @@ class Dashboard extends PureComponent {
     this.props.fetchSoybeanProductionIfNeeded();
   }
 
-  componentWillReceiveProps({ match: { params }, payloadSubset }) {
-    // Make state 'catch up to' an incongruous path.
-    if (params.selectedState !== this.props.selectedState) {
-      this.props.selectState(params.selectedState);
-    }
-
+  componentWillReceiveProps({ payloadSubset }) {
     // Fetch any necessary forecasts for the counties in the selectedState.
     if (payloadSubset.length !== this.props.payloadSubset.length) {
       this.props.loadForecasts(payloadSubset);
