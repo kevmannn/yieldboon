@@ -66,13 +66,13 @@ function errorLog(state = {}, { type, countyName, message }) {
     case REACH_FORECAST_REQ_LIMIT:
       return {
         ...state,
-        didReachLimit: true
+        reachedLimitAt: Date.now()
       }
     case RECEIVE_FORECAST:
       return {
         ...state,
         [countyName]: [ ...state[countyName], message ],
-        didReachLimit: false
+        reachedLimitAt: null
       }
     default:
       return state;

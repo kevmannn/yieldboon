@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 // import moment from 'moment';
 import lowerCase from 'lodash/lowerCase';
 
-export default class ForecastScorecard extends PureComponent {
+// import FilterDialog from './FilterDialog';
+
+export default class ForecastSynopsis extends PureComponent {
   static propTypes = {
+    errorLog: PropTypes.object,
     highlighted: PropTypes.object,
     forecastTotals: PropTypes.shape({
       // timespan: PropTypes.array,
+      selectedState: PropTypes.string,
       totalCounties: PropTypes.number,
       totalSoybeanYield: PropTypes.number,
       totalRainfall: PropTypes.func
@@ -23,27 +27,27 @@ export default class ForecastScorecard extends PureComponent {
     switch (key) {
       // case 'timespan':
       //   return `${this.momentize(forecastTotals[key][0])} - ${this.momentize(forecastTotals[key][1])}`;
-      case 'totalCounties':
-        return forecastTotals[key];
       case 'totalSoybeanYield':
         return `${forecastTotals[key]} bu`;
       case 'totalRainfall':
         return `${forecastTotals[key](24).toFixed(4)}"`;
       default:
-        return null;
+        return forecastTotals[key];
     }
   }
+
+  totals = Object.keys(this.props.forecastTotals).reverse();
 
   render() {
     const { highlighted, forecastTotals } = this.props;
     return (
       <div>
-        {Object.keys(forecastTotals).reverse().map((key, i) => (
+        {this.totals.map((key, i) => (
           <div
             key={i}
             style={{
               display: 'inline-block',
-              width: '120px',
+              width: '110px',
               padding: '5px 15px',
               fontFamily: 'Noto Sans'
             }}>

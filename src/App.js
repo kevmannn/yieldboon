@@ -20,10 +20,6 @@ class App extends Component {
     toastIsOpen: false
   };
 
-  // onRequestClose = () => {
-  //   this.setState({ toastIsOpen: false });
-  // };
-
   render() {
     const { selectedState } = this.props;
     // const { toastMessage, toastIsOpen } = this.state;

@@ -13,6 +13,7 @@ class Dashboard extends PureComponent {
     match: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     // Provided via connect:
+    errorLog: PropTypes.object,
     selectedState: PropTypes.string.isRequired,
     payloadSubset: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchSoybeanProductionIfNeeded: PropTypes.func.isRequired
@@ -41,7 +42,7 @@ class Dashboard extends PureComponent {
   };
 
   render() {
-    // const { selectedState } = this.props;
+    // const { errorLog, selectedState } = this.props;
     return (
       <div>
         <VisualizationDyad />
@@ -55,6 +56,7 @@ class Dashboard extends PureComponent {
 
 function mapStateToProps(state) {
   return {
+    errorLog: selectors.getErrorLog(state),
     selectedState: selectors.getSelectedState(state),
     payloadSubset: selectors.getPayloadSubset(state)
   }

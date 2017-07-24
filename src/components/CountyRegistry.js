@@ -10,7 +10,6 @@ import Table, {
 import Checkbox from 'material-ui/Checkbox';
 import { MuiThemeProvider } from 'material-ui/styles';
 
-// import FilterBar from './FilterBar';
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
 
@@ -27,7 +26,7 @@ class CountyRegistry extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedCounties: props.activeCounties
+      selectedCounties: props.activeCounties.map(({ id }) => id)
     }
   }
 
@@ -50,10 +49,6 @@ class CountyRegistry extends PureComponent {
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
         <MuiThemeProvider>
-          {/*<FilterBar
-            selectedState={selectedState}
-            onSelectState={this.onSelectState}
-            onSelectAllClick={this.onSelectAllClick} />*/}
           <Table>
             {/*<TableHead></TableHead>*/}
             <TableBody>

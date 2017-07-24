@@ -48,11 +48,12 @@ export const getActiveForecasts = createSelector(
 
 // Pull an object with totals across all current forecasts.
 export const getForecastTotals = createSelector(
-  getActiveForecasts,
-  (forecasts = []) => (
+  [getActiveForecasts, getSelectedState],
+  (forecasts = [], selectedState) => (
     forecasts.every(({ series }) => series)
       ? {
           // timespan: findExtremesAcrossForecasts(forecasts, 'x'),
+          selectedState,
           totalCounties: forecasts.length,
           totalSoybeanYield: forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0),
           totalRainfall: (i) => (

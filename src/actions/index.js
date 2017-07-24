@@ -128,6 +128,7 @@ const fetchForecast = ({ countyName, coords }, time = today) => (dispatch) => {
 // Get the forecast for a given county if it's not in the store (= inexistent or stale).
 const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
   const { precipForecasts } = getState().forecasts;
+  // TODO: Check reachedLimitAt time...
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, coords }) => {
