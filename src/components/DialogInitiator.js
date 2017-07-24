@@ -13,19 +13,29 @@ export default class DialogInitiator extends PureComponent {
     }
   }
 
-  onClick = () => {};
+  onClick = () => {
+    this.setState({ dialogIsOpen: true });
+  };
 
-  onRequestClose = () => {};
+  onRequestClose = () => {
+    this.setState({ dialogIsOpen: false });
+  };
 
   render() {
     const { dialogIsOpen } = this.state;
     return (
-      <MuiThemeProvider>
-        <Button onClick={this.onClick}>Select a state</Button>
+      <div>
+        <MuiThemeProvider>
+          <Button
+            raised
+            onClick={this.onClick}>
+            Select a state
+          </Button>
+        </MuiThemeProvider>
         <StateDialog
           isOpen={dialogIsOpen}
           onRequestClose={this.onRequestClose} />
-      </MuiThemeProvider>
+      </div>
     )
   }
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Button from 'material-ui/Button';
 import { MuiThemeProvider } from 'material-ui/styles';
+import { FormControlLabel } from 'material-ui/Form';
 import { LabelRadio as Radio, RadioGroup } from 'material-ui/Radio';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
@@ -39,9 +40,9 @@ class StateDialog extends PureComponent {
   onAccept = () => {
     const { selectedValue } = this.state;
     const { onRequestClose, selectState, history } = this.props;
-    // onRequestClose();
-    // selectState(selectedValue);
-    // history.push(`/dashboard/${selectedValue}`);
+    onRequestClose();
+    selectState(selectedValue);
+    history.push(`/dashboard/${selectedValue}`);
   };
 
   onChange = (event, selectedValue) => {
@@ -49,7 +50,8 @@ class StateDialog extends PureComponent {
   }
 
   render() {
-    const { children, ...rest } = this.props;
+    const { activeStates, ...rest } = this.props;
+    const { selectedValue } = this.state;
     return (
       <MuiThemeProvider>
         <Dialog
@@ -59,15 +61,25 @@ class StateDialog extends PureComponent {
           ignoreBackdropClick
           onEntering={this.onEntering}>
           <DialogTitle>Select a state</DialogTitle>
-          <DialogContent
-            innerRef={node => this.radioGroup = node}>
-            <RadioGroup>
-              {/*availableStates.map(({ abbr, name }) => (
-                <Radio
-                  key={abbr}
-                  label={name}
-                  value={abbr} />
-              ))*/}
+          <DialogContent>
+            <RadioGroup
+              name="states"
+              innerRef={node => { this.radioGroup = node }}
+              selectedValue={selectedValue}
+              onChange={this.onChange}>
+              {Object.keys(activeStates).map((stateAbbr, i) => (
+                <FormControlLabel
+                  key={i}
+                  value={stateAbbr}
+                  label={
+                    <p>
+                      {stateAbbr}: <span style={{ fontSize: '0.7em', opacity: '0.5em' }}>
+                        {activeStates[stateAbbr]}
+                      </span>
+                    </p>
+                  }
+                  control={<Radio />} />
+              ))}
             </RadioGroup>
           </DialogContent>
           <DialogActions>
@@ -86,4 +98,4 @@ function mapStateToProps(state) {
   }
 }
 
-export withRouter(connect(mapStateToProps, { selectState })(StateDialog));
+export default withRouter(connect(mapStateToProps, { selectState })(StateDialog));
