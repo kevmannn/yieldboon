@@ -92,14 +92,16 @@ export default class ForecastChart extends Component {
               }}>
                 <p style={this.hintParagraphStyle}>
                   {moment(highlighted.x).calendar()}
-                  <span style={{ ...this.hintParagraphStyle, opacity: '0.4' }}>
+                  <span style={{ ...this.hintParagraphStyle, opacity: '0.6' }}>
                     {` (${moment(highlighted.x).fromNow()})`}
                   </span>
                 </p>
                 <p style={{ ...this.hintParagraphStyle, fontSize: '1.2em' }}>
-                  Mean rainfall: <span style={{ color: this.primaryStroke }}>
-                    {`${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}"`}
+                  Mean rainfall:
+                  <span style={{ color: this.primaryStroke }}>
+                    {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
                   </span>
+                  <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.2' }}>/ hr</span>
                 </p>
                 <h2 style={{ ...this.hintParagraphStyle, fontWeight: '300', fontSize: '0.7em' }}>
                   In counties with highest mean rainfall:

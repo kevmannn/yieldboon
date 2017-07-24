@@ -12,7 +12,6 @@ import * as selectors from './selectors';
 
 class App extends Component {
   static propTypes = {
-    // errorMessage: PropTypes.string,
     selectedState: PropTypes.string
   };
 
@@ -20,12 +19,6 @@ class App extends Component {
     toastMessage: null,
     toastIsOpen: false
   };
-
-  // componentWillReceiveProps({ errorMessage }) {
-  //   if (errorMessage) {
-  //     this.setState({ toastMessage, toastIsOpen: true });
-  //   }
-  // }
 
   // onRequestClose = () => {
   //   this.setState({ toastIsOpen: false });
@@ -56,7 +49,6 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    // errorMessage: selectors.getErrorMessage(state),
     selectedState: selectors.getSelectedState(state)
   }
 }

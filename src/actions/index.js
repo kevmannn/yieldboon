@@ -11,9 +11,9 @@ export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
 export const SET_FORECAST_FILTER = 'SET_FORECAST_FILTER';
 export const FAIL_TO_RECEIVE_FORECAST = 'FAIL_TO_RECEIVE_FORECAST';
+export const REACH_FORECAST_REQ_LIMIT = 'REACH_FORECAST_REQ_LIMIT';
 export const REQUEST_SOYBEAN_PRODUCTION = 'REQUEST_SOYBEAN_PRODUCTION';
 export const RECEIVE_SOYBEAN_PRODUCTION = 'RECEIVE_SOYBEAN_PRODUCTION';
-// export const CHANGE_SOYBEAN_YIELD_BOUNDS = 'CHANGE_SOYBEAN_YIELD_BOUNDS';
 
 export const selectState = (name) => ({
   type: SELECT_STATE,
@@ -80,6 +80,11 @@ const failToReceiveForecast = ({ countyName, message }) => ({
   message
 })
 
+const reachForecastReqLimit = ({ countyName }) => ({
+  type: REACH_FORECAST_REQ_LIMIT,
+  countyName
+})
+
 const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
   return fetch(`https://lat-lng.now.sh/?address=${countyName},${stateAbbr}`)
     .then(
@@ -101,7 +106,9 @@ const fetchForecast = ({ countyName, coords }, time = today) => (dispatch) => {
   return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
     .then(
       res => res.status >= 400
-        ? dispatch(failToReceiveForecast({ countyName, message: 'Something went wrong.' }))
+        ? res.status === 403
+          ? dispatch(reachForecastReqLimit({ countyName }))
+          : dispatch(failToReceiveForecast({ countyName, message: 'Something went wrong.' }))
         : res.json()
     )
     .then(({ hourly: { data } }) => {

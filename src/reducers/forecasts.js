@@ -6,7 +6,8 @@ import {
   REQUEST_FORECAST,
   RECEIVE_FORECAST,
   SET_FORECAST_FILTER,
-  FAIL_TO_RECEIVE_FORECAST
+  FAIL_TO_RECEIVE_FORECAST,
+  REACH_FORECAST_REQ_LIMIT
 } from '../actions';
 
 const isForecastForToday = ({ lastUpdated }) => moment(lastUpdated).unix() > moment().startOf('day').unix();
@@ -32,8 +33,8 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
     case RECEIVE_FORECAST:
       return {
         ...state,
+        errorLog: errorLog(state.errorLog, action),
         isFetching: isFetching(state.isFetching, action),
-        errorMessage: errorMessage(state.errorMessage, action),
         precipForecasts: precipForecasts(state.precipForecasts, action)
       }
     default:
@@ -60,16 +61,19 @@ function precipForecasts(state = [], { type, id, countyName, coords, series }) {
   }
 }
 
-function errorMessage(state = null, { type, message }) {
+function errorLog(state = {}, { type, countyName, message }) {
   switch (type) {
-    // TODO: Turn state into an object which associates { [countyName]: [ ...errorMessages ] }.
-    // case RECEIVE_FORECAST:
-    //   return {
-    //     ...state,
-    //     [countyName]: [ ...state[countyName], message ]
-    //   }
-    case FAIL_TO_RECEIVE_FORECAST:
-      return message;
+    case REACH_FORECAST_REQ_LIMIT:
+      return {
+        ...state,
+        didReachLimit: true
+      }
+    case RECEIVE_FORECAST:
+      return {
+        ...state,
+        [countyName]: [ ...state[countyName], message ],
+        didReachLimit: false
+      }
     default:
       return state;
   }

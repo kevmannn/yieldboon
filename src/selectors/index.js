@@ -5,8 +5,8 @@ const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
+export const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
-export const getErrorMessage = ({ forecasts: { errorMessage } }) => errorMessage;
 export const getSelectedState = ({ selectedState }) => selectedState;
 
 // Correlate states with their total (= across all of their counties) soybean yield.

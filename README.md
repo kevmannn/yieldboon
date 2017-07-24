@@ -5,8 +5,8 @@
 ## The problem (and a solution):
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
 
-The challenge was meaningfully interpreting the problem in the light of ostensible utility that its solution could provide.
-Conceptul thinking (with respect to tools, data flow, and component hierarchies) had to follow from this.
+The challenge is meaningfully interpreting the problem in the light of ostensible utility that its solution can provide.
+Given the constraints of the problem, it was therefore necessary to think in terms of extensibility from the beginning.
 
 ## Focus:
 Frontend
