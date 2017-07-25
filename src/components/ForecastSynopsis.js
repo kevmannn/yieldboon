@@ -18,6 +18,8 @@ export default class ForecastSynopsis extends PureComponent {
     }).isRequired
   };
 
+  // onDismissErrorLogger = () => {};
+
   renderTotal(key) {
     const { forecastTotals } = this.props;
     switch (key) {

@@ -85,9 +85,10 @@ const receiveForecast = ({ countyName, stateAbbr, coords, series }) => ({
   id: v4()
 })
 
-const failToReceiveForecast = ({ countyName, message }) => ({
+const failToReceiveForecast = ({ countyName, stateAbbr, message }) => ({
   type: FAIL_TO_RECEIVE_FORECAST,
   countyName,
+  stateAbbr,
   message
 })
 
@@ -100,7 +101,7 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
   return fetch(`https://lat-lng.now.sh/?address=${countyName},${stateAbbr}`)
     .then(
       res => res.status >= 400
-        ? dispatch(failToReceiveForecast({ countyName, message: 'Something went wrong.' }))
+        ? dispatch(failToReceiveForecast({ countyName, stateAbbr, message: 'Something went wrong.' }))
         : res.json()
     )
     .then(({ lat, lng }) => ({
@@ -120,7 +121,7 @@ const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (disp
       res => res.status >= 400
         ? res.status === 403
           ? dispatch(reachForecastReqLimit({ countyName }))
-          : dispatch(failToReceiveForecast({ countyName, message: 'Something went wrong.' }))
+          : dispatch(failToReceiveForecast({ countyName, stateAbbr, message: 'Something went wrong.' }))
         : res.json()
     )
     .then(({ hourly: { data } }) => {

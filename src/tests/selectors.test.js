@@ -11,7 +11,7 @@ const emptyState = {
 
 describe('forecast selectors', () => {
   const fullState = {
-    selectedState: 'NY',
+    selectedState: 'CA',
     soybeanProduction: {
       payload: [{
         stateAbbr: 'CA',
@@ -25,6 +25,7 @@ describe('forecast selectors', () => {
           id: 1,
           coords: {},
           countyName: 'x',
+          stateAbbr: 'CA',
           lastUpdated: Date.now(),
           series: [
             { i: 0, x: Date.now(), y: 0.01 },
@@ -35,6 +36,7 @@ describe('forecast selectors', () => {
           id: 2,
           coords: {},
           countyName: 'y',
+          stateAbbr: 'CA',
           lastUpdated: Date.now(),
           series: [
             { i: 0, x: Date.now(), y: 0.02 },

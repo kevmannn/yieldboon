@@ -21,8 +21,7 @@ body {
   fill: #252938;
 }
 
-.loader {
-  color: #fcfdff;
+.buffer {
   font-family: 'Noto Sans', sans-serif;
   font-weight: 300;
   font-size: 0.8em;
@@ -30,6 +29,14 @@ body {
   text-align: center;
   margin: 0px auto;
   padding: 150px;
+}
+
+.error {
+  color: #ff4081;
+}
+
+.load {
+  color: #fcfdff;
   animation: Blink infinite 1s ease-in-out;
 }
 

@@ -66,7 +66,7 @@ function precipForecasts(state = [], { type, id, countyName, stateAbbr, coords, 
   }
 }
 
-function errorLog(state = {}, { type, countyName, message }) {
+function errorLog(state = {}, { type, countyName, stateAbbr, message }) {
   switch (type) {
     case REACH_FORECAST_REQ_LIMIT:
       return {
@@ -77,7 +77,7 @@ function errorLog(state = {}, { type, countyName, message }) {
       const previousMessages = state[countyName] || [];
       return {
         ...state,
-        [countyName]: [ ...previousMessages, message ]
+        [countyName]: { stateAbbr, messages: [ ...previousMessages, message ] }
       }
     case RECEIVE_FORECAST:
       // If it exists, remove the key corresponding to the received countyName.

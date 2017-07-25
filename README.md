@@ -49,7 +49,7 @@ Frontend
 
 * Better test coverage.
 
-* Indicate which of the selectable states have forecasts which are already cached.
+* Indicate which of the selectable states have cached forecasts.
 
 * Use [Redux-pack](https://github.com/lelandrichardson/redux-pack) or [Redux-loop](https://github.com/redux-loop/redux-loop) to bring increased neatness / extensibility / sanity to async actions.
 

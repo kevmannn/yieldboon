@@ -46,6 +46,7 @@ class VisualizationDyad extends PureComponent {
           highlighted={highlighted}
           forecastTotals={forecastTotals} />
         <ForecastChart
+          // errorLog={errorLog}
           isFetching={isFetching}
           highlighted={highlighted}
           onNearestX={this.onNearestX}

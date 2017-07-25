@@ -1,10 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
+import { shallow, mount } from 'enzyme';
 
 import App from '../App';
+import ForecastSynopsis from '../components/ForecastSynopsis';
 
 const mockStore = configureStore();
 const renderAppWithState = (state) => {
@@ -29,7 +30,10 @@ describe('app initialization', () => {
   })
 })
 
-describe.skip('ForecastSynopsis', () => {})
+describe.skip('ForecastSynopsis', () => {
+  const props = { highlighted: {}, forecastTotals: {} }
+  const forecastSynopsisWrapper = shallow(<ForecastSynopsis {...props} />);
+})
 
 describe.skip('ForecastChart', () => {})
 
