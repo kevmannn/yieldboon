@@ -3,10 +3,10 @@ import { REHYDRATE } from 'redux-persist/constants';
 // import { handle } from 'redux-pack';
 
 import {
-  END_FETCH,
-  BEGIN_FETCH,
   REQUEST_FORECAST,
   RECEIVE_FORECAST,
+  END_LOAD_FORECASTS,
+  BEGIN_LOAD_FORECASTS,
   SET_FORECAST_FILTER,
   FAIL_TO_RECEIVE_FORECAST,
   REACH_FORECAST_REQ_LIMIT
@@ -30,6 +30,8 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
             precipForecasts: payload.forecasts.precipForecasts.filter(isForecastForToday)
           }
         : state
+    case END_LOAD_FORECASTS:
+    case BEGIN_LOAD_FORECASTS:
     case REACH_FORECAST_REQ_LIMIT:
     case FAIL_TO_RECEIVE_FORECAST:
     case REQUEST_FORECAST:
@@ -96,9 +98,9 @@ function errorLog(state = {}, { type, countyName, message }) {
 
 function isFetching(state = false, { type }) {
   switch (type) {
-    case BEGIN_FETCH:
+    case BEGIN_LOAD_FORECASTS:
       return true;
-    case END_FETCH:
+    case END_LOAD_FORECASTS:
       return false;
     default:
       return state;

@@ -22,8 +22,9 @@ export default class ForecastChart extends Component {
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
-  shouldComponentUpdate({ highlighted, aggregateActiveForecastSeries }) {
-    return !isEqual(highlighted, this.props.highlighted)
+  shouldComponentUpdate({ isFetching, highlighted, aggregateActiveForecastSeries }) {
+    return isFetching !== this.props.isFetching
+      || !isEqual(highlighted, this.props.highlighted)
       || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)
   }
 

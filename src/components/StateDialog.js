@@ -50,12 +50,12 @@ class StateDialog extends PureComponent {
   }
 
   render() {
-    const { isOpen, activeStates, ...rest } = this.props;
+    const { isOpen, activeStates } = this.props;
     const { selectedValue } = this.state;
     return (
       <MuiThemeProvider>
         <Dialog
-          {...rest}
+          // {...rest}
           open={isOpen}
           onEntering={this.onEntering}>
           <DialogTitle>Select a state</DialogTitle>
