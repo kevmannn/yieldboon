@@ -26,7 +26,7 @@ export default class DialogInitiator extends PureComponent {
     return (
       <div style={{ float: 'right', margin: '15px'  }}>
         <MuiThemeProvider>
-          <IconButton disabled color="accent" onClick={this.onClick}>
+          <IconButton color="accent" onClick={this.onClick}>
             <SelectStateIcon />
           </IconButton>
         </MuiThemeProvider>

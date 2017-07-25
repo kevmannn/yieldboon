@@ -31,10 +31,10 @@ export const getPayloadSubset = createSelector(
 // TODO: Account for precipForecasts becoming an object which associates { [stateName]: [ ...forecasts ] }.
 // Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
 export const getActiveForecasts = createSelector(
-  [getBlacklist, getPrecipForecasts, getPayloadSubset],
-  (blacklist, precipForecasts, payloadSubset) => (
+  [getBlacklist, getPrecipForecasts, getPayloadSubset, getSelectedState],
+  (blacklist, precipForecasts, payloadSubset, selectedState) => (
     precipForecasts
-      .filter(({ id }) => blacklist.indexOf(id) === -1)
+      .filter(({ id, stateAbbr }) => !blacklist.includes(id) && selectedState === stateAbbr)
       .map(({ countyName, ...rest }) => {
         const correlatedPayload = payloadSubset.find(({ countyName: name }) => name === countyName);
         return {

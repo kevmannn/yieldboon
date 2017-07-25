@@ -47,13 +47,14 @@ export default (state = { blacklist: [], precipForecasts: [] }, action) => {
   }
 }
 
-function precipForecasts(state = [], { type, id, countyName, coords, series }) {
+function precipForecasts(state = [], { type, id, countyName, stateAbbr, coords, series }) {
   switch (type) {
     case RECEIVE_FORECAST:
       return [
         ...state.filter(isForecastForToday),
         {
           countyName,
+          stateAbbr,
           coords,
           series,
           id,
@@ -73,9 +74,10 @@ function errorLog(state = {}, { type, countyName, message }) {
         reachedLimitAt: Date.now()
       }
     case FAIL_TO_RECEIVE_FORECAST:
+      const previousMessages = state[countyName] || [];
       return {
         ...state,
-        [countyName]: [ ...state[countyName], message ]
+        [countyName]: [ ...previousMessages, message ]
       }
     case RECEIVE_FORECAST:
       // If it exists, remove the key corresponding to the received countyName.

@@ -30,13 +30,11 @@ export default class ForecastSynopsis extends PureComponent {
     }
   }
 
-  totals = Object.keys(this.props.forecastTotals).reverse();
-
   render() {
     const { highlighted, forecastTotals } = this.props;
     return (
       <div>
-        {this.totals.map((key, i) => (
+        {Object.keys(forecastTotals).reverse().map((key, i) => (
           <div
             key={i}
             style={{

@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Button from 'material-ui/Button';
+import IconButton from 'material-ui/IconButton';
+import CloseIcon from 'material-ui-icons/Close';
+import DoneIcon from 'material-ui-icons/Done';
 import { MuiThemeProvider } from 'material-ui/styles';
 import { FormControlLabel } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
@@ -18,12 +20,13 @@ class StateDialog extends PureComponent {
     onRequestClose: PropTypes.func.isRequired,
     // Provided via connect:
     activeStates: PropTypes.object.isRequired,
+    selectedState: PropTypes.string.isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedValue: null
+      selectedValue: props.selectedState
     }
   }
 
@@ -34,7 +37,9 @@ class StateDialog extends PureComponent {
   };
 
   onCancel = () => {
-    this.props.onRequestClose();
+    const { onRequestClose, selectedState: selectedValue } = this.props;
+    this.setState({ selectedValue });
+    onRequestClose();
   };
 
   onAccept = () => {
@@ -55,10 +60,9 @@ class StateDialog extends PureComponent {
     return (
       <MuiThemeProvider>
         <Dialog
-          // {...rest}
           open={isOpen}
           onEntering={this.onEntering}>
-          <DialogTitle>Select a state</DialogTitle>
+          <DialogTitle>Filter forecasts by state</DialogTitle>
           <DialogContent>
             <RadioGroup
               name="states"
@@ -71,7 +75,7 @@ class StateDialog extends PureComponent {
                   value={stateAbbr}
                   label={
                     <p style={{ fontFamily: 'Noto Sans', fontSize: '0.8em', color: '#151b2d' }}>
-                      {stateAbbr} <span style={{ opacity: '0.5' }}>
+                      {stateAbbr} <span style={{ opacity: '0.3' }}>
                         {`(${activeStates[stateAbbr]} bu)`}
                       </span>
                     </p>
@@ -81,8 +85,12 @@ class StateDialog extends PureComponent {
             </RadioGroup>
           </DialogContent>
           <DialogActions>
-            <Button raised onClick={this.onCancel}>cancel</Button>
-            <Button raised onClick={this.onAccept}>accept</Button>
+            <IconButton onClick={this.onCancel}>
+              <CloseIcon />
+            </IconButton>
+            <IconButton color="accent" onClick={this.onAccept}>
+              <DoneIcon />
+            </IconButton>
           </DialogActions>
         </Dialog>
       </MuiThemeProvider>
@@ -92,7 +100,8 @@ class StateDialog extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    activeStates: selectors.getActiveStates(state)
+    activeStates: selectors.getActiveStates(state),
+    selectedState: selectors.getSelectedState(state)
   }
 }
 

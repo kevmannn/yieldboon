@@ -8,7 +8,7 @@ describe('forecasts reducer', () => {
     })
   })
 
-  it('only contains non-stale forecasts', () => {})
+  it('effectively only contains forecasts for today', () => {})
 
   it('contains all previously fetched forecasts', () => {})
 })

@@ -76,9 +76,10 @@ const requestForecast = (countyName) => ({
   countyName
 })
 
-const receiveForecast = ({ countyName, coords, series }) => ({
+const receiveForecast = ({ countyName, stateAbbr, coords, series }) => ({
   type: RECEIVE_FORECAST,
   countyName,
+  stateAbbr,
   coords,
   series,
   id: v4()
@@ -104,12 +105,13 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
     )
     .then(({ lat, lng }) => ({
       countyName,
+      stateAbbr,
       coords: { lat, lng }
     }))
 }
 
 const today = moment().format('YYYY-MM-DDTHH:mm:ss');
-const fetchForecast = ({ countyName, coords }, time = today) => (dispatch) => {
+const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (dispatch) => {
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
@@ -130,7 +132,7 @@ const fetchForecast = ({ countyName, coords }, time = today) => (dispatch) => {
           z
         }))
 
-      dispatch(receiveForecast({ countyName, coords, series }));
+      dispatch(receiveForecast({ countyName, stateAbbr, coords, series }));
     })
 }
 
@@ -141,10 +143,10 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
   // TODO: Check reachedLimitAt time...
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
-      .then(({ countyName, coords }) => {
+      .then(({ countyName, stateAbbr, coords }) => {
         // TODO: Chain request (fetch previous day).
         if (coords.lat && coords.lng) {
-          return dispatch(fetchForecast({ countyName, coords }, undefined));
+          return dispatch(fetchForecast({ countyName, stateAbbr, coords }));
         }
       })
   } else {
