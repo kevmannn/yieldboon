@@ -3,6 +3,8 @@ import { REHYDRATE } from 'redux-persist/constants';
 // import { handle } from 'redux-pack';
 
 import {
+  END_FETCH,
+  BEGIN_FETCH,
   REQUEST_FORECAST,
   RECEIVE_FORECAST,
   SET_FORECAST_FILTER,
@@ -94,10 +96,9 @@ function errorLog(state = {}, { type, countyName, message }) {
 
 function isFetching(state = false, { type }) {
   switch (type) {
-    case REQUEST_FORECAST:
+    case BEGIN_FETCH:
       return true;
-    case RECEIVE_FORECAST:
-    case FAIL_TO_RECEIVE_FORECAST:
+    case END_FETCH:
       return false;
     default:
       return state;

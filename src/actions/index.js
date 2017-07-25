@@ -6,6 +6,8 @@ import capitalize from 'lodash/capitalize';
 
 import { USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constants';
 
+export const END_FETCH = 'END_FETCH';
+export const BEGIN_FETCH = 'BEGIN_FETCH';
 export const SELECT_STATE = 'SELECT_STATE';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
@@ -23,6 +25,14 @@ export const selectState = (stateName) => ({
 export const setForecastFilter = (blacklist) => ({
   type: SET_FORECAST_FILTER,
   blacklist
+})
+
+export const endFetch = () => ({
+  type: END_FETCH
+})
+
+export const beginFetch = () => ({
+  type: BEGIN_FETCH
 })
 
 const requestSoybeanProduction = () => ({
@@ -144,6 +154,10 @@ const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState
 
 export const loadForecasts = (payloadSubset) => (dispatch) => {
   nprogress.start();
+  dispatch(beginFetch());
   Promise.all(payloadSubset.map(county => dispatch(fetchForecastIfNeeded(county))))
-    .then(() => nprogress.done())
+    .then(() => {
+      dispatch(endFetch());
+      nprogress.done();
+    })
 }

@@ -21,6 +21,16 @@ body {
   fill: #252938;
 }
 
+.loader {
+  font-weight: 300;
+  display: block;
+  text-align: center;
+  margin: 0px auto;
+  width: 50%;
+  padding: 200px;
+  font-size: 1em;
+}
+
 #nprogress {
   pointer-events: none;
 }

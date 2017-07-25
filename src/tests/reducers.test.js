@@ -1,5 +1,4 @@
 import forecasts from '../reducers/forecasts';
-// import soybeanProduction from '../reducers/soybeanProduction';
 
 describe('forecasts reducer', () => {
   it('has default state', () => {
