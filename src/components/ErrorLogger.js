@@ -10,7 +10,7 @@ import * as selectors from '../selectors';
 
 class ErrorLogger extends PureComponent {
   static propTypes = {
-    errorLogMessages: PropTypes.arrayOf(PropTypes.string)
+    errorLogMessages: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -28,7 +28,7 @@ class ErrorLogger extends PureComponent {
   };
 
   render() {
-    const { errorLogMessages } = this.props;
+    // const { errorLogMessages } = this.props;
     const { isOpen, message } = this.state;
     return (
       <MuiThemeProvider>
