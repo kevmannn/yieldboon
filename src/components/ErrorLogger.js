@@ -10,7 +10,7 @@ import * as selectors from '../selectors';
 
 class ErrorLogger extends PureComponent {
   static propTypes = {
-    errorLogMessages: PropTypes.object.isRequired
+    errorLogMessages: PropTypes.arrayOf(PropTypes.string).isRequired
   };
 
   constructor(props) {

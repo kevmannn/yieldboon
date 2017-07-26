@@ -16,10 +16,8 @@ describe('forecast selectors', () => {
   })
 
   it('can derive errorLogMessages from state', () => {
-    expect(selectors.getErrorLogMessages(emptyState)).toEqual({ messages: [] });
-    expect(selectors.getErrorLogMessages(fullState)).toEqual(expect.objectContaining({
-      messages: expect.arrayContaining(['abyssal', 'doom'])
-    }))
+    expect(selectors.getErrorLogMessages(emptyState)).toEqual([]);
+    expect(selectors.getErrorLogMessages(fullState)).toEqual(['abyssal', 'doom']);
   })
 
   it('can derive activeStates from state', () => {
