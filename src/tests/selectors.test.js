@@ -4,6 +4,7 @@ const emptyState = {
   selectedState: '',
   soybeanProduction: {},
   forecasts: {
+    errorLog: {},
     blacklist: [],
     precipForecasts: []
   }
@@ -19,6 +20,10 @@ describe('forecast selectors', () => {
       }]
     },
     forecasts: {
+      errorLog: {
+        x: { stateAbbr: 'CA', messages: ['abyssal'] },
+        y: { stateAbbr: 'CA', messages: ['doom'] }
+      },
       blacklist: [],
       precipForecasts: [
         {
@@ -59,6 +64,13 @@ describe('forecast selectors', () => {
       { i: 0, x: expect.any(Number), y: 0.015 },
       { i: 1, x: expect.any(Number), y: 0.165 }
     ])
+  })
+
+  it('can derive errorLogMessages from state', () => {
+    expect(selectors.getErrorLogMessages(emptyState)).toEqual({ messages: [] });
+    expect(selectors.getErrorLogMessages(fullState)).toEqual(expect.objectContaining({
+      messages: expect.arrayContaining(['abyssal', 'doom'])
+    }))
   })
 
   it('can derive activeStates from state', () => {

@@ -16,8 +16,8 @@ export const getErrorLogMessages = createSelector(
     Object.keys(errorLog)
       .filter(key => errorLog[key].stateAbbr === selectedState)
       .reduce((acc, keyBelongingToSelectedState) => ({
-        messages: [...acc.messages, errorLog[keyBelongingToSelectedState].messages]
-      }), {})
+        messages: [...acc.messages, ...errorLog[keyBelongingToSelectedState].messages]
+      }), { messages: [] })
   )
 )
 
