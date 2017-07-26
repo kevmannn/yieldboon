@@ -1,61 +1,10 @@
 import * as selectors from '../selectors';
-
-const emptyState = {
-  selectedState: '',
-  soybeanProduction: {},
-  forecasts: {
-    errorLog: {},
-    blacklist: [],
-    precipForecasts: []
-  }
-}
+import { emptyState, fullState } from './utils';
 
 describe('forecast selectors', () => {
-  const fullState = {
-    selectedState: 'CA',
-    soybeanProduction: {
-      payload: [{
-        stateAbbr: 'CA',
-        soybeanYield: 1e7
-      }]
-    },
-    forecasts: {
-      errorLog: {
-        x: { stateAbbr: 'CA', messages: ['abyssal'] },
-        y: { stateAbbr: 'CA', messages: ['doom'] }
-      },
-      blacklist: [],
-      precipForecasts: [
-        {
-          id: 1,
-          coords: {},
-          countyName: 'x',
-          stateAbbr: 'CA',
-          lastUpdated: Date.now(),
-          series: [
-            { i: 0, x: Date.now(), y: 0.01 },
-            { i: 1, x: Date.now(), y: 0.11 }
-          ]
-        },
-        {
-          id: 2,
-          coords: {},
-          countyName: 'y',
-          stateAbbr: 'CA',
-          lastUpdated: Date.now(),
-          series: [
-            { i: 0, x: Date.now(), y: 0.02 },
-            { i: 1, x: Date.now(), y: 0.22 }
-          ]
-        },
-      ]
-    }
-  }
-
-  const { precipForecasts } = fullState.forecasts;
   it('can derive activeForecasts from state', () => {
     expect(selectors.getActiveForecasts(emptyState)).toEqual([]);
-    expect(selectors.getActiveForecasts(fullState)).toEqual(precipForecasts);
+    expect(selectors.getActiveForecasts(fullState)).toEqual(fullState.forecasts.precipForecasts);
   })
 
   it('can derive aggregateActiveForecastSeries from state', () => {
