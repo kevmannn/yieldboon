@@ -8,7 +8,6 @@ import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
-    // errorLog: PropTypes.object.isRequired,
     isFetching: PropTypes.bool,
     seriesExtremes: PropTypes.array.isRequired,
     forecastTotals: PropTypes.object.isRequired,
@@ -42,11 +41,9 @@ class VisualizationDyad extends PureComponent {
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
         <ForecastSynopsis
-          // errorLog={errorLog}
           highlighted={highlighted}
           forecastTotals={forecastTotals} />
         <ForecastChart
-          // errorLog={errorLog}
           isFetching={isFetching}
           highlighted={highlighted}
           onNearestX={this.onNearestX}
@@ -60,7 +57,6 @@ class VisualizationDyad extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    // errorLog: selectors.getErrorLog(state),
     isFetching: selectors.getIsFetching(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
     forecastTotals: selectors.getForecastTotals(state),

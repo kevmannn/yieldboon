@@ -6,6 +6,8 @@ import { shallow, mount } from 'enzyme';
 
 import App from '../App';
 import ForecastSynopsis from '../components/ForecastSynopsis';
+// import ForecastChart from '../components/ForecastChart';
+// import CountyRegistry from '../components/CountyRegistry';
 
 const mockStore = configureStore();
 const renderAppWithState = (state) => {
@@ -30,11 +32,18 @@ describe('app initialization', () => {
   })
 })
 
-describe.skip('ForecastSynopsis', () => {
-  const props = { highlighted: {}, forecastTotals: {} }
+describe('ForecastSynopsis', () => {
+  const props = { highlighted: {}, forecastTotals: {} };
   const forecastSynopsisWrapper = shallow(<ForecastSynopsis {...props} />);
+  expect(forecastSynopsisWrapper.find('div').children()).toHaveLength(2);
 })
 
-describe.skip('ForecastChart', () => {})
+// describe.skip('ForecastChart', () => {
+//   const props = {};
+//   const forecastChartWrapper = shallow(<ForecastChart {...props} />);
+// })
 
-describe.skip('CountyRegistry', () => {})
+// describe.skip('CountyRegistry', () => {
+//   const props = {};
+//   const forecastChartWrapper = shallow(<CountyRegistry {...props} />);
+// })

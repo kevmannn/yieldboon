@@ -30,6 +30,12 @@ class StateDialog extends PureComponent {
     }
   }
 
+  componentWillReceiveProps({ selectedState }) {
+    if (selectedState !== this.state.selectedValue) {
+      this.setState({ selectedValue: selectedState });
+    }
+  }
+
   radioGroup = null;
 
   onEntering = () => {

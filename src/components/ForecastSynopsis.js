@@ -2,12 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import lowerCase from 'lodash/lowerCase';
 
-// import ErrorLogger from './ErrorLogger';
+import ErrorLogger from './ErrorLogger';
 import DialogInitiator from './DialogInitiator';
 
 export default class ForecastSynopsis extends PureComponent {
   static propTypes = {
-    // errorLog: PropTypes.object.isRequired,
     highlighted: PropTypes.object,
     forecastTotals: PropTypes.shape({
       // timespan: PropTypes.array,
@@ -17,8 +16,6 @@ export default class ForecastSynopsis extends PureComponent {
       totalRainfall: PropTypes.func
     }).isRequired
   };
-
-  // onDismissErrorLogger = () => {};
 
   renderTotal(key) {
     const { forecastTotals } = this.props;
@@ -58,6 +55,7 @@ export default class ForecastSynopsis extends PureComponent {
           </div>
         ))}
         <DialogInitiator />
+        <ErrorLogger />
       </div>
     )
   }

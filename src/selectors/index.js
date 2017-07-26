@@ -1,13 +1,25 @@
 import { createSelector } from 'reselect';
 // import { createArraySelector } from 'reselect-map';
 
+const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
-export const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
+
+// Pull an object containing any error messages specific to the selected state.
+export const getErrorLogMessages = createSelector(
+  [getErrorLog, getSelectedState],
+  (errorLog, selectedState) => (
+    Object.keys(errorLog)
+      .filter(key => errorLog[key].stateAbbr === selectedState)
+      .reduce((acc, keyBelongingToSelectedState) => ({
+        messages: [...acc.messages, errorLog[keyBelongingToSelectedState].messages]
+      }), {})
+  )
+)
 
 // Correlate states with their total (= across all of their counties) soybean yield.
 export const getActiveStates = createSelector(

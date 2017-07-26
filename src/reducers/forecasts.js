@@ -77,7 +77,7 @@ function errorLog(state = {}, { type, countyName, stateAbbr, message }) {
       const previousMessages = state[countyName] || [];
       return {
         ...state,
-        [countyName]: { stateAbbr, messages: [ ...previousMessages, message ] }
+        [countyName]: { stateAbbr, messages: [...previousMessages, message] }
       }
     case RECEIVE_FORECAST:
       // If it exists, remove the key corresponding to the received countyName.
