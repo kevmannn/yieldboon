@@ -14,7 +14,6 @@ const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
-    // errorLog: PropTypes.object,
     isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
@@ -53,7 +52,6 @@ export default class ForecastChart extends Component {
 
   render() {
     const {
-      // errorLog,
       isFetching,
       highlighted,
       seriesExtremes,
