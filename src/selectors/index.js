@@ -4,11 +4,11 @@ import { createSelector } from 'reselect';
 const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
-const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
+export const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(

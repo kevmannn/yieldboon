@@ -63,11 +63,11 @@ class StateDialog extends PureComponent {
   }
 
   iconStyle = {
-    height: '15px',
-    width: '15px',
+    height: '20px',
+    width: '20px',
     position: 'relative',
-    top: '3px',
-    opacity: '0.3'
+    top: '5px',
+    opacity: '0.4'
   };
 
   theme = createMuiTheme({
@@ -94,8 +94,9 @@ class StateDialog extends PureComponent {
       },
       MuiFormControlLabel: {
         label: {
+          lineHeight: '25px',
           fontFamily: 'Noto Sans',
-          fontSize: '0.8em',
+          fontSize: '0.9em',
           color: '#151b2d'
         }
       }

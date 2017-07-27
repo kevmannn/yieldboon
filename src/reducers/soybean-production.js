@@ -5,7 +5,7 @@ import {
   FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION
 } from '../actions';
 
-export default (state = {}, { type, payload }) => {
+export default (state = { didFailToFetch: false }, { type, payload }) => {
   switch (type) {
     case FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION:
       return {
