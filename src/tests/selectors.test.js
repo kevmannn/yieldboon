@@ -22,7 +22,9 @@ describe('forecast selectors', () => {
 
   it('can derive activeStates from state', () => {
     expect(selectors.getActiveStates(emptyState)).toEqual({});
-    expect(selectors.getActiveStates(fullState)).toEqual({ CA: { total: '10.00m', isCached: true } });
+    expect(selectors.getActiveStates(fullState)).toEqual({
+      CA: { total: '10.00m', isCached: true, didError: true }
+    })
   })
 
   it('can get forecast totals from state', () => {

@@ -43,12 +43,13 @@ const getYieldTotalsForStates = createSelector(
 
 // Pair yield total abbreviation with boolean indicating whether forecasts for this state have been cached.
 export const getActiveStates = createSelector(
-  [getYieldTotalsForStates, getPrecipForecasts],
-  (yieldTotals, precipForecasts) => (
+  [getYieldTotalsForStates, getPrecipForecasts, getErrorLog],
+  (yieldTotals, precipForecasts, errorLog) => (
     Object.keys(yieldTotals)
       .map((stateAbbr) => ({
         [stateAbbr]: {
           total: abbreviateInt(yieldTotals[stateAbbr]),
+          didError: !!Object.keys(errorLog).find(key => errorLog[key] && errorLog[key].stateAbbr === stateAbbr),
           isCached: !!precipForecasts.find(({ stateAbbr: state }) => state === stateAbbr)
         },
       }))

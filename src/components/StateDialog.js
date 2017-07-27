@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import DoneIcon from 'material-ui-icons/Done';
+import ErrorIcon from 'material-ui-icons/Error';
 import CachedIcon from 'material-ui-icons/FlashOn';
 import { FormControlLabel } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
@@ -61,6 +62,14 @@ class StateDialog extends PureComponent {
     this.setState({ selectedValue });
   }
 
+  iconStyle = {
+    height: '15px',
+    width: '15px',
+    position: 'relative',
+    top: '3px',
+    opacity: '0.3'
+  };
+
   theme = createMuiTheme({
     overrides: {
       MuiDialog: {
@@ -96,7 +105,6 @@ class StateDialog extends PureComponent {
   render() {
     const { isOpen, activeStates } = this.props;
     const { selectedValue } = this.state;
-    console.log(activeStates);
     return (
       <MuiThemeProvider theme={this.theme}>
         <Dialog
@@ -116,16 +124,12 @@ class StateDialog extends PureComponent {
                   label={
                     <p>{stateAbbr}
                       <span style={{ opacity: '0.4' }}>
-                        {` (${activeStates[stateAbbr].total} bu)`}
+                        {` (${activeStates[stateAbbr].total} bu) `}
                       </span>
                       {activeStates[stateAbbr].isCached
-                        ? <CachedIcon style={{
-                            height: '15px',
-                            width: '15px',
-                            position: 'relative',
-                            top: '4px',
-                            opacity: '0.2'
-                          }} />
+                        ? activeStates[stateAbbr].didError
+                          ? <ErrorIcon style={{...this.iconStyle, color: '#ff4081'}} />
+                          : <CachedIcon style={{...this.iconStyle, color: '#7795f8'}} />
                         : null}
                     </p>
                   }
