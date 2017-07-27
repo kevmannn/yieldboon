@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import DoneIcon from 'material-ui-icons/Done';
-import { MuiThemeProvider } from 'material-ui/styles';
+import CachedIcon from 'material-ui-icons/FlashOn';
 import { FormControlLabel } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
 
 import * as selectors from '../selectors';
@@ -60,11 +61,44 @@ class StateDialog extends PureComponent {
     this.setState({ selectedValue });
   }
 
+  theme = createMuiTheme({
+    overrides: {
+      MuiDialog: {
+        paper: {
+          width: '80%',
+          maxHeight: '400px'
+        }
+      },
+      MuiTypography: {
+        title: {
+          color: '#151b2d',
+          fontFamily: 'Noto Sans'
+        }
+      },
+      MuiRadio: {
+        checked: {
+          color: '#7795f8'
+        },
+        default: {
+          color: '#151b2d'
+        }
+      },
+      MuiFormControlLabel: {
+        label: {
+          fontFamily: 'Noto Sans',
+          fontSize: '0.8em',
+          color: '#151b2d'
+        }
+      }
+    }
+  });
+
   render() {
     const { isOpen, activeStates } = this.props;
     const { selectedValue } = this.state;
+    console.log(activeStates);
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={this.theme}>
         <Dialog
           open={isOpen}
           onEntering={this.onEntering}>
@@ -80,10 +114,19 @@ class StateDialog extends PureComponent {
                   key={i}
                   value={stateAbbr}
                   label={
-                    <p style={{ fontFamily: 'Noto Sans', fontSize: '0.8em', color: '#151b2d' }}>
-                      {stateAbbr} <span style={{ opacity: '0.3' }}>
-                        {`(${activeStates[stateAbbr]} bu)`}
+                    <p>{stateAbbr}
+                      <span style={{ opacity: '0.4' }}>
+                        {` (${activeStates[stateAbbr].total} bu)`}
                       </span>
+                      {activeStates[stateAbbr].isCached
+                        ? <CachedIcon style={{
+                            height: '15px',
+                            width: '15px',
+                            position: 'relative',
+                            top: '4px',
+                            opacity: '0.2'
+                          }} />
+                        : null}
                     </p>
                   }
                   control={<Radio />} />

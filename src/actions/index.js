@@ -16,6 +16,7 @@ export const FAIL_TO_RECEIVE_FORECAST = 'FAIL_TO_RECEIVE_FORECAST';
 export const REACH_FORECAST_REQ_LIMIT = 'REACH_FORECAST_REQ_LIMIT';
 export const REQUEST_SOYBEAN_PRODUCTION = 'REQUEST_SOYBEAN_PRODUCTION';
 export const RECEIVE_SOYBEAN_PRODUCTION = 'RECEIVE_SOYBEAN_PRODUCTION';
+export const FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION = 'FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION';
 
 export const selectState = (stateName) => ({
   type: SELECT_STATE,
@@ -44,11 +45,19 @@ const receiveSoybeanProduction = (payload) => ({
   payload
 })
 
+const failToReceiveSoybeanProduction = () => ({
+  type: FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION
+})
+
 const fetchSoybeanProduction = () => (dispatch) => {
   dispatch(requestSoybeanProduction());
   return fetch(USDA_URL)
     // Map the response to the values we care about and remove vaguely attributed data.
-    .then(res => res.json())
+    .then(
+      res => res.status >= 400
+        ? dispatch(failToReceiveSoybeanProduction())
+        : res.json()
+    )
     .then(({ data }) => (
       data
         .map(({ Value, state_name, state_alpha, county_name, unit_desc }) => ({

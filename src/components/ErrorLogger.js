@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import Snackbar from 'material-ui/Snackbar';
-import { MuiThemeProvider } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import * as selectors from '../selectors';
 
@@ -17,16 +17,18 @@ class ErrorLogger extends PureComponent {
     super(props);
     this.state = {
       isOpen: false,
-      message: ''
+      message: 'changing'
     }
   }
 
   componentWillReceiveProps({ isFetching, errorLogMessages }) {
     if (!isEqual(errorLogMessages, this.props.errorLogMessages)) {
+      const len = errorLogMessages.length;
       this.setState({
         message: 
-          <p style={{ fontSize: '0.8em', fontFamily: 'Noto Sans' }}>
-            Failed to load <strong style={{ color: '#ff4081' }}>{errorLogMessages.length}</strong> forecasts...
+          <p style={{ fontSize: '0.8em' }}>
+            Failed to load forecast{len > 1 ? 's' : ''} for
+            <strong style={{ color: '#ff4081' }}>{` ${len}`}</strong> {`count${len > 1 ? 'ies' : 'y'}`}...
           </p>
       })
     } else if (!isFetching && this.props.errorLogMessages.length) {
@@ -38,14 +40,25 @@ class ErrorLogger extends PureComponent {
     this.setState({ isOpen: false });
   };
 
+  theme = createMuiTheme({
+    overrides: {
+      MuiSnackbarContent: {
+        root: {
+          fontFamily: 'Noto Sans',
+          color: '#fcfdff',
+          backgroundColor: '#151b2d'
+        }
+      }
+    }
+  });
+
   render() {
     const { isOpen, message } = this.state;
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={this.theme}>
         <Snackbar
           open={isOpen}
           message={message}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           onRequestClose={this.onRequestClose} />
       </MuiThemeProvider>
     )

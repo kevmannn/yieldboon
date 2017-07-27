@@ -5,6 +5,7 @@ const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
+// const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
@@ -21,9 +22,17 @@ export const getErrorLogMessages = createSelector(
   )
 )
 
+// Filter soybeanProduction payload for entities that are within the selectedState.
+export const getPayloadSubset = createSelector(
+  [getSelectedState, getSoybeanProductionPayload],
+  (selectedState, payload = []) => (
+    payload.filter(({ stateAbbr }) => stateAbbr === selectedState)
+  )
+)
+
 // Correlate states with their total (= across all of their counties) soybean yield.
-export const getActiveStates = createSelector(
-  [getSoybeanProductionPayload],
+const getYieldTotalsForStates = createSelector(
+  getSoybeanProductionPayload,
   (payload = []) => (
     payload.reduce((acc, { stateAbbr, soybeanYield }) => ({
       ...acc,
@@ -32,11 +41,18 @@ export const getActiveStates = createSelector(
   )
 )
 
-// Filter soybeanProduction payload for entities that are within the selectedState.
-export const getPayloadSubset = createSelector(
-  [getSelectedState, getSoybeanProductionPayload],
-  (selectedState, payload = []) => (
-    payload.filter(({ stateAbbr }) => stateAbbr === selectedState)
+// Pair yield total abbreviation with boolean indicating whether forecasts for this state have been cached.
+export const getActiveStates = createSelector(
+  [getYieldTotalsForStates, getPrecipForecasts],
+  (yieldTotals, precipForecasts) => (
+    Object.keys(yieldTotals)
+      .map((stateAbbr) => ({
+        [stateAbbr]: {
+          total: abbreviateInt(yieldTotals[stateAbbr]),
+          isCached: !!precipForecasts.find(({ stateAbbr: state }) => state === stateAbbr)
+        },
+      }))
+      .reduce((acc, correlation) => ({...acc, ...correlation}), {})
   )
 )
 

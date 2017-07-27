@@ -1,16 +1,20 @@
 // import { fromJS } from 'immutable';
-import { REQUEST_SOYBEAN_PRODUCTION, RECEIVE_SOYBEAN_PRODUCTION } from '../actions';
+import {
+  // REQUEST_SOYBEAN_PRODUCTION,
+  RECEIVE_SOYBEAN_PRODUCTION,
+  FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION
+} from '../actions';
 
 export default (state = {}, { type, payload }) => {
   switch (type) {
-    case REQUEST_SOYBEAN_PRODUCTION:
+    case FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION:
       return {
-        isFetching: true
+        didFailToFetch: true
       }
     case RECEIVE_SOYBEAN_PRODUCTION:
       return {
         payload,
-        isFetching: false,
+        didFailToFetch: false,
         lastUpdated: Date.now()
       }
     default:
