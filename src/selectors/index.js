@@ -61,7 +61,7 @@ export const getActiveStates = createSelector(
 // Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
 export const getActiveForecasts = createSelector(
   [getDisallowedIds, getPrecipForecasts, getPayloadSubset, getSelectedState],
-  (disallowedIds, precipForecasts, payloadSubset, selectedState) => (
+  (disallowedIds = [], precipForecasts, payloadSubset, selectedState) => (
     precipForecasts
       .filter(({ id, stateAbbr }) => !disallowedIds.includes(id) && selectedState === stateAbbr)
       .map(({ countyName, ...rest }) => {
@@ -103,8 +103,8 @@ export const getActiveCounties = createSelector(
       ? forecasts.map(({ id, countyName, soybeanYield, series }) => ({
           id,
           countyName,
-          soybeanYield,
-          totalRainfall: series.reduce((acc, { y }) => acc + y, 0)
+          soybeanYield: abbreviateInt(soybeanYield),
+          totalRainfall: series.reduce((acc, { y }) => acc + y, 0).toFixed(2)
         }))
       : []
   )

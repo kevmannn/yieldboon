@@ -4,8 +4,8 @@ import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 
-import { fullState } from './utils';
 import App from '../App';
+import { fullState } from './utils';
 import * as selectors from '../selectors';
 import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
@@ -14,7 +14,7 @@ import ForecastChart from '../components/ForecastChart';
 const mockStore = configureStore();
 const renderAppWithState = (state) => {
   const store = mockStore(state);
-  const appWrapper =  mount(
+  const appWrapper = mount(
     <BrowserRouter>
       <App store={store} />
     </BrowserRouter>

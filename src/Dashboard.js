@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // import AsyncComponent from './components/AsyncComponent';
 import * as selectors from './selectors';
-// import CountyRegistry from './components/CountyRegistry';
+import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
 import { loadForecasts, fetchSoybeanProductionIfNeeded } from './actions';
 
@@ -33,12 +33,14 @@ class Dashboard extends PureComponent {
   }
 
   render() {
-    // const { selectedState, didFailToFetch } = this.props;
+    const { selectedState, didFailToFetch } = this.props;
     return (
-      <div>
-        <VisualizationDyad />
-        {/*<CountyRegistry selectedState={selectedState} />*/}
-      </div>
+      didFailToFetch
+        ? <div className="buffer error">Something went wrong...</div>
+        : <div>
+            <VisualizationDyad />
+            <CountyRegistry selectedState={selectedState} />
+          </div>
     )
   }
 }

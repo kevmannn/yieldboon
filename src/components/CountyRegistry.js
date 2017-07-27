@@ -41,7 +41,19 @@ class CountyRegistry extends PureComponent {
         root: {}
       },
       MuiTableRow: {
-        root: {}
+        root: {
+          fontFamily: 'Noto Sans',
+          fontSize: '0.8em',
+          color: '#151b2d'
+        }
+      },
+      MuiCheckbox: {
+        checked: {
+          color: '#7795f8'
+        },
+        default: {
+          color: '#7795f8'
+        }
       }
     }
   });
@@ -52,14 +64,14 @@ class CountyRegistry extends PureComponent {
     return (
       <div style={{
         margin: '10px',
-        height: '340px',
+        minHeight: '100px',
         display: 'block',
         padding: '10px',
         position: 'relative',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
         {isFetching
-          ? <div className="buffer load">loading...</div>
+          ? null
           : <MuiThemeProvider theme={this.theme}>
             <Table>
               <TableHead></TableHead>
