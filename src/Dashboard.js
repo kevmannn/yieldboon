@@ -15,7 +15,7 @@ class Dashboard extends PureComponent {
     // Provided via connect:
     selectedState: PropTypes.string.isRequired,
     payloadSubset: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // didFailToFetch: PropTypes.bool.isRequired
+    didFailToFetch: PropTypes.bool.isRequired
   };
 
   componentWillMount() {
@@ -33,7 +33,7 @@ class Dashboard extends PureComponent {
   }
 
   render() {
-    // const { selectedState } = this.props;
+    // const { selectedState, didFailToFetch } = this.props;
     return (
       <div>
         <VisualizationDyad />
@@ -47,7 +47,7 @@ function mapStateToProps(state) {
   return {
     selectedState: selectors.getSelectedState(state),
     payloadSubset: selectors.getPayloadSubset(state),
-    // didFailToFetch: selectedState.getDidFailToFetch(state)
+    didFailToFetch: selectedState.getDidFailToFetch(state)
   }
 }
 

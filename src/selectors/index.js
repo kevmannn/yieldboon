@@ -4,8 +4,8 @@ import { createSelector } from 'reselect';
 const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
+const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
-// const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;

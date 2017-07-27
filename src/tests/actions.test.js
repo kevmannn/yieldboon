@@ -8,8 +8,6 @@ import { FORECAST_URL, FORECAST_API_KEY } from '../constants';
 
 const mockStore = configureStore([thunk]);
 
-describe.skip('state selection action creators', () => {})
-
 describe.skip('forecast action creators', () => {
   let forecasts;
   const store = mockStore({});

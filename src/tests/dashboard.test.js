@@ -1,23 +1,23 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+// import toJson from 'enzyme-to-json';
 import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 
+import { fullState } from './utils';
 import App from '../App';
+import * as selectors from '../selectors';
 import ForecastSynopsis from '../components/ForecastSynopsis';
-// import ForecastChart from '../components/ForecastChart';
+import ForecastChart from '../components/ForecastChart';
 // import CountyRegistry from '../components/CountyRegistry';
 
 const mockStore = configureStore();
 const renderAppWithState = (state) => {
   const store = mockStore(state);
   const appWrapper =  mount(
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <App store={store} />
+    </BrowserRouter>
   )
 
   return [store, appWrapper];
@@ -33,17 +33,24 @@ describe('app initialization', () => {
 })
 
 describe('ForecastSynopsis', () => {
-  const props = { highlighted: {}, forecastTotals: {} };
+  const props = {
+    highlighted: null,
+    forecastTotals: selectors.getForecastTotals(fullState)
+  }
   const forecastSynopsisWrapper = shallow(<ForecastSynopsis {...props} />);
-  expect(forecastSynopsisWrapper.find('div').children()).toHaveLength(2);
+  expect(forecastSynopsisWrapper.find('div').children()).toHaveLength(14);
 })
 
-// describe.skip('ForecastChart', () => {
-//   const props = {};
-//   const forecastChartWrapper = shallow(<ForecastChart {...props} />);
-// })
+describe('ForecastChart', () => {
+  const props = {
+    isFetching: false,
+    onNearestX: jest.fn(),
+    seriesExtremes: selectors.getSeriesExtremes(fullState),
+    inclementForecasts: selectors.getInclementForecasts(fullState),
+    aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(fullState)
+  }
+  const forecastChartWrapper = shallow(<ForecastChart {...props} />);
+  expect(forecastChartWrapper.find('FlexibleXYPlot')).toBeTruthy();
+})
 
-// describe.skip('CountyRegistry', () => {
-//   const props = {};
-//   const forecastChartWrapper = shallow(<CountyRegistry {...props} />);
-// })
+describe.skip('CountyRegistry', () => {})

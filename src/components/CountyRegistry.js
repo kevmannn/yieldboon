@@ -17,8 +17,7 @@ class CountyRegistry extends PureComponent {
   static propTypes = {
     selectedState: PropTypes.string.isRequired,
     // Provided via connect:
-    // errorLog: PropTypes.object,
-    // isFetching: PropTypes.bool,
+    isFetching: PropTypes.bool,
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
@@ -77,8 +76,7 @@ class CountyRegistry extends PureComponent {
 
 function mapStateToProps(state) {
   return {
-    // errorLog: selectors.getErrorLog(state),
-    // isFetching: selectors.getIsFetching(state),
+    isFetching: selectors.getIsFetching(state),
     activeCounties: selectors.getActiveCounties(state)
   }
 }
