@@ -3,7 +3,7 @@ export const emptyState = {
   soybeanProduction: {},
   forecasts: {
     errorLog: {},
-    blacklist: [],
+    disallowedIds: [],
     precipForecasts: []
   }
 }
@@ -21,7 +21,7 @@ export const fullState = {
       x: { stateAbbr: 'CA', messages: ['abyssal'] },
       y: { stateAbbr: 'CA', messages: ['doom'] }
     },
-    blacklist: [],
+    disallowedIds: [],
     precipForecasts: [
       {
         id: 1,

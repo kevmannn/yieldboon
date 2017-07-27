@@ -23,9 +23,9 @@ export const selectState = (stateName) => ({
   stateName
 })
 
-export const setForecastFilter = (blacklist) => ({
+export const setForecastFilter = (disallowedIds) => ({
   type: SET_FORECAST_FILTER,
-  blacklist
+  disallowedIds
 })
 
 export const endLoadForecasts = () => ({
@@ -72,7 +72,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
     .then(payload => dispatch(receiveSoybeanProduction(payload)))
 }
 
-// Pull soybean production data from usda.gov if inexistent or stale.
+// Fetch soybean production data from usda.gov if inexistent or stale.
 export const fetchSoybeanProductionIfNeeded = () => (dispatch, getState) => {
   const { lastUpdated } = getState().soybeanProduction;
   if (!lastUpdated || moment(lastUpdated).unix() < moment().startOf('year').unix()) {

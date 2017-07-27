@@ -3,7 +3,7 @@ import forecasts from '../reducers/forecasts';
 describe('forecasts reducer', () => {
   it('has default state', () => {
     expect(forecasts(undefined, {})).toEqual({
-      blacklist: [],
+      disallowedIds: [],
       precipForecasts: []
     })
   })

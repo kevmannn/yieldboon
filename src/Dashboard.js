@@ -33,7 +33,7 @@ class Dashboard extends PureComponent {
   }
 
   render() {
-    // const { selectedState } = this.props;
+    // const { selectedState, didFailToFetch } = this.props;
     return (
       <div>
         <VisualizationDyad />

@@ -14,13 +14,13 @@ import {
 
 const isForecastForToday = ({ lastUpdated }) => moment(lastUpdated).unix() > moment().startOf('day').unix();
 
-export default (state = { blacklist: [], precipForecasts: [] }, action) => {
-  const { type, blacklist = [], payload = {} } = action;
+export default (state = { disallowedIds: [], precipForecasts: [] }, action) => {
+  const { type, disallowedIds = [], payload = {} } = action;
   switch (type) {
     case SET_FORECAST_FILTER:
       return {
         ...state,
-        blacklist
+        disallowedIds
       }
     // Remove any cached forecasts that have become stale.
     case REHYDRATE:

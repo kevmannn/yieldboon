@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 // import { createArraySelector } from 'reselect-map';
 
 const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
-const getBlacklist = ({ forecasts: { blacklist } }) => blacklist;
+const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
@@ -60,10 +60,10 @@ export const getActiveStates = createSelector(
 // TODO: Account for precipForecasts becoming an object which associates { [stateName]: [ ...forecasts ] }.
 // Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
 export const getActiveForecasts = createSelector(
-  [getBlacklist, getPrecipForecasts, getPayloadSubset, getSelectedState],
-  (blacklist, precipForecasts, payloadSubset, selectedState) => (
+  [getDisallowedIds, getPrecipForecasts, getPayloadSubset, getSelectedState],
+  (disallowedIds, precipForecasts, payloadSubset, selectedState) => (
     precipForecasts
-      .filter(({ id, stateAbbr }) => !blacklist.includes(id) && selectedState === stateAbbr)
+      .filter(({ id, stateAbbr }) => !disallowedIds.includes(id) && selectedState === stateAbbr)
       .map(({ countyName, ...rest }) => {
         const correlatedPayload = payloadSubset.find(({ countyName: name }) => name === countyName);
         return {
