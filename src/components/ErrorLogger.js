@@ -10,6 +10,7 @@ import * as selectors from '../selectors';
 class ErrorLogger extends PureComponent {
   static propTypes = {
     isFetching: PropTypes.bool,
+    didReachReqLimit: PropTypes.bool,
     errorLogMessages: PropTypes.arrayOf(PropTypes.string).isRequired
   };
 
@@ -21,6 +22,7 @@ class ErrorLogger extends PureComponent {
     }
   }
 
+  // TODO: didReachReqLimit implementation
   componentWillReceiveProps({ isFetching, errorLogMessages }) {
     if (!isEqual(errorLogMessages, this.props.errorLogMessages)) {
       const len = errorLogMessages.length;
@@ -68,6 +70,7 @@ class ErrorLogger extends PureComponent {
 function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
+    didReachReqLimit: selectors.getDidReachReqLimit(state),
     errorLogMessages: selectors.getErrorLogMessages(state)
   }
 }

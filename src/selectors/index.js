@@ -9,6 +9,7 @@ const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payl
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
 export const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
+export const getDidReachReqLimit = ({ forecasts: { errorLog } }) => errorLog && errorLog.didReachReqLimit;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(
@@ -104,7 +105,7 @@ export const getActiveCounties = createSelector(
           id,
           countyName,
           soybeanYield: abbreviateInt(soybeanYield),
-          totalRainfall: series.reduce((acc, { y }) => acc + y, 0).toFixed(2)
+          totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`
         }))
       : []
   )

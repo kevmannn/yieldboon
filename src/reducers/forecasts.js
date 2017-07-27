@@ -71,7 +71,7 @@ function errorLog(state = {}, { type, countyName, stateAbbr, message }) {
     case REACH_FORECAST_REQ_LIMIT:
       return {
         ...state,
-        reachedLimitAt: Date.now()
+        didReachReqLimit: true
       }
     case FAIL_TO_RECEIVE_FORECAST:
       const previousMessages = state[countyName] || [];
@@ -91,7 +91,7 @@ function errorLog(state = {}, { type, countyName, stateAbbr, message }) {
             }), {})
       return {
         ...stateWithErroredCounties,
-        reachedLimitAt: null
+        didReachReqLimit: false
       }
     default:
       return state;

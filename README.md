@@ -35,6 +35,9 @@ Frontend
 ### Chasing down bugs related to working with cached state
 > ...
 
+### Not letting focus on implementation quietly overrule purpose
+> ...
+
 ### Imagining what would bring the most utility to an agriculturally-minded user
 > ...
 

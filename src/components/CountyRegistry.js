@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import lowerCase from 'lodash/lowerCase';
 import { connect } from 'react-redux';
 import Table, {
   TableRow,
@@ -28,9 +29,11 @@ class CountyRegistry extends PureComponent {
     }
   }
 
-  onClick = (id) => {};
+  onChange = (id) => {
+    console.log(id);
+  };
 
-  onSelectAllClick = () => {
+  onSelectAll = () => {
     const selectedCountyIds = this.props.activeCounties.map(({ id }) => id);
     this.setState({ selectedCountyIds });
   };
@@ -38,7 +41,15 @@ class CountyRegistry extends PureComponent {
   theme = createMuiTheme({
     overrides: {
       MuiTable: {
-        root: {}
+        root: {
+          // height: '200px',
+          // overflow: 'scroll'
+        }
+      },
+      MuiTableHead: {
+        root: {
+          color: '#1c243d',
+        }
       },
       MuiTableRow: {
         root: {
@@ -74,24 +85,37 @@ class CountyRegistry extends PureComponent {
           ? null
           : <MuiThemeProvider theme={this.theme}>
             <Table>
-              <TableHead></TableHead>
+              <TableHead>
+                <TableRow>
+                  <TableCell checkbox>
+                    <Checkbox onChange={this.onSelectAll} />
+                  </TableCell>
+                  {!activeCounties.length
+                    ? null
+                    : Object.keys(activeCounties[0]).slice(1).map((key, i) => (
+                        <TableCell key={i}>
+                          {lowerCase(key)}
+                        </TableCell>
+                      ))}
+                </TableRow>
+              </TableHead>
               <TableBody>
-                {activeCounties.slice(0, 2).map(({ id, countyName, soybeanYield, totalRainfall }) => (
+                {activeCounties.slice(0, 3).map(({ id, countyName, soybeanYield, totalRainfall }) => (
                   <TableRow
                     key={id}
                     selected={false}>
-                    <TableCell
-                      checkbox
-                      onClick={id => this.onClick(id)}>
-                      <Checkbox checked={true} />
+                    <TableCell checkbox>
+                      <Checkbox
+                        checked={false}
+                        onChange={() => this.onChange(id)} />
                     </TableCell>
                     <TableCell>
                       {countyName}
                     </TableCell>
-                    <TableCell numeric>
+                    <TableCell>
                       {soybeanYield}
                     </TableCell>
-                    <TableCell numeric>
+                    <TableCell>
                       {totalRainfall}
                     </TableCell>
                   </TableRow>

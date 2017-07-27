@@ -78,6 +78,11 @@ class StateDialog extends PureComponent {
           maxHeight: '400px'
         }
       },
+      MuiBackdrop: {
+        root: {
+          backgroundColor: 'rgba(7, 9, 15, 0.8)'
+        }
+      },
       MuiTypography: {
         title: {
           color: '#151b2d',
