@@ -11,6 +11,7 @@ class VisualizationDyad extends PureComponent {
     isFetching: PropTypes.bool,
     seriesExtremes: PropTypes.array.isRequired,
     forecastTotals: PropTypes.object.isRequired,
+    activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired,
     inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
@@ -32,6 +33,7 @@ class VisualizationDyad extends PureComponent {
       isFetching,
       seriesExtremes,
       forecastTotals,
+      activeCounties,
       inclementForecasts,
       aggregateActiveForecastSeries
     } = this.props;
@@ -42,6 +44,7 @@ class VisualizationDyad extends PureComponent {
       }}>
         <ForecastSynopsis
           highlighted={highlighted}
+          activeCounties={activeCounties}
           forecastTotals={forecastTotals} />
         <ForecastChart
           isFetching={isFetching}
@@ -60,6 +63,7 @@ function mapStateToProps(state) {
     isFetching: selectors.getIsFetching(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
     forecastTotals: selectors.getForecastTotals(state),
+    activeCounties: selectors.getActiveCounties(state),
     inclementForecasts: selectors.getInclementForecasts(state),
     aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(state)
   }  

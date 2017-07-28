@@ -23,9 +23,10 @@ export const selectState = (stateName) => ({
   stateName
 })
 
-export const setForecastFilter = (disallowedIds) => ({
+export const setForecastFilter = ({ hiddenIds, revealedIds }) => ({
   type: SET_FORECAST_FILTER,
-  disallowedIds
+  hiddenIds,
+  revealedIds
 })
 
 export const endLoadForecasts = () => ({

@@ -49,11 +49,7 @@ Frontend
 * Much thinking can be contingent on (apparent) API limitations and assumptions about their response formats.
 
 ## Future (in order of priority):
-* The ability to retry failed forecast requests (and better error handling in general).
-
 * Better test coverage.
-
-* Indicate which of the selectable states have cached forecasts.
 
 * Use [Redux-pack](https://github.com/lelandrichardson/redux-pack) or [Redux-loop](https://github.com/redux-loop/redux-loop) to bring increased neatness / extensibility / sanity to async actions.
 

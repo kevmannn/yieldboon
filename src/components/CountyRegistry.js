@@ -19,31 +19,37 @@ class CountyRegistry extends PureComponent {
     selectedState: PropTypes.string.isRequired,
     // Provided via connect:
     isFetching: PropTypes.bool,
+    disallowedIds: PropTypes.arrayOf(PropTypes.string),
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedCountyIds: props.activeCounties.map(({ id }) => id)
+      didCheckAll: true
     }
   }
 
-  onChange = (id) => {
-    console.log(id);
+  onChange = (id, isChecked) => {
+    this.props.setForecastFilter({
+      [`${isChecked ? 'revealed' : 'hidden' }Ids`]: [id]
+    })
   };
 
-  onSelectAll = () => {
-    const selectedCountyIds = this.props.activeCounties.map(({ id }) => id);
-    this.setState({ selectedCountyIds });
+  onSelectAll = (event, isChecked) => {
+    const { setForecastFilter, activeCounties } = this.props;
+    this.setState({ didCheckAll: isChecked });
+    setForecastFilter({
+      [`${isChecked ? 'revealed' : 'hidden' }Ids`]: activeCounties.map(({ id }) => id)
+    })
   };
 
   theme = createMuiTheme({
     overrides: {
       MuiTable: {
         root: {
-          // height: '200px',
-          // overflow: 'scroll'
+          overflow: 'scroll',
+          maxHeight: '200px'
         }
       },
       MuiTableHead: {
@@ -70,8 +76,8 @@ class CountyRegistry extends PureComponent {
   });
 
   render() {
-    const { isFetching, activeCounties } = this.props;
-    // const { selectedCountyIds } = this.state;
+    const { isFetching, activeCounties, disallowedIds = [] } = this.props;
+    const { didCheckAll } = this.state;
     return (
       <div style={{
         margin: '10px',
@@ -88,7 +94,9 @@ class CountyRegistry extends PureComponent {
               <TableHead>
                 <TableRow>
                   <TableCell checkbox>
-                    <Checkbox onChange={this.onSelectAll} />
+                    <Checkbox
+                      checked={didCheckAll}
+                      onChange={this.onSelectAll} />
                   </TableCell>
                   {!activeCounties.length
                     ? null
@@ -106,8 +114,8 @@ class CountyRegistry extends PureComponent {
                     selected={false}>
                     <TableCell checkbox>
                       <Checkbox
-                        checked={false}
-                        onChange={() => this.onChange(id)} />
+                        checked={!disallowedIds.includes(id)}
+                        onChange={(event, isChecked) => this.onChange(id, isChecked)} />
                     </TableCell>
                     <TableCell>
                       {countyName}
@@ -131,6 +139,7 @@ class CountyRegistry extends PureComponent {
 function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
+    disallowedIds: selectors.getDisallowedIds(state),
     activeCounties: selectors.getActiveCounties(state)
   }
 }

@@ -8,6 +8,7 @@ import DialogInitiator from './DialogInitiator';
 export default class ForecastSynopsis extends PureComponent {
   static propTypes = {
     highlighted: PropTypes.object,
+    activeCounties: PropTypes.arrayOf(PropTypes.object),
     forecastTotals: PropTypes.shape({
       // timespan: PropTypes.array,
       selectedState: PropTypes.string,
@@ -29,8 +30,18 @@ export default class ForecastSynopsis extends PureComponent {
     }
   }
 
+  renderPartOfWhole(part, whole) {
+    return (
+      <span>
+        <span style={{ opacity: '0.5', fontSize: '0.8em' }}>
+          {part} /
+        </span> {whole}
+      </span>
+    )
+  }
+
   render() {
-    const { highlighted, forecastTotals } = this.props;
+    const { highlighted, forecastTotals, activeCounties = [] } = this.props;
     return (
       <div>
         {Object.keys(forecastTotals).reverse().map((key, i) => (
@@ -45,12 +56,10 @@ export default class ForecastSynopsis extends PureComponent {
             <p style={{ color: '#1c243d', opacity: '0.5', fontSize: '0.5em' }}>{lowerCase(key)}:</p>
             <p style={{ color: '#1c243d', fontSize: '1em', fontWeight: '300', margin: '10px 0px' }}>
               {highlighted && key === 'totalRainfall'
-                ? <span>
-                    <span style={{ opacity: '0.5', fontSize: '0.8em' }}>
-                      {forecastTotals[key](highlighted.i + 1).toFixed(2)} /
-                    </span> {this.renderTotal(key)}
-                  </span>
-                : this.renderTotal(key)}
+                ? this.renderPartOfWhole(forecastTotals[key](highlighted.i + 1).toFixed(2), this.renderTotal(key))
+                : key === 'totalCounties' && activeCounties.length !== forecastTotals[key]
+                  ? this.renderPartOfWhole(forecastTotals[key], activeCounties.length)
+                  : this.renderTotal(key)}
             </p>
           </div>
         ))}

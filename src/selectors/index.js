@@ -2,10 +2,10 @@ import { createSelector } from 'reselect';
 // import { createArraySelector } from 'reselect-map';
 
 const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
-const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
+export const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
 export const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
@@ -60,11 +60,11 @@ export const getActiveStates = createSelector(
 
 // TODO: Account for precipForecasts becoming an object which associates { [stateName]: [ ...forecasts ] }.
 // Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
-export const getActiveForecasts = createSelector(
-  [getDisallowedIds, getPrecipForecasts, getPayloadSubset, getSelectedState],
-  (disallowedIds = [], precipForecasts, payloadSubset, selectedState) => (
+const getForecastPayloadCorrelation = createSelector(
+  [getPrecipForecasts, getPayloadSubset, getSelectedState],
+  (precipForecasts, payloadSubset, selectedState) => (
     precipForecasts
-      .filter(({ id, stateAbbr }) => !disallowedIds.includes(id) && selectedState === stateAbbr)
+      .filter(({ stateAbbr }) => selectedState === stateAbbr)
       .map(({ countyName, ...rest }) => {
         const correlatedPayload = payloadSubset.find(({ countyName: name }) => name === countyName);
         return {
@@ -73,6 +73,14 @@ export const getActiveForecasts = createSelector(
           countyName
         }
       })
+  )
+)
+
+// Pull forecasts with allowed ids.
+export const getActiveForecasts = createSelector(
+  [getDisallowedIds, getForecastPayloadCorrelation],
+  (disallowedIds = [], correlatedForecasts) => (
+    correlatedForecasts.filter(({ id }) => !disallowedIds.includes(id))
   )
 )
 
@@ -98,10 +106,10 @@ export const getForecastTotals = createSelector(
 
 // Get data to display in CountyRegistry's table.
 export const getActiveCounties = createSelector(
-  getActiveForecasts,
-  (forecasts = []) => (
-    forecasts.every(({ series }) => series)
-      ? forecasts.map(({ id, countyName, soybeanYield, series }) => ({
+  getForecastPayloadCorrelation,
+  (correlatedForecasts = []) => (
+    correlatedForecasts.every(({ series }) => series)
+      ? correlatedForecasts.map(({ id, countyName, soybeanYield, series }) => ({
           id,
           countyName,
           soybeanYield: abbreviateInt(soybeanYield),
