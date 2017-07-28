@@ -1,14 +1,28 @@
 import forecasts from '../reducers/forecasts';
+import selectedState from '../reducers/selected-state';
+import soybeanProduction from '../reducers/soybean-production';
 
-describe('forecasts reducer', () => {
+// import * as actions from '../actions';
+
+describe('forecasts', () => {
   it('has default state', () => {
     expect(forecasts(undefined, {})).toEqual({
       disallowedIds: [],
       precipForecasts: []
     })
   })
+})
 
-  it('effectively only contains forecasts for today', () => {})
+describe('selectedState', () => {
+  it('has default state', () => {
+    expect(selectedState(undefined, {})).toEqual('NY');
+  })
+})
 
-  it('contains all previously fetched forecasts', () => {})
+describe('soybeanProduction', () => {
+  it('has default state', () => {
+    expect(soybeanProduction(undefined, {})).toEqual({
+      didFailToFetch: false
+    })
+  })
 })

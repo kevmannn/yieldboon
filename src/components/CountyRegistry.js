@@ -46,12 +46,6 @@ class CountyRegistry extends PureComponent {
 
   theme = createMuiTheme({
     overrides: {
-      MuiTable: {
-        root: {
-          overflow: 'scroll',
-          maxHeight: '200px'
-        }
-      },
       MuiTableHead: {
         root: {
           color: '#1c243d',
@@ -82,7 +76,8 @@ class CountyRegistry extends PureComponent {
       <div style={{
         margin: '10px',
         minHeight: '100px',
-        display: 'block',
+        maxHeight: '220px',
+        overflow: 'auto',
         padding: '10px',
         position: 'relative',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
@@ -90,47 +85,47 @@ class CountyRegistry extends PureComponent {
         {isFetching
           ? null
           : <MuiThemeProvider theme={this.theme}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell checkbox>
-                    <Checkbox
-                      checked={didCheckAll}
-                      onChange={this.onSelectAll} />
-                  </TableCell>
-                  {!activeCounties.length
-                    ? null
-                    : Object.keys(activeCounties[0]).slice(1).map((key, i) => (
-                        <TableCell key={i}>
-                          {lowerCase(key)}
-                        </TableCell>
-                      ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {activeCounties.slice(0, 3).map(({ id, countyName, soybeanYield, totalRainfall }) => (
-                  <TableRow
-                    key={id}
-                    selected={false}>
+              <Table>
+                <TableHead>
+                  <TableRow>
                     <TableCell checkbox>
                       <Checkbox
-                        checked={!disallowedIds.includes(id)}
-                        onChange={(event, isChecked) => this.onChange(id, isChecked)} />
+                        checked={didCheckAll}
+                        onChange={this.onSelectAll} />
                     </TableCell>
-                    <TableCell>
-                      {countyName}
-                    </TableCell>
-                    <TableCell>
-                      {soybeanYield}
-                    </TableCell>
-                    <TableCell>
-                      {totalRainfall}
-                    </TableCell>
+                    {!activeCounties.length
+                      ? null
+                      : Object.keys(activeCounties[0]).slice(1).map((key, i) => (
+                          <TableCell key={i}>
+                            {lowerCase(key)}
+                          </TableCell>
+                        ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </MuiThemeProvider>}
+                </TableHead>
+                <TableBody>
+                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall }) => (
+                    <TableRow
+                      key={id}
+                      selected={false}>
+                      <TableCell checkbox>
+                        <Checkbox
+                          checked={!disallowedIds.includes(id)}
+                          onChange={(event, isChecked) => this.onChange(id, isChecked)} />
+                      </TableCell>
+                      <TableCell>
+                        {countyName}
+                      </TableCell>
+                      <TableCell>
+                        {soybeanYield}
+                      </TableCell>
+                      <TableCell>
+                        {totalRainfall}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </MuiThemeProvider>}
       </div>
     )
   }

@@ -1,24 +1,13 @@
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   text-rendering: geometricPrecision !important;
   font-family: 'Noto Sans', sans-serif;
   font-weight: 300;
   background: #fcfdff;
   box-sizing: border-box;
   overflow: hidden;
-}
-
-.rv-xy-plot__axis__tick__text {
-  fill: #142736 !important;
-  opacity: 0.64 !important;
-  font-size: 0.5em;
-  letter-spacing: 0.02em;
-  user-select: none;
-}
-
-.rv-xy-plot__axis__title text {
-  fill: #252938;
 }
 
 .buffer {
