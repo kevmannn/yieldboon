@@ -129,7 +129,7 @@ class StateDialog extends PureComponent {
                   value={stateAbbr}
                   label={
                     <p>{stateAbbr}
-                      <span style={{ opacity: '0.4' }}>
+                      <span style={{ fontSize: '0.9em', opacity: '0.3' }}>
                         {` (${activeStates[stateAbbr].total} bu) `}
                       </span>
                       {activeStates[stateAbbr].isCached

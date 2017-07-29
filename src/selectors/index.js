@@ -42,7 +42,8 @@ const getYieldTotalsForStates = createSelector(
   )
 )
 
-// Pair yield total abbreviation with boolean indicating whether forecasts for this state have been cached.
+// Group yield total with booleans indicating whether forecasts for this state have been cached or
+// failed to fetch.
 export const getActiveStates = createSelector(
   [getYieldTotalsForStates, getPrecipForecasts, getErrorLog],
   (yieldTotals, precipForecasts, errorLog) => (

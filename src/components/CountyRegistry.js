@@ -81,7 +81,7 @@ class CountyRegistry extends PureComponent {
         padding: '10px',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
-        {isFetching
+        {isFetching || !activeCounties.length
           ? null
           : <MuiThemeProvider theme={this.theme}>
               <Table>
@@ -92,13 +92,11 @@ class CountyRegistry extends PureComponent {
                         checked={didCheckAll}
                         onChange={this.onSelectAll} />
                     </TableCell>
-                    {!activeCounties.length
-                      ? null
-                      : Object.keys(activeCounties[0]).slice(1).map((key, i) => (
-                          <TableCell key={i}>
-                            {lowerCase(key)}
-                          </TableCell>
-                        ))}
+                    {Object.keys(activeCounties[0]).slice(1).map((key, i) => (
+                      <TableCell key={i}>
+                        {lowerCase(key)}
+                      </TableCell>
+                    ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
