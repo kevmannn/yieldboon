@@ -8,6 +8,17 @@
 The challenge is meaningfully interpreting the problem in the light of ostensible utility that its solution can provide.
 Given the constraints of the problem, it was therefore necessary to think in terms of extensibility from the beginning.
 
+So, why would someone be interested in a service that shows daily rainfall for counties that produce lots of soybeans?
+They likely have some sort of investment (directly _or indirectly_) in the success or failure of some crop in particular.
+
+Rainfall is just one of the factors bearing on the success or failure of crop, so choosing an implementation that leaves open the possibility of
+interfacing with other factors seems wise.
+
+In _charting_ the value of a factor (in this case rainfall) over time, what is established is a sense of (temporal) context.
+What is left open is the ability to meaningfully chart some subset of the factors (which determine the success or failure of the crop) against one another.
+
+This means that given some concern of the user, a subset of factors determined by this concern can be rendered simultaneously so as to uncover meaning with respect to projected success or failure of crop.
+
 ## Focus:
 Frontend
 
@@ -23,26 +34,25 @@ Frontend
 * [Enzyme](https://github.com/airbnb/enzyme)
 * [Express](https://github.com/expressjs/express)
 
-> ...
-
 ## Challenges & Tradeoffs:
-### Opting for a new (simpler) way of showing (meaningful) context
-> ...
-
-### Trying not to represent too much data at a given moment
-> ...
+### Finding a new (simpler) way of showing (meaningful) context and letting go of idealism in the process
+Early on, rendering a map component appeared very desirable. However, as time wore on, picturing how everything
+should meaningfully fit together became less and less clear. This fact (combined with the possibility of reckoning with the map component's not-very-well-documented API)
+pushed me to reconsider my idea. Then the idea of using a prominent chart appeared.
 
 ### Chasing down bugs related to working with cached state
-> ...
+[Redux-persist's purge method](https://github.com/rt2zz/redux-persist#persistor-object) saw lots of use.
+Early it was nearly terrifying to recall that much had changed since the last time the cache was purged.
+Finding the origins of bugs that this caused became very simple as time wore on, but it still would have been wise
+to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) in this case.
 
 ### Not letting focus on implementation quietly overrule purpose
-> ...
-
-### Imagining what would bring the most utility to an agriculturally-minded user
-> ...
+This was a prominent pitfall when [writing selectors](https://github.com/reactjs/reselect#creating-a-memoized-selector).
+Conceptual clarity can shrink as focus on implementation detail grows, so it became important to just think (and not write anything)
+when a solution didn't present itself.
 
 ## Lessons:
-* Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of the solution.
+* Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of a solution.
 
 * The interpretation of the problem will fluctuate, and given its extreme importance (with respect to how all subsequent thinking takes shape) thus demands attention to how it is "heard".
 
