@@ -1,5 +1,6 @@
 import React from 'react';
 // import toJson from 'enzyme-to-json';
+import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
@@ -7,50 +8,73 @@ import { shallow, mount } from 'enzyme';
 import App from '../App';
 import { fullState } from './utils';
 import * as selectors from '../selectors';
+import VisualizationDyad from '../components/VisualizationDyad';
 import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
 // import CountyRegistry from '../components/CountyRegistry';
+// import DialogInitiator from '../components/DialogInitiator';
 
 const mockStore = configureStore();
-const renderAppWithState = (state) => {
+const mountComponentWithState = (Component, state, props = {}) => {
   const store = mockStore(state);
-  const appWrapper = mount(
+  const wrapper = mount(
     <BrowserRouter>
-      <App store={store} />
+      <Provider store={store}>
+        <Component {...props} />
+      </Provider>
     </BrowserRouter>
   )
 
-  return [store, appWrapper];
+  return [store, wrapper];
 }
 
 describe('app initialization', () => {
-  const [ store, appWrapper ] = renderAppWithState({});
+  const [ store, wrapper ] = mountComponentWithState(App, {});
   it('renders app', () => {
-    expect(appWrapper.find('div').children()).toHaveLength(2);
-    expect(appWrapper.find('Dashboard')).toBeTruthy();
+    expect(wrapper.find('div').children()).toHaveLength(2);
+    expect(wrapper.find('Dashboard')).toBeTruthy();
     expect(store.getState()).toEqual({});
   })
 })
 
+describe('VisualizationDyad', () => {
+  it('passes highlighted object to children', () => {
+    const [ store, wrapper ] = mountComponentWithState(VisualizationDyad, fullState);
+    expect(wrapper.find('ForecastSynopsis').props()).toEqual(expect.objectContaining({
+      activeCounties: expect.any(Array),
+      forecastTotals: expect.any(Object),
+      highlighted: null
+    }))
+    // wrapper.setState({ highlighted: {} });
+    // expect(wrapper.find('ForecastSynopsis').props().highlighted).toEqual({});
+  })
+})
+
 describe('ForecastSynopsis', () => {
-  const props = {
-    highlighted: null,
-    forecastTotals: selectors.getForecastTotals(fullState)
-  }
-  const forecastSynopsisWrapper = shallow(<ForecastSynopsis {...props} />);
-  expect(forecastSynopsisWrapper.find('div').children()).toHaveLength(14);
+  it('renders the correct number of children', () => {
+    const props = {
+      highlighted: null,
+      forecastTotals: selectors.getForecastTotals(fullState)
+    }
+    const forecastSynopsisWrapper = shallow(<ForecastSynopsis {...props} />);
+    expect(forecastSynopsisWrapper.find('div').children()).toHaveLength(14);
+  })
 })
 
 describe('ForecastChart', () => {
-  const props = {
-    isFetching: false,
-    onNearestX: jest.fn(),
-    seriesExtremes: selectors.getSeriesExtremes(fullState),
-    inclementForecasts: selectors.getInclementForecasts(fullState),
-    aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(fullState)
-  }
-  const forecastChartWrapper = shallow(<ForecastChart {...props} />);
-  expect(forecastChartWrapper.find('FlexibleXYPlot')).toBeTruthy();
+  it('renders the chart', () => {
+    const props = {
+      isFetching: false,
+      onNearestX: jest.fn(),
+      seriesExtremes: selectors.getSeriesExtremes(fullState),
+      inclementForecasts: selectors.getInclementForecasts(fullState),
+      aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(fullState)
+    }
+    const forecastChartWrapper = shallow(<ForecastChart {...props} />);
+    expect(forecastChartWrapper.find('FlexibleXYPlot')).toBeTruthy();
+  })
 })
 
 describe.skip('CountyRegistry', () => {})
+
+describe.skip('DialogInitiator', () => {})

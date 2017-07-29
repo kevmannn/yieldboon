@@ -76,10 +76,9 @@ class CountyRegistry extends PureComponent {
       <div style={{
         margin: '10px',
         minHeight: '100px',
-        maxHeight: '220px',
+        maxHeight: '215px',
         overflow: 'auto',
         padding: '10px',
-        position: 'relative',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
         {isFetching
