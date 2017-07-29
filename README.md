@@ -42,8 +42,8 @@ pushed me to reconsider my idea. Then the idea of using a prominent chart appear
 
 ### Chasing down bugs related to working with cached state
 [Redux-persist's purge method](https://github.com/rt2zz/redux-persist#persistor-object) saw lots of use.
-Early it was nearly terrifying to recall that much had changed since the last time the cache was purged.
-Finding the origins of bugs that this caused became very simple as time wore on, but it still would have been wise
+Early on it was nearly terrifying to recall that much had changed in the codebase since the last time the cache was purged.
+Finding the origins of bugs caused by this became very simple as time wore on, but it still would have been wise
 to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) in this case.
 
 ### Not letting focus on implementation quietly overrule purpose
@@ -71,7 +71,7 @@ when a solution didn't present itself.
 
 * For the sake of triage, use the mapbox API to show shortest paths (and directions) between farm locations the user cares about.
 
-* Account for the fact of weather forecasting (possibly) being [PSPACE-hard](http://www.sigecom.org/exchanges/volume_7/3/FORTNOW.pdf).
+* Reckon with the [complexity of weather forecasting](http://www.sigecom.org/exchanges/volume_7/3/FORTNOW.pdf).
 
 ## License
 
