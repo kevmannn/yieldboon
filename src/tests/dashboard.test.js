@@ -6,12 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 
 import App from '../App';
+// import Dashboard from '../Dashboard';
 import { fullState } from './utils';
 import * as selectors from '../selectors';
 import VisualizationDyad from '../components/VisualizationDyad';
 import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
-// import CountyRegistry from '../components/CountyRegistry';
+import CountyRegistry from '../components/CountyRegistry';
 // import DialogInitiator from '../components/DialogInitiator';
 
 const mockStore = configureStore();
@@ -28,7 +29,7 @@ const mountComponentWithState = (Component, state, props = {}) => {
   return [store, wrapper];
 }
 
-describe('app initialization', () => {
+describe('App', () => {
   const [ store, wrapper ] = mountComponentWithState(App, {});
   it('renders app', () => {
     expect(wrapper.find('div').children()).toHaveLength(2);
@@ -39,7 +40,7 @@ describe('app initialization', () => {
 
 describe('VisualizationDyad', () => {
   it('passes highlighted object to children', () => {
-    const [ store, wrapper ] = mountComponentWithState(VisualizationDyad, fullState);
+    const [ , wrapper ] = mountComponentWithState(VisualizationDyad, fullState);
     expect(wrapper.find('ForecastSynopsis').props()).toEqual(expect.objectContaining({
       activeCounties: expect.any(Array),
       forecastTotals: expect.any(Object),
@@ -75,6 +76,13 @@ describe('ForecastChart', () => {
   })
 })
 
-describe.skip('CountyRegistry', () => {})
+describe('CountyRegistry', () => {
+  it('renders the correct number of chilren', () => {
+    const [ , wrapper ] = mountComponentWithState(CountyRegistry, fullState, { selectedState: 'NY' });
+    expect(wrapper.find('TableBody')).toHaveLength(1);
+  })
+})
 
-describe.skip('DialogInitiator', () => {})
+describe('DialogInitiator', () => {
+  it('opens the dialog when clicked', () => {})
+})
