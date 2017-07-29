@@ -2,7 +2,7 @@ import forecasts from '../reducers/forecasts';
 import selectedState from '../reducers/selected-state';
 import soybeanProduction from '../reducers/soybean-production';
 
-// import * as actions from '../actions';
+import * as actions from '../actions';
 
 describe('forecasts', () => {
   it('has default state', () => {
@@ -10,6 +10,39 @@ describe('forecasts', () => {
       disallowedIds: [],
       precipForecasts: []
     })
+  })
+
+  it('accumulates failed req messages in errorLog', () => {
+    const state = forecasts(undefined, {
+      type: actions.FAIL_TO_RECEIVE_FORECAST,
+      countyName: 'x',
+      stateAbbr: 'y',
+      message: 'Something went wrong'
+    })
+    expect(state.errorLog).toEqual(expect.objectContaining({
+      x: { stateAbbr: 'y', messages: ['Something went wrong'] }
+    }))
+    const nextState = forecasts(state, {
+      type: actions.RECEIVE_FORECAST,
+      countyName: 'x'
+    })
+    expect(nextState.errorLog).toEqual({ didReachReqLimit: false });
+  })
+
+  it('stores isFetching', () => {
+    expect(forecasts(undefined, { type: actions.BEGIN_LOAD_FORECASTS }).isFetching).toBe(true);
+    expect(forecasts(undefined, { type: actions.END_LOAD_FORECASTS }).isFetching).toBe(false);
+  })
+
+  it('stores precipForecasts', () => {
+    expect(forecasts(undefined, {
+      type: actions.RECEIVE_FORECAST,
+      countyName: 'x',
+      stateAbbr: 'y',
+      coords: {},
+      series: [],
+      id: 1
+    }).precipForecasts).toHaveLength(1);
   })
 })
 
