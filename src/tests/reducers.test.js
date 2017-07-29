@@ -42,13 +42,20 @@ describe('forecasts', () => {
       coords: {},
       series: [],
       id: 1
-    }).precipForecasts).toHaveLength(1);
+    }).precipForecasts).toHaveLength(1)
   })
 })
 
 describe('selectedState', () => {
   it('has default state', () => {
     expect(selectedState(undefined, {})).toEqual('NY');
+  })
+
+  it('holds the last selected state', () => {
+    expect(selectedState(undefined, {
+      type: actions.SELECT_STATE,
+      stateName: 'x'
+    })).toEqual('x')
   })
 })
 
@@ -57,5 +64,12 @@ describe('soybeanProduction', () => {
     expect(soybeanProduction(undefined, {})).toEqual({
       didFailToFetch: false
     })
+  })
+
+  it('stores a received paylod', () => {
+    expect(soybeanProduction(undefined, {
+      type: actions.RECEIVE_SOYBEAN_PRODUCTION,
+      payload: [{}, {}]
+    }).payload).toHaveLength(2)
   })
 })
