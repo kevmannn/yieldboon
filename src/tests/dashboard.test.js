@@ -13,7 +13,9 @@ import VisualizationDyad from '../components/VisualizationDyad';
 import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
 import CountyRegistry from '../components/CountyRegistry';
-// import DialogInitiator from '../components/DialogInitiator';
+import DialogInitiator from '../components/DialogInitiator';
+// import StateDialog from '../components/StateDialog';
+// import ErrorLogger from '../components/ErrorLogger';
 
 const mockStore = configureStore();
 const mountComponentWithState = (Component, state, props = {}) => {
@@ -57,8 +59,8 @@ describe('ForecastSynopsis', () => {
       highlighted: null,
       forecastTotals: selectors.getForecastTotals(fullState)
     }
-    const forecastSynopsisWrapper = shallow(<ForecastSynopsis {...props} />);
-    expect(forecastSynopsisWrapper.find('div').children()).toHaveLength(14);
+    const wrapper = shallow(<ForecastSynopsis {...props} />);
+    expect(wrapper.find('div').children()).toHaveLength(14);
   })
 })
 
@@ -71,8 +73,9 @@ describe('ForecastChart', () => {
       inclementForecasts: selectors.getInclementForecasts(fullState),
       aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(fullState)
     }
-    const forecastChartWrapper = shallow(<ForecastChart {...props} />);
-    expect(forecastChartWrapper.find('FlexibleXYPlot')).toBeTruthy();
+    const wrapper = shallow(<ForecastChart {...props} />);
+    expect(wrapper.find('FlexibleXYPlot')).toBeTruthy();
+    expect(wrapper.find('LineSeries')).toHaveLength(3);
   })
 })
 
@@ -80,9 +83,16 @@ describe('CountyRegistry', () => {
   it('renders the correct number of chilren', () => {
     const [ , wrapper ] = mountComponentWithState(CountyRegistry, fullState, { selectedState: 'NY' });
     expect(wrapper.find('TableBody')).toHaveLength(1);
+    expect(wrapper.find({ checked: true })).toHaveLength(3);
   })
 })
 
 describe('DialogInitiator', () => {
-  it('opens the dialog when clicked', () => {})
+  it('opens the dialog when clicked', () => {
+    const wrapper = shallow(<DialogInitiator />);
+    expect(wrapper.instance().state).toEqual({ dialogIsOpen: false });
+    expect(wrapper.find({ onClick: jest.fn() })).toBeTruthy();
+    // wrapper.find({ onClick: jest.fn() }).simulate('click');
+    // expect(wrapper.instance().state).toEqual({ dialogIsOpen: true });
+  })
 })
