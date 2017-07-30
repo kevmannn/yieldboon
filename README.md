@@ -22,7 +22,7 @@ This means that given some concern of the user, a subset of factors determined b
 ## Focus:
 Frontend
 
-## Stack & Technical choices:
+## Stack:
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reactjs/redux)
 * [Reselect](https://github.com/reactjs/reselect)
@@ -43,8 +43,8 @@ pushed me to reconsider my idea. Then the idea of using a prominent chart appear
 ### Chasing down bugs related to working with cached state
 [Redux-persist's purge method](https://github.com/rt2zz/redux-persist#persistor-object) saw lots of use.
 Early on it was nearly terrifying to recall that much had changed in the codebase since the last time the cache was purged.
-Finding the origins of bugs caused by this became very simple as time wore on, but it still would have been wise
-to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) in this case.
+Finding the origins of bugs caused by this became simple, but it still would have been wise
+to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension).
 
 ### Not letting focus on implementation quietly overrule purpose
 This was a prominent pitfall when [writing selectors](https://github.com/reactjs/reselect#creating-a-memoized-selector).

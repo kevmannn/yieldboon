@@ -75,11 +75,7 @@ const fetchSoybeanProduction = () => (dispatch) => {
 export const fetchSoybeanProductionIfNeeded = () => (dispatch, getState) => {
   const { lastUpdated } = getState().soybeanProduction;
   if (!lastUpdated || moment(lastUpdated).unix() < moment().startOf('year').unix()) {
-    nprogress.start();
-    return dispatch(fetchSoybeanProduction())
-      .then(() => {
-        nprogress.done();
-      })
+    return dispatch(fetchSoybeanProduction());
   }
 }
 

@@ -47,7 +47,7 @@ class VisualizationDyad extends PureComponent {
           activeCounties={activeCounties}
           forecastTotals={forecastTotals} />
         <ForecastChart
-          isFetching={isFetching}
+          isFetching={isFetching || !aggregateActiveForecastSeries.length}
           highlighted={highlighted}
           onNearestX={this.onNearestX}
           seriesExtremes={seriesExtremes}

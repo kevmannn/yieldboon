@@ -29,7 +29,7 @@ const store = createStore(
   )
 )
 
-persistStore(store, { storage });
+persistStore(store, { storage }).purge();
 render(
   <Provider store={store}>
     <BrowserRouter>
