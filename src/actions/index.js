@@ -110,7 +110,7 @@ const reachForecastReqLimit = ({ countyName }) => ({
 })
 
 const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
-  return fetch(`https://lat-lng.now.sh/?address=${countyName},${stateAbbr}`)
+  return fetch(`https://soyfall-api.now.sh/coords?address=${countyName}+${stateAbbr}`)
     .then(
       res => res.status >= 400
         ? dispatch(failToReceiveForecast({ countyName, stateAbbr, message: 'Something went wrong.' }))
@@ -128,7 +128,7 @@ const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (disp
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
-  return fetch(`https://soyfall-api.now.sh/forecast?location=${lat}+${lng}?time=${time}`)
+  return fetch(`https://soyfall-api.now.sh/forecast?location=${lat}+${lng}&time=${time}`)
     .then(
       res => res.status >= 400
         ? res.status === 403
