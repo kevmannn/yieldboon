@@ -4,7 +4,6 @@ import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
 import * as actions from '../actions';
-import { FORECAST_URL, FORECAST_API_KEY } from '../constants';
 
 const mockStore = configureStore([thunk]);
 
@@ -28,8 +27,8 @@ describe.skip('forecast action creators', () => {
   // it('dispatches appropriate actions for fetch failure', () => {
   //   expect.assertions(2);
   //   const today = moment().format('YYYY-MM-DDTHH:mm:ss');
-  //   nock(FORECAST_URL)
-  //     .get(`/${FORECAST_API_KEY}/-24.6271516,-70.4054644,${today}`)
+  //   nock('https://soyfall-api.now.sh')
+  //     .get(`/forecast?location=${lat}+${lng}?time=${time}`)
   //     .reply(400)
 
   //   const storeActions = store.getActions();

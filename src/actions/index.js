@@ -4,8 +4,6 @@ import moment from 'moment';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
-import { USDA_URL, FORECAST_URL, FORECAST_API_KEY } from '../constants';
-
 export const END_LOAD_FORECASTS = 'END_LOAD_FORECASTS';
 export const BEGIN_LOAD_FORECASTS = 'BEGIN_LOAD_FORECASTS';
 export const SELECT_STATE = 'SELECT_STATE';
@@ -52,7 +50,7 @@ const failToReceiveSoybeanProduction = () => ({
 
 const fetchSoybeanProduction = () => (dispatch) => {
   dispatch(requestSoybeanProduction());
-  return fetch(USDA_URL)
+  return fetch('https://soyfall-api.now.sh/yield')
     // Map the response to the values we care about and remove vaguely attributed data.
     .then(
       res => res.status >= 400
@@ -130,7 +128,7 @@ const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (disp
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
-  return fetch(`${FORECAST_URL}/${FORECAST_API_KEY}/${lat},${lng},${time}`)
+  return fetch(`https://soyfall-api.now.sh/forecast?location=${lat}+${lng}?time=${time}`)
     .then(
       res => res.status >= 400
         ? res.status === 403
