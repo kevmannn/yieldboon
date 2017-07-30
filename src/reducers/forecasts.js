@@ -105,6 +105,7 @@ function isFetching(state = false, { type }) {
   switch (type) {
     case BEGIN_LOAD_FORECASTS:
       return true;
+    case REACH_FORECAST_REQ_LIMIT:
     case END_LOAD_FORECASTS:
       return false;
     default:
