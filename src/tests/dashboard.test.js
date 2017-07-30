@@ -48,6 +48,7 @@ describe('VisualizationDyad', () => {
       forecastTotals: expect.any(Object),
       highlighted: null
     }))
+    // TODO: ...
     // wrapper.setState({ highlighted: {} });
     // expect(wrapper.find('ForecastSynopsis').props().highlighted).toEqual({});
   })
@@ -65,22 +66,36 @@ describe('ForecastSynopsis', () => {
 })
 
 describe('ForecastChart', () => {
+  const props = {
+    isFetching: false,
+    onNearestX: jest.fn(),
+    highlighted: { i: 0, x: Date.now(), y: 1 },
+    seriesExtremes: selectors.getSeriesExtremes(fullState),
+    inclementForecasts: selectors.getInclementForecasts(fullState),
+    aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(fullState)
+  }
+  const wrapper = shallow(<ForecastChart {...props} />);
   it('renders the chart', () => {
-    const props = {
-      isFetching: false,
-      onNearestX: jest.fn(),
-      seriesExtremes: selectors.getSeriesExtremes(fullState),
-      inclementForecasts: selectors.getInclementForecasts(fullState),
-      aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(fullState)
-    }
-    const wrapper = shallow(<ForecastChart {...props} />);
     expect(wrapper.find('FlexibleXYPlot')).toBeTruthy();
     expect(wrapper.find('LineSeries')).toHaveLength(3);
+  })
+
+  it('renders the hint when highlighted is truthy', () => {
+    const { highlighted: { i, x }, aggregateActiveForecastSeries } = props;
+    expect(wrapper.find('Hint').props().value).toEqual({
+      x,
+      y: aggregateActiveForecastSeries[i].y
+    })
+  })
+
+  // TODO: ...
+  it('only renders MarkSeries for y values belonging to inclementForecasts', () => {
+    expect(wrapper.find('MarkSeries').props().data).toHaveLength(3);
   })
 })
 
 describe('CountyRegistry', () => {
-  it('renders the correct number of chilren', () => {
+  it('renders the correct number of children', () => {
     const [ , wrapper ] = mountComponentWithState(CountyRegistry, fullState, { selectedState: 'NY' });
     expect(wrapper.find('TableBody')).toHaveLength(1);
     expect(wrapper.find({ checked: true })).toHaveLength(3);
@@ -92,6 +107,7 @@ describe('DialogInitiator', () => {
     const wrapper = shallow(<DialogInitiator />);
     expect(wrapper.instance().state).toEqual({ dialogIsOpen: false });
     expect(wrapper.find({ onClick: jest.fn() })).toBeTruthy();
+    // TODO: ...
     // wrapper.find({ onClick: jest.fn() }).simulate('click');
     // expect(wrapper.instance().state).toEqual({ dialogIsOpen: true });
   })
