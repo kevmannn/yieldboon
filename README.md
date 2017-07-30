@@ -17,7 +17,7 @@ interfacing with other factors seems wise.
 In _charting_ the value of a factor (in this case rainfall) over time, what is established is a sense of (temporal) context.
 What is left open is the ability to meaningfully chart some subset of the factors (which determine the success or failure of the crop) against one another.
 
-This means that given some concern of the user, a subset of factors determined by this concern can be rendered simultaneously so as to uncover meaning with respect to projected success or failure of crop.
+This means that given some concern of the user, a subset of factors determined by this concern can be rendered simultaneously so as to uncover meaning related to projected success or failure of crop.
 
 ## Focus:
 Frontend
@@ -36,15 +36,16 @@ Frontend
 
 ## Challenges & Tradeoffs:
 ### Finding a new (simpler) way of showing (meaningful) context and letting go of idealism in the process
-Early on, rendering a map component to show the geographic context of forecasts appeared very desirable. However, as time wore on, picturing how everything
+Early on, rendering a map component to show the geographic context of forecasts appeared very desirable, but picturing how everything in the app
 should meaningfully fit together became less and less clear. This fact (combined with the possibility of reckoning with the map component's not-very-well-documented API)
 pushed me to reconsider my idea. Then the idea of using a prominent chart appeared.
 
 ### Chasing down bugs related to working with cached state
-[Redux-persist's purge method](https://github.com/rt2zz/redux-persist#persistor-object) saw lots of use.
-Early on it was slightly terrifying to recall that much had changed in the codebase since the last time the cache was purged.
+Getting used to a workflow where the entirety of the state was cached proved unwise. This was a way of getting around making
+unnecessary fetch requests to data services, but really it introduced unpredictability into my workflow.
+It became slightly terrifying to recall that much had changed in the codebase since the last time the cache was purged.
 Finding the origins of bugs related to this became simple, but it still would have been wise
-to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension).
+to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) here.
 
 ### Not letting focus on implementation quietly overrule purpose
 This was a prominent pitfall when [writing selectors](https://github.com/reactjs/reselect#creating-a-memoized-selector).
@@ -65,9 +66,7 @@ when a solution didn't present itself.
 
 * Overlay historical average rainfall for a given timespan onto the chart.
 
-* Correlate the forecast with boon / doom of the crop (given the nature of soybean and the crop's history / growth stage (which should also be accomodated in the app)).
-
-* Generalize to support other crop types.
+* Correlate the forecast with probable boon / doom of the crop (given the nature of soybean and the crop's history / growth stage / values of other factors (which should also be accomodated in the app)).
 
 * For the sake of triage, use the mapbox API to show shortest paths (and directions) between farm locations the user cares about.
 
