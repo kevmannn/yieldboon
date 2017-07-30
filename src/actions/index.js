@@ -145,15 +145,12 @@ const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (disp
     })
 }
 
-// TODO: use https://github.com/lelandrichardson/redux-pack (?)
 // Get the forecast for a given county if it's not in the store (= inexistent or stale).
 const fetchForecastIfNeeded = ({ countyName, stateAbbr }) => (dispatch, getState) => {
   const { precipForecasts } = getState().forecasts;
-  // TODO: Check reachedLimitAt time...
   if (!precipForecasts.find(({ countyName: name }) => name === countyName)) {
     return dispatch(fetchCoords({ countyName, stateAbbr }))
       .then(({ countyName, stateAbbr, coords }) => {
-        // TODO: Chain request (fetch previous day).
         if (coords.lat && coords.lng) {
           return dispatch(fetchForecast({ countyName, stateAbbr, coords }));
         }

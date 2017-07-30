@@ -5,8 +5,8 @@
 ## The problem (and a solution):
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
 
-The challenge is meaningfully interpreting the problem in the light of ostensible utility that its solution can provide.
-Given the constraints of the problem, it was therefore necessary to think in terms of extensibility from the beginning.
+The challenge is meaningfully interpreting the problem in the light of potential utility that its solution can provide.
+Given the constraints of the problem, it was necessary to think in terms of extensibility / iteration from the beginning.
 
 So, why would someone be interested in a service that shows daily rainfall for counties that produce lots of soybeans?
 They likely have some sort of investment (directly _or indirectly_) in the success or failure of some crop in particular.
@@ -17,12 +17,15 @@ interfacing with other factors seems wise.
 In _charting_ the value of a factor (in this case rainfall) over time, what is established is a sense of (temporal) context.
 What is left open is the ability to meaningfully chart some subset of the factors (which determine the success or failure of the crop) against one another.
 
-This means that given some concern of the user, a subset of factors determined by this concern can be rendered simultaneously so as to uncover meaning related to projected success or failure of crop.
+This means that given some concern of the user, a subset of factors determined by this concern can be rendered simultaneously so as to uncover meaning with respect to projected success or failure of crop.
+
+In the app's current state, the 3 counties with the highest mean rainfall are charted against the mean rainfall across all counties.
+Further, the user can hover over the chart to get a sense of the rate of rainfall accumulation / dissipation, and dynamically filter what counties are factored into the composition of the chart.
 
 ## Focus:
 Frontend
 
-## Stack:
+## Stack & Technical Choices:
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reactjs/redux)
 * [Reselect](https://github.com/reactjs/reselect)
@@ -41,8 +44,8 @@ should meaningfully fit together became less and less clear. This fact (combined
 pushed me to reconsider my idea. Then the idea of using a prominent chart appeared.
 
 ### Chasing down bugs related to working with cached state
-Getting used to a workflow where the entirety of the state was cached proved unwise. This was a way of getting around making
-unnecessary fetch requests to data services, but really it introduced unpredictability into my workflow.
+Getting used to a workflow where the entirety of the state was cached proved unwise. This began as a way of getting around making
+unnecessary fetch requests to data services, but it ended up introducing unpredictability into my workflow.
 It became slightly terrifying to recall that much had changed in the codebase since the last time the cache was purged.
 Finding the origins of bugs related to this became simple, but it still would have been wise
 to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension) here.
