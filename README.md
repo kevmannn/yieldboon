@@ -36,14 +36,14 @@ Frontend
 
 ## Challenges & Tradeoffs:
 ### Finding a new (simpler) way of showing (meaningful) context and letting go of idealism in the process
-Early on, rendering a map component appeared very desirable. However, as time wore on, picturing how everything
+Early on, rendering a map component to show the geographic context of forecasts appeared very desirable. However, as time wore on, picturing how everything
 should meaningfully fit together became less and less clear. This fact (combined with the possibility of reckoning with the map component's not-very-well-documented API)
 pushed me to reconsider my idea. Then the idea of using a prominent chart appeared.
 
 ### Chasing down bugs related to working with cached state
 [Redux-persist's purge method](https://github.com/rt2zz/redux-persist#persistor-object) saw lots of use.
-Early on it was nearly terrifying to recall that much had changed in the codebase since the last time the cache was purged.
-Finding the origins of bugs caused by this became simple, but it still would have been wise
+Early on it was slightly terrifying to recall that much had changed in the codebase since the last time the cache was purged.
+Finding the origins of bugs related to this became simple, but it still would have been wise
 to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension).
 
 ### Not letting focus on implementation quietly overrule purpose
