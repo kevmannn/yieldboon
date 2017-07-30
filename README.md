@@ -6,7 +6,7 @@
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
 
 The challenge is meaningfully interpreting the problem in the light of potential utility that its solution can provide.
-Given the constraints of the problem, it was necessary to think in terms of extensibility / iteration from the beginning.
+Given the constraints of the problem, it was therefore necessary to think in terms of extensibility / iteration from the beginning.
 
 So, why would someone be interested in a service that shows daily rainfall for counties that produce lots of soybeans?
 They likely have some sort of investment (directly _or indirectly_) in the success or failure of some crop in particular.
@@ -19,13 +19,13 @@ What is left open is the ability to meaningfully chart some subset of the factor
 
 This means that given some concern of the user, a subset of factors determined by this concern can be rendered simultaneously so as to uncover meaning with respect to projected success or failure of crop.
 
-In the app's current state, the 3 counties with the highest mean rainfall are charted against the mean rainfall across all counties.
+Toward this end, and within the constraints of the stated problem, the app charts the 3 counties with the highest mean rainfall against the mean rainfall across all counties (within the selected state).
 Further, the user can hover over the chart to get a sense of the rate of rainfall accumulation / dissipation, and dynamically filter what counties are factored into the composition of the chart.
 
 ## Focus:
 Frontend
 
-## Stack & Technical Choices:
+## Stack:
 * [React](https://github.com/facebook/react)
 * [Redux](https://github.com/reactjs/redux)
 * [Reselect](https://github.com/reactjs/reselect)
@@ -41,7 +41,7 @@ Frontend
 ### Finding a new (simpler) way of showing (meaningful) context and letting go of idealism in the process
 Early on, rendering a map component to show the geographic context of forecasts appeared very desirable, but picturing how everything in the app
 should meaningfully fit together became less and less clear. This fact (combined with the possibility of reckoning with the map component's not-very-well-documented API)
-pushed me to reconsider my idea. Then the idea of using a prominent chart appeared.
+pushed me to reconsider my idea. Then the idea of using a prominent chart appeared as a simpler way to achieve a similar sense of context.
 
 ### Chasing down bugs related to working with cached state
 Getting used to a workflow where the entirety of the state was cached proved unwise. This began as a way of getting around making
@@ -54,6 +54,15 @@ to make better use of [Redux-devtools-extension](https://github.com/zalmoxisus/r
 This was a prominent pitfall when [writing selectors](https://github.com/reactjs/reselect#creating-a-memoized-selector).
 Conceptual clarity can shrink as focus on implementation detail grows, so it became important to just think (and not write anything)
 when a solution didn't present itself.
+
+### Not opting to use unfamiliar tools which had the potential to "seep through" the entire codebase
+Namely, making the entire store [immutable](http://redux.js.org/docs/recipes/UsingImmutableJS.html) was appealing for performance reasons
+(especially due to the bulkiness of the soybean production response), but my lack of familiarity with the API and _lack of understanding
+of how to measure the perf diff that this would grant me_ caused me to turn away from this.
+
+However, in its current state, the [forecasts reducer](https://github.com/kevmannn/soyfall/blob/master/src/reducers/forecasts.js) holds onto
+all of the forecasts that have been requested for a given day. If in the future it needed to hold forecasts for previous days, it may be wise
+to revisit the possibility of using immutable.
 
 ## Lessons:
 * Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of a solution.
