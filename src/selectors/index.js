@@ -110,12 +110,14 @@ export const getActiveCounties = createSelector(
   getForecastPayloadCorrelation,
   (correlatedForecasts = []) => (
     correlatedForecasts.every(({ series }) => series)
-      ? correlatedForecasts.map(({ id, countyName, soybeanYield, series }) => ({
-          id,
-          countyName,
-          soybeanYield: abbreviateInt(soybeanYield),
-          totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`
-        }))
+      ? correlatedForecasts
+          .sort(({ soybeanYield: a }, { soybeanYield: b }) => b - a)
+          .map(({ id, countyName, soybeanYield, series }) => ({
+              id,
+              countyName,
+              soybeanYield: abbreviateInt(soybeanYield),
+              totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`
+            }))
       : []
   )
 )
