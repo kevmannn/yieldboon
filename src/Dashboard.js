@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as selectors from './selectors';
 import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
-import { loadForecasts, fetchSoybeanProductionIfNeeded } from './actions';
+import { loadForecasts, selectState, fetchSoybeanProductionIfNeeded } from './actions';
 
 class Dashboard extends PureComponent {
   static propTypes = {
@@ -22,9 +22,12 @@ class Dashboard extends PureComponent {
     this.props.fetchSoybeanProductionIfNeeded();
   }
 
-  componentWillReceiveProps({ selectedState, payloadSubset }) {
+  componentWillReceiveProps({ match: { params }, selectedState, payloadSubset }) {
+    // Make history "catch up to" a newly selected state (and vice versa)
     if (this.props.match.params.selectedState !== selectedState) {
       this.props.history.push(`/dashboard/${selectedState}`);
+    } else if (params.selectedState !== selectedState) {
+      this.props.selectState(params.selectedState);
     }
     // Fetch any necessary forecasts for the counties in the selectedState.
     if (payloadSubset.length !== this.props.payloadSubset.length) {
@@ -55,5 +58,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { loadForecasts, fetchSoybeanProductionIfNeeded }
+  { loadForecasts, selectState, fetchSoybeanProductionIfNeeded }
 )(Dashboard)
