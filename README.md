@@ -20,7 +20,7 @@ What is left open is the ability to meaningfully chart some subset of the factor
 This means that given some concern of the user, a subset of factors determined by this concern can be rendered simultaneously so as to uncover meaning with respect to projected success or failure of crop.
 
 Toward this end, and within the constraints of the stated problem, the app charts the 3 counties with the highest mean rainfall against the mean rainfall across all counties (within the selected state).
-Further, the user can hover over the chart to get a sense of the rate of rainfall accumulation / dissipation, and dynamically filter what counties are factored into the composition of the chart.
+Further, the user can hover over the chart to get a sense of the rate of rainfall accumulation, and dynamically filter what counties are factored into the composition of the chart.
 
 ## Focus:
 Frontend
