@@ -112,3 +112,8 @@ describe('DialogInitiator', () => {
     // expect(wrapper.instance().state).toEqual({ dialogIsOpen: true });
   })
 })
+
+describe('StateDialog', () => {
+  // TODO: ...
+  it('renders the correct number of states', () => {})
+})

@@ -115,6 +115,8 @@ class StateDialog extends PureComponent {
       <MuiThemeProvider theme={this.theme}>
         <Dialog
           open={isOpen}
+          enterTransitionDuration={300}
+          leaveTransitionDuration={300}
           onEntering={this.onEntering}>
           <DialogTitle>Filter forecasts by state</DialogTitle>
           <DialogContent>
