@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import lowerCase from 'lodash/lowerCase';
+import { Motion, spring, presets } from 'react-motion';
 
 import ErrorLogger from './ErrorLogger';
 import DialogInitiator from './DialogInitiator';
@@ -32,11 +33,21 @@ export default class ForecastSynopsis extends PureComponent {
 
   renderPartOfWhole(part, whole) {
     return (
-      <span>
-        <span style={{ opacity: '0.5', fontSize: '0.8em' }}>
-          {part} /
-        </span> {whole}
-      </span>
+      <Motion
+        defaultStyle={{ opacity: 0, translation: 20 }}
+        style={{ opacity: spring(1), translation: spring(0, { ...presets.stiff, precision: 1 }) }}>
+        {({ opacity, translation }) => (
+          <span style={{ opacity }}>
+            <span style={{
+              opacity,
+              fontSize: '0.8em',
+              transform: `translateX(${translation})px`
+            }}>
+              {part} /
+            </span> {whole}
+          </span>
+        )}
+      </Motion>
     )
   }
 

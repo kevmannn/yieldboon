@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
+import { Motion, spring, presets } from 'react-motion';
 import {
   Hint,
   XYPlot,
@@ -86,35 +87,45 @@ export default class ForecastChart extends Component {
                   ]} />}
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
-                  <div style={{
-                    opacity: '0.95',
-                    padding: '10px 20px',
-                    borderRadius: '3px',
-                    background: '#1c243d',
-                    boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.4)'
-                  }}>
-                    <p style={this.hintParagraphStyle}>
-                      {moment(highlighted.x).calendar()}
-                      <span style={{ ...this.hintParagraphStyle, opacity: '0.6' }}>
-                        {` (${moment(highlighted.x).fromNow()})`}
-                      </span>
-                    </p>
-                    <p style={{ ...this.hintParagraphStyle, fontSize: '1.2em' }}>
-                      Mean rainfall:
-                      <span style={{ color: this.primaryStroke }}>
-                        {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
-                      </span>
-                      <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.2' }}>/ hr</span>
-                    </p>
-                    <h2 style={{ ...this.hintParagraphStyle, fontWeight: '300', fontSize: '0.7em' }}>
-                      In counties with highest mean rainfall:
-                    </h2>
-                    {inclementForecasts.map(({ id, countyName, series }, i) => (
-                      <p key={id} style={{ color: this.strokeHierarchy[i], opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
-                        {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
-                      </p>
-                    ))}
-                  </div>
+                  <Motion
+                    defaultStyle={{ opacity: 0, translation: 20 }}
+                    style={{
+                      opacity: spring(0.95, { ...presets.stiff, precision: 1 }),
+                      translation: spring(0, { ...presets.stiff, precision: 1 })
+                    }}>
+                    {({ opacity, translation }) => (
+                      <div style={{
+                        opacity,
+                        transform: `translateY(${translation}px)`,
+                        padding: '10px 20px',
+                        borderRadius: '3px',
+                        background: '#1c243d',
+                        boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.4)'
+                      }}>
+                        <p style={this.hintParagraphStyle}>
+                          {moment(highlighted.x).calendar()}
+                          <span style={{ ...this.hintParagraphStyle, opacity: '0.6' }}>
+                            {` (${moment(highlighted.x).fromNow()})`}
+                          </span>
+                        </p>
+                        <p style={{ ...this.hintParagraphStyle, fontSize: '1.2em' }}>
+                          Mean rainfall:
+                          <span style={{ color: this.primaryStroke }}>
+                            {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
+                          </span>
+                          <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.2' }}>/ hr</span>
+                        </p>
+                        <h2 style={{ ...this.hintParagraphStyle, fontWeight: '300', fontSize: '0.7em' }}>
+                          In counties with highest mean rainfall:
+                        </h2>
+                        {inclementForecasts.map(({ id, countyName, series }, i) => (
+                          <p key={id} style={{ color: this.strokeHierarchy[i], opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
+                            {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </Motion>
                 </Hint>}
               <LineSeries
                 data={aggregateActiveForecastSeries}
