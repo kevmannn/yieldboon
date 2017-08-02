@@ -8,7 +8,7 @@ import * as actions from '../actions';
 const mockStore = configureStore([thunk]);
 
 describe.skip('forecast action creators', () => {
-  // let forecasts;
+  let forecasts;
   const store = mockStore({
     soybeanProduction: { lastUpdated: null }
   })
@@ -16,22 +16,21 @@ describe.skip('forecast action creators', () => {
     // nock.cleanAll();
     store.clearActions();
     await store.dispatch(actions.fetchSoybeanProductionIfNeeded());
-    // const [ , { payload } ] = store.getActions();
-    // forecasts = await store.dispatch(actions.loadForecasts(payload.slice(0, 2)));
+    const [ , { payload } ] = store.getActions();
+    forecasts = await store.dispatch(actions.loadForecasts(payload.slice(0, 2)));
   })
 
   it('fetches soybean productino payload', () => {
     expect(store.getActions()).toHaveLength(2);
   })
 
-  // it('dispatches appropriate actions for fetch failure', () => {
-  //   expect.assertions(2);
-  //   const today = moment().format('YYYY-MM-DDTHH:mm:ss');
-  //   nock('https://yieldboon-api.now.sh')
-  //     .get(`/forecast?location=${lat}+${lng}?time=${time}`)
-  //     .reply(400)
+  it('dispatches appropriate actions for fetch failure', () => {
+    // const today = moment().format('YYYY-MM-DDTHH:mm:ss');
+    // nock('https://yieldboon-api.now.sh')
+    //   .get(`/forecast?location=${lat}+${lng}?time=${today}`)
+    //   .reply(400)
 
-  //   const storeActions = store.getActions();
-  //   expect(storeActions.find(({ type }) => type === actions.FAIL_TO_RECEIVE_FORECAST)).toBeTruthy();
-  // })
+    const storeActions = store.getActions();
+    expect(storeActions.find(({ type }) => type === actions.FAIL_TO_RECEIVE_FORECAST)).toBeTruthy();
+  })
 })

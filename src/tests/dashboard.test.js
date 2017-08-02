@@ -113,7 +113,12 @@ describe('DialogInitiator', () => {
   })
 })
 
+// TODO: ...
 describe('StateDialog', () => {
-  // TODO: ...
   it('renders the correct number of states', () => {})
+})
+
+// TODO: ...
+describe('ErrorLogger', () => {
+  it('renders the correct number of errored forecasts', () => {})
 })
