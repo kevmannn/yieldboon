@@ -1,11 +1,11 @@
 {
-  "name": "soyfall",
+  "name": "yieldboon",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kevmannn/soyfall.git"
+    "url": "https://github.com/kevmannn/yieldboon.git"
   },
   "dependencies": {
     "express": "^4.15.3",
@@ -23,7 +23,7 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-scripts": "^1.0.10",
-    "react-vis": "^1.6.7",
+    "react-vis": "^1.7.0",
     "redux": "^3.7.2",
     "redux-action-buffer": "^1.1.0",
     "redux-logger": "^3.0.6",

@@ -4,6 +4,8 @@ import moment from 'moment';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
+const API_URL = 'https://yieldboon-api.now.sh';
+
 export const END_LOAD_FORECASTS = 'END_LOAD_FORECASTS';
 export const BEGIN_LOAD_FORECASTS = 'BEGIN_LOAD_FORECASTS';
 export const SELECT_STATE = 'SELECT_STATE';
@@ -50,7 +52,7 @@ const failToReceiveSoybeanProduction = () => ({
 
 const fetchSoybeanProduction = () => (dispatch) => {
   dispatch(requestSoybeanProduction());
-  return fetch('https://soyfall-api.now.sh/yield')
+  return fetch(`${API_URL}/yield`)
     // Map the response to the values we care about and remove vaguely attributed data.
     .then(
       res => res.status >= 400
@@ -106,7 +108,7 @@ const reachForecastReqLimit = ({ countyName }) => ({
 })
 
 const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
-  return fetch(`https://soyfall-api.now.sh/coords?address=${countyName}+${stateAbbr}`)
+  return fetch(`${API_URL}/coords?address=${countyName}+${stateAbbr}`)
     .then(
       res => res.status >= 400
         ? dispatch(failToReceiveForecast({ countyName, stateAbbr, message: 'Something went wrong.' }))
@@ -124,7 +126,7 @@ const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (disp
   const { lat, lng } = coords;
   dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
-  return fetch(`https://soyfall-api.now.sh/forecast?location=${lat}+${lng}&time=${time}`)
+  return fetch(`${API_URL}/forecast?location=${lat}+${lng}&time=${time}`)
     .then(
       res => res.status >= 400
         ? res.status === 403

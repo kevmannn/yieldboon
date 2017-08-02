@@ -1,6 +1,6 @@
-# soyfall [![Build Status](https://img.shields.io/travis/kevmannn/soyfall/master.svg?style=flat-square)](https://travis-ci.org/kevmannn/soyfall)
+# yieldboon [![Build Status](https://img.shields.io/travis/kevmannn/yieldboon/master.svg?style=flat-square)](https://travis-ci.org/kevmannn/yieldboon)
 
-[A React / Redux app to monitor daily rainfall in soybean-saturated locales](https://soyfall.now.sh)
+[A React / Redux app to monitor daily rainfall in soybean-saturated locales](https://yieldboon.now.sh)
 
 ## The problem (and a solution):
 > Create a service that shows today's total rainfall for counties that produce a lot of soybeans. The user can choose a state to filter the results.
@@ -60,7 +60,7 @@ Namely, making the entire store [immutable](http://redux.js.org/docs/recipes/Usi
 (especially due to the bulkiness of the soybean production response), but my lack of familiarity with the API and _lack of understanding
 of how to measure the perf diff that this would grant me_ caused me to turn away from this.
 
-However, in its current state, the [forecasts reducer](https://github.com/kevmannn/soyfall/blob/master/src/reducers/forecasts.js) holds onto
+However, in its current state, the [forecasts reducer](https://github.com/kevmannn/yieldboon/blob/master/src/reducers/forecasts.js) holds onto
 all of the forecasts that have been requested for a given day. If in the future it needed to hold forecasts for previous days, it may be wise
 to revisit the possibility of using immutable.
 

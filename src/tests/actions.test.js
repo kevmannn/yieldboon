@@ -27,7 +27,7 @@ describe.skip('forecast action creators', () => {
   // it('dispatches appropriate actions for fetch failure', () => {
   //   expect.assertions(2);
   //   const today = moment().format('YYYY-MM-DDTHH:mm:ss');
-  //   nock('https://soyfall-api.now.sh')
+  //   nock('https://yieldboon-api.now.sh')
   //     .get(`/forecast?location=${lat}+${lng}?time=${time}`)
   //     .reply(400)
 
