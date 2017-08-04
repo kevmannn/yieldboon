@@ -1,9 +1,15 @@
 import { v4 } from 'uuid';
+
 import forecasts from '../reducers/forecasts';
 import selectedState from '../reducers/selected-state';
 import soybeanProduction from '../reducers/soybean-production';
 
 import * as actions from '../actions';
+
+const transformState = (firstActionCreator) => (secondActionCreator) => {
+  const state = forecasts(undefined, firstActionCreator);
+  return forecasts(state, secondActionCreator);
+}
 
 describe('forecasts', () => {
   it('has default state', () => {
@@ -14,34 +20,27 @@ describe('forecasts', () => {
   })
 
   it('stores disallowedIds', () => {
-    const hiddenIds = Array(3).map(x => v4());
+    const hiddenIds = Array(3).map(() => v4());
+    expect(transformState
+      ({ type: actions.SET_FORECAST_FILTER, hiddenIds })
+      ({ type: actions.SET_FORECAST_FILTER, revealedIds: hiddenIds })
+    .disallowedIds).toHaveLength(0)
+  })
+
+  it('stores didReachReqLimit', () => {
     const state = forecasts(undefined, {
-      type: actions.SET_FORECAST_FILTER,
-      hiddenIds
+      type: actions.REACH_FORECAST_REQ_LIMIT
     })
-    expect(state.disallowedIds).toHaveLength(3);
-    const nextState = forecasts(state, {
-      type: actions.SET_FORECAST_FILTER,
-      revealedIds: hiddenIds
-    })
-    expect(nextState.disallowedIds).toHaveLength(0);
+    expect(state.errorLog.didReachReqLimit).toBe(true);
   })
 
   it('accumulates failed req messages in errorLog', () => {
-    const state = forecasts(undefined, {
+    expect(forecasts(undefined, {
       type: actions.FAIL_TO_RECEIVE_FORECAST,
-      countyName: 'x',
-      stateAbbr: 'y',
-      message: 'Something went wrong'
-    })
-    expect(state.errorLog).toEqual(expect.objectContaining({
-      x: { stateAbbr: 'y', messages: ['Something went wrong'] }
-    }))
-    const nextState = forecasts(state, {
-      type: actions.RECEIVE_FORECAST,
-      countyName: 'x'
-    })
-    expect(nextState.errorLog).toEqual({ didReachReqLimit: false });
+      countyName: 'here',
+      stateAbbr: 'XY',
+      message: 'Everything is wrecked and grey.'
+    }).errorLog).toEqual({ here: { stateAbbr: 'XY', messages: ['Everything is wrecked and grey.'] } })
   })
 
   it('stores isFetching', () => {
