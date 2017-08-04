@@ -113,12 +113,17 @@ describe('DialogInitiator', () => {
   })
 })
 
-// TODO: ...
 describe('StateDialog', () => {
-  it('renders the correct number of states', () => {})
+  it('renders the correct number of states', () => {
+    // const props = {
+    //   isOpen: true,
+    //   onRequestClose: jest.fn()
+    // }
+    // const [ , wrapper ] = mountComponentWithState(StateDialog, fullState, props);
+    // expect(wrapper.find('Dialog')).toHaveLength(1);
+  })
 })
 
-// TODO: ...
 describe('ErrorLogger', () => {
   it('renders an error message when no longer fetching whilst there are errorLogMessages', () => {})
 })

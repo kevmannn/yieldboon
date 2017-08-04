@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import forecasts from '../reducers/forecasts';
 import selectedState from '../reducers/selected-state';
 import soybeanProduction from '../reducers/soybean-production';
@@ -10,6 +11,20 @@ describe('forecasts', () => {
       disallowedIds: [],
       precipForecasts: []
     })
+  })
+
+  it('stores disallowedIds', () => {
+    const hiddenIds = Array(3).map(x => v4());
+    const state = forecasts(undefined, {
+      type: actions.SET_FORECAST_FILTER,
+      hiddenIds
+    })
+    expect(state.disallowedIds).toHaveLength(3);
+    const nextState = forecasts(state, {
+      type: actions.SET_FORECAST_FILTER,
+      revealedIds: hiddenIds
+    })
+    expect(nextState.disallowedIds).toHaveLength(0);
   })
 
   it('accumulates failed req messages in errorLog', () => {
