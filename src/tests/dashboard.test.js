@@ -32,10 +32,11 @@ const mountComponentWithState = (Component, state, props = {}) => {
 }
 
 describe('App', () => {
-  const [ store, wrapper ] = mountComponentWithState(App, {});
   it('renders app', () => {
+    const [ store, wrapper ] = mountComponentWithState(App, {});
+    // const selectedState = selectors.getSelectedState(fullState);
+    // expect(wrapper.find({ route: `/dashboard/${selectedState}` })).toHaveLength(1);
     expect(wrapper.find('div').children()).toHaveLength(2);
-    expect(wrapper.find('Dashboard')).toBeTruthy();
     expect(store.getState()).toEqual({});
   })
 })
@@ -76,7 +77,7 @@ describe('ForecastChart', () => {
   }
   const wrapper = shallow(<ForecastChart {...props} />);
   it('renders the chart', () => {
-    expect(wrapper.find('FlexibleXYPlot')).toBeTruthy();
+    expect(wrapper.find('FlexibleXYPlot')).toHaveLength(1);
     expect(wrapper.find('LineSeries')).toHaveLength(3);
   })
 
@@ -106,7 +107,6 @@ describe('DialogInitiator', () => {
   it('opens the dialog when clicked', () => {
     const wrapper = shallow(<DialogInitiator />);
     expect(wrapper.instance().state).toEqual({ dialogIsOpen: false });
-    expect(wrapper.find({ onClick: jest.fn() })).toBeTruthy();
     // TODO: ...
     // wrapper.find({ onClick: jest.fn() }).simulate('click');
     // expect(wrapper.instance().state).toEqual({ dialogIsOpen: true });
@@ -120,5 +120,5 @@ describe('StateDialog', () => {
 
 // TODO: ...
 describe('ErrorLogger', () => {
-  it('renders the correct number of errored forecasts', () => {})
+  it('renders an error message when no longer fetching whilst there are errorLogMessages', () => {})
 })
