@@ -76,6 +76,8 @@ to revisit the possibility of using immutable.
 
 * Overlay historical average rainfall for a given timespan onto the chart.
 
+* Develop meaningful metric for (absolute) rainfall severity, perhaps taking history into account.
+
 * Correlate the forecast with probable boon / doom of the crop (given the nature of soybean and the crop's history / growth stage / values of other factors (which should also be accomodated in the app)).
 
 * For the sake of triage, use the mapbox API to show shortest paths (and directions) between farm locations the user cares about.
