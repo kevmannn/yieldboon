@@ -1,5 +1,7 @@
 # yieldboon [![Build Status](https://img.shields.io/travis/kevmannn/yieldboon/master.svg?style=flat-square)](https://travis-ci.org/kevmannn/yieldboon)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kevmannn/yieldboon.svg)](https://greenkeeper.io/)
+
 [A React / Redux app to correlate forecasts with crop success](https://yieldboon.now.sh)
 
 ## Design
