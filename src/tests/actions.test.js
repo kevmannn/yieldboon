@@ -24,7 +24,7 @@ describe.skip('forecast action creators', () => {
     expect(store.getActions()).toHaveLength(2);
   })
 
-  it('dispatches appropriate actions for fetch failure', () => {
+  it('dispatches appropriate actions for forecast fetch failure', () => {
     // const today = moment().format('YYYY-MM-DDTHH:mm:ss');
     // nock('https://yieldboon-api.now.sh')
     //   .get(`/forecast?location=${lat}+${lng}?time=${today}`)

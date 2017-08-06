@@ -34,9 +34,8 @@ const mountComponentWithState = (Component, state, props = {}) => {
 describe('App', () => {
   it('renders app', () => {
     const [ store, wrapper ] = mountComponentWithState(App, {});
-    // const selectedState = selectors.getSelectedState(fullState);
-    // expect(wrapper.find({ route: `/dashboard/${selectedState}` })).toHaveLength(1);
     expect(wrapper.find('div').children()).toHaveLength(2);
+    expect(wrapper.find('div').childAt(1).props().path).toEqual('/dashboard/:selectedState');
     expect(store.getState()).toEqual({});
   })
 })
@@ -64,6 +63,11 @@ describe('ForecastSynopsis', () => {
     const wrapper = shallow(<ForecastSynopsis {...props} />);
     expect(wrapper.find('div').children()).toHaveLength(14);
   })
+
+  // TODO: ...
+  it('renders the number of counties with allowed ids for the selected state', () => {})
+
+  it('renders the accumulated rainfall at the highlighted value', () => {})
 })
 
 describe('ForecastChart', () => {
@@ -89,9 +93,11 @@ describe('ForecastChart', () => {
     })
   })
 
-  // TODO: ...
-  it('only renders MarkSeries for y values belonging to inclementForecasts', () => {
-    expect(wrapper.find('MarkSeries').props().data).toHaveLength(3);
+  it('only renders MarkSeries for ys in inclementForecasts and aggregateActiveForecastSeries', () => {
+    expect(props.inclementForecasts).toHaveLength(2);
+    const data = wrapper.find('MarkSeries').props().data;
+    expect(data).toHaveLength(3);
+    expect(data.map(({ y }) => y)).toEqual([1, 0.02, 0.01]);
   })
 })
 
@@ -113,17 +119,16 @@ describe('DialogInitiator', () => {
   })
 })
 
-describe('StateDialog', () => {
-  it('renders the correct number of states', () => {
-    // const props = {
-    //   isOpen: true,
-    //   onRequestClose: jest.fn()
-    // }
-    // const [ , wrapper ] = mountComponentWithState(StateDialog, fullState, props);
-    // expect(wrapper.find('Dialog')).toHaveLength(1);
-  })
+// TODO: ...
+describe.skip('StateDialog', () => {
+  it('renders the correct number of states', () => {})
 })
 
-describe('ErrorLogger', () => {
-  it('renders an error message when no longer fetching whilst there are errorLogMessages', () => {})
+// TODO: ...
+describe.skip('ErrorLogger', () => {
+  it('renders an error message when no longer fetching whilst there are errorLogMessages', () => {
+    // const forecasts = { ...fullState.forecasts, isFetching: false, errorLogMessages: ['doom'] };
+    // const [ , wrapper ] = mountComponentWithState(ErrorLogger, { ...fullState, ...forecasts });
+    // expect(wrapper.find('div').childAt(0)).toEqual({});
+  })
 })
