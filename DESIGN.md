@@ -74,6 +74,10 @@ to revisit the possibility of using immutable.
 
 * Use [Redux-pack](https://github.com/lelandrichardson/redux-pack) or [Redux-loop](https://github.com/redux-loop/redux-loop) to bring increased neatness / extensibility / sanity to async actions.
 
+* Add support for different visible timespans in chart.
+
+* Clearly demarcate pre / post Date.now() within chart.
+
 * Overlay historical average rainfall for a given timespan onto the chart.
 
 * Develop meaningful metric for (absolute) rainfall severity, perhaps taking history into account.

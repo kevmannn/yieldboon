@@ -129,6 +129,7 @@ class StateDialog extends PureComponent {
                 <FormControlLabel
                   key={i}
                   value={stateAbbr}
+                  control={<Radio />}
                   label={
                     <p>{stateAbbr}
                       <span style={{ fontSize: '0.9em', opacity: '0.3' }}>
@@ -140,8 +141,7 @@ class StateDialog extends PureComponent {
                           : <CachedIcon style={{...this.iconStyle, color: '#7795f8'}} />
                         : null}
                     </p>
-                  }
-                  control={<Radio />} />
+                  } />
               ))}
             </RadioGroup>
           </DialogContent>
