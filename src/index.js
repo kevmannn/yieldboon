@@ -19,8 +19,7 @@ const composeEnhancers = isDev && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   : compose
 
-// Enhance the store with caching, action buffering (necessary due to caching), and the
-// abillity to dispatch async action creators.
+// Enhance the store with caching, and apply action buffering (necessary due to caching) and thunk middleware.
 const store = createStore(
   rootReducer,
   composeEnhancers(

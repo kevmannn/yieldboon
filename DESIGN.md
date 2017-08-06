@@ -74,11 +74,19 @@ to revisit the possibility of using immutable.
 
 * Use [Redux-pack](https://github.com/lelandrichardson/redux-pack) or [Redux-loop](https://github.com/redux-loop/redux-loop) to bring increased neatness / extensibility / sanity to async actions.
 
+* Add support for different visible timespans in chart.
+
+* Clearly demarcate pre / post Date.now() within chart.
+
 * Overlay historical average rainfall for a given timespan onto the chart.
 
 * Develop meaningful metric for (absolute) rainfall severity, perhaps taking history into account.
 
-* Correlate the forecast with probable boon / doom of the crop (given the nature of soybean and the crop's history / growth stage / values of other factors (which should also be accomodated in the app)).
+* Add support for users / login / accounts.
+
+* Generalize to support all crop types supported by usda API.
+
+* Correlate the forecast with probable boon / doom of the crop (given the nature and history of the crop / its growth stage / the values of other factors (which should also be accomodated in the app)).
 
 * For the sake of triage, use the mapbox API to show shortest paths (and directions) between farm locations the user cares about.
 
