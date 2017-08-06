@@ -49,18 +49,18 @@ describe('VisualizationDyad', () => {
       highlighted: null
     }))
     // TODO: ...
-    // wrapper.setState({ highlighted: {} });
+    // wrapper.instance().setState({ highlighted: {} });
     // expect(wrapper.find('ForecastSynopsis').props().highlighted).toEqual({});
   })
 })
 
 describe('ForecastSynopsis', () => {
+  const props = {
+    highlighted: null,
+    forecastTotals: selectors.getForecastTotals(fullState)
+  }
+  const wrapper = shallow(<ForecastSynopsis {...props} />);
   it('renders the correct number of children', () => {
-    const props = {
-      highlighted: null,
-      forecastTotals: selectors.getForecastTotals(fullState)
-    }
-    const wrapper = shallow(<ForecastSynopsis {...props} />);
     expect(wrapper.find('div').children()).toHaveLength(14);
   })
 
