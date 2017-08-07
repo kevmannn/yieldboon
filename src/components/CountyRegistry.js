@@ -61,10 +61,8 @@ class CountyRegistry extends PureComponent {
     overrides: {
       MuiTableHead: {
         root: {
-          // position: 'fixed',
           color: '#1c243d',
-          fontSize: '0.9em',
-          letterSpacing: '0.02em'
+          fontSize: '0.9em'
         }
       },
       MuiTableRow: {

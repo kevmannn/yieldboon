@@ -74,8 +74,8 @@ class SelectStateDialog extends PureComponent {
     overrides: {
       MuiDialog: {
         paper: {
-          width: '80%',
-          maxHeight: '400px'
+          width: '90%',
+          maxHeight: '500px'
         }
       },
       MuiBackdrop: {
@@ -120,6 +120,9 @@ class SelectStateDialog extends PureComponent {
       <MuiThemeProvider theme={this.theme}>
         <Dialog
           open={isOpen}
+          enterTransitionDuration={400}
+          leaveTransitionDuration={400}
+          onBackdropClick={this.onCancel}
           onEntering={this.onEntering}>
           <DialogTitle>Filter forecasts by state</DialogTitle>
           <DialogContent>
@@ -149,7 +152,7 @@ class SelectStateDialog extends PureComponent {
             </RadioGroup>
           </DialogContent>
           <DialogActions>
-            <IconButton style={{ opacity: '0.3' }} onClick={this.onCancel}>
+            <IconButton style={{ opacity: '0.5' }} onClick={this.onCancel}>
               <CloseIcon />
             </IconButton>
             <IconButton onClick={this.onAccept}>

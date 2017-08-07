@@ -9,14 +9,15 @@ export default class Loader extends PureComponent {
   };
 
   static defaultProps = {
-    color: '#bdccfc'
+    color: '#7795f8'
   }
 
   theme = createMuiTheme({
     overrides: {
       MuiCircularProgress: {
         circle: {
-          color: this.props.color
+          color: this.props.color,
+          opacity: '0.8'
         }
       }
     }
@@ -26,7 +27,7 @@ export default class Loader extends PureComponent {
     return (
       <div style={{ textAlign: 'center', margin: '0px auto', padding: '100px' }}>
         <MuiThemeProvider theme={this.theme}>
-          <CircularProgress size={150} />
+          <CircularProgress size={140} />
         </MuiThemeProvider>
       </div>
     )

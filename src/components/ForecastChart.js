@@ -34,7 +34,6 @@ export default class ForecastChart extends Component {
   curve = 'curveMonotoneX';
   primaryStroke = '#7795f8';
   secondaryStroke = '#bdccfc';
-  // strokeHierarchy = ['#bdccfc', '#bdccfc', '#bdccfc'];
   flexibleXYPlotProps = {
     height: 340,
     margin: { top: 0, right: 10, bottom: 10, left: 10 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+// import { TransitionMotion, spring, presets } from 'react-motion';
 
 import './app.css';
 import 'react-vis/dist/style.css';

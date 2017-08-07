@@ -11,21 +11,21 @@ body {
 }
 
 .buffer {
-  font-family: 'Noto Sans', sans-serif;
   font-weight: 300;
-  font-size: 0.9em;
   letter-spacing: 0.05em;
   text-align: center;
   margin: 0px auto;
-  padding: 150px;
+  padding: 200px;
+  color: #151b2d;
 }
 
 .error {
+  font-size: 0.8em;
   color: #ff4081;
 }
 
 .load {
-  color: #151b2d;
+  font-size: 0.8em;
   animation: Blink infinite 1s ease-in-out;
 }
 
@@ -46,7 +46,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 3px;
+  height: 2px;
 }
 
 #nprogress .peg {
@@ -57,5 +57,5 @@ body {
   height: 100%;
   box-shadow: 0 0 10px #7795f8, 0 0 5px #7795f8;
   opacity: 1.0;
-  transform: rotate(3deg) translate(0px, -4px);
+  /*transform: rotate(3deg) translate(0px, -4px);*/
 }
