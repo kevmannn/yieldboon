@@ -89,6 +89,11 @@ class StateDialog extends PureComponent {
           fontFamily: 'Noto Sans'
         }
       },
+      MuiIconButton: {
+        root: {
+          color: '#7795f8'
+        }
+      },
       MuiRadio: {
         checked: {
           color: '#7795f8'
@@ -137,8 +142,8 @@ class StateDialog extends PureComponent {
                       </span>
                       {activeStates[stateAbbr].isCached
                         ? activeStates[stateAbbr].didError
-                          ? <ErrorIcon style={{...this.iconStyle, color: '#ff4081'}} />
-                          : <CachedIcon style={{...this.iconStyle, color: '#7795f8'}} />
+                          ? <ErrorIcon style={{ ...this.iconStyle, color: '#ff4081' }} />
+                          : <CachedIcon style={{ ...this.iconStyle, color: '#7795f8' }} />
                         : null}
                     </p>
                   } />
@@ -146,10 +151,10 @@ class StateDialog extends PureComponent {
             </RadioGroup>
           </DialogContent>
           <DialogActions>
-            <IconButton onClick={this.onCancel}>
+            <IconButton style={{ opacity: '0.3' }} onClick={this.onCancel}>
               <CloseIcon />
             </IconButton>
-            <IconButton color="accent" onClick={this.onAccept}>
+            <IconButton onClick={this.onAccept}>
               <DoneIcon />
             </IconButton>
           </DialogActions>
