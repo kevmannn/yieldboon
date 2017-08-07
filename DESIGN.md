@@ -86,7 +86,7 @@ to revisit the possibility of using immutable.
 
 * Add support for users / login / accounts.
 
-* Generalize to support all crop types supported by usda API.
+* Generalize to support all crop types supported by the USDA API.
 
 * Correlate the forecast with probable boon / doom of the crop (given the nature and history of the crop / its growth stage / the values of other factors (which should also be accomodated in the app)).
 

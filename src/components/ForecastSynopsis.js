@@ -6,9 +6,9 @@ import AboutIcon from 'material-ui-icons/WifiTethering';
 import SelectStateIcon from 'material-ui-icons/Mms';
 
 import ErrorLogger from './ErrorLogger';
-// import AboutDialog from './AboutDialog';
 import DialogInitiator from './DialogInitiator';
-// import SelectStateDialog from './SelectStateDialog';
+// import AboutDialog from './AboutDialog';
+// import StateSelectionDialog from './StateSelectionDialog';
 // import TimespanToggle from './TimespanToggle';
 
 export default class ForecastSynopsis extends PureComponent {

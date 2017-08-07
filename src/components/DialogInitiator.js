@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
-import SelectStateIcon from 'material-ui-icons/Mms';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import SelectStateDialog from './SelectStateDialog';
@@ -10,13 +9,10 @@ export default class DialogInitiator extends PureComponent {
   static propTypes = {
     icon: PropTypes.node,
     color: PropTypes.string,
-    // dialog: PropTypes.node.isRequired,
-    isDisabled: PropTypes.bool,
     isFullScreen: PropTypes.bool
   };
 
   static defaultProps = {
-    icon: <SelectStateIcon />,
     color: '#7795f8',
     isFullScreen: false
   };
@@ -47,12 +43,12 @@ export default class DialogInitiator extends PureComponent {
   };
 
   render() {
-    const { icon: Icon, isDisabled } = this.props;
+    const { icon: Icon } = this.props;
     const { dialogIsOpen } = this.state;
     return (
-      <div style={{ float: 'right', margin: '15px'  }}>
+      <div style={{ float: 'right', margin: '15px' }}>
         <MuiThemeProvider theme={this.theme}>
-          <IconButton disabled={isDisabled} onClick={this.onClick}>
+          <IconButton onClick={this.onClick}>
             {Icon}
           </IconButton>
         </MuiThemeProvider>

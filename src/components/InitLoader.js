@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 
 export default class InitLoader extends PureComponent {
-  // constructor(props) {
-  //   super(props);
+  // constructor() {
+  //   super();
   //   this.state = {};
   // }
 

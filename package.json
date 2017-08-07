@@ -23,7 +23,7 @@
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
     "react-scripts": "^1.0.10",
-    "react-vis": "^1.7.0",
+    "react-vis": "^1.7.1",
     "redux": "^3.7.2",
     "redux-action-buffer": "^1.1.0",
     "redux-logger": "^3.0.6",

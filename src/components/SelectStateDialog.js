@@ -20,7 +20,6 @@ class SelectStateDialog extends PureComponent {
     history: PropTypes.object,
     isOpen: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
-    // Provided via connect:
     activeStates: PropTypes.object.isRequired,
     selectedState: PropTypes.string.isRequired
   };
@@ -60,7 +59,7 @@ class SelectStateDialog extends PureComponent {
 
   onChange = (event, selectedValue) => {
     this.setState({ selectedValue });
-  }
+  };
 
   iconStyle = {
     height: '20px',
@@ -102,6 +101,11 @@ class SelectStateDialog extends PureComponent {
           color: '#151b2d'
         }
       },
+      MuiPaper: {
+        root: {
+          backgroundColor: '#fcfdff'
+        }
+      },
       MuiFormControlLabel: {
         label: {
           lineHeight: '25px',
@@ -124,6 +128,7 @@ class SelectStateDialog extends PureComponent {
           leaveTransitionDuration={400}
           onBackdropClick={this.onCancel}
           onEntering={this.onEntering}>
+          {/*children*/}
           <DialogTitle>Filter forecasts by state</DialogTitle>
           <DialogContent>
             <RadioGroup

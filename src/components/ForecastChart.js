@@ -97,7 +97,7 @@ export default class ForecastChart extends Component {
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 50 }}
+                    defaultStyle={{ opacity: 0, translation: 70 }}
                     style={{
                       opacity: spring(0.9, { ...presets.stiff, precision: 0.1 }),
                       translation: spring(0, { ...presets.stiff, precision: 0.1 })
@@ -119,13 +119,13 @@ export default class ForecastChart extends Component {
                           <span style={{ color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
                           </span>
-                          <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.3' }}>/ hr</span>
+                          <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                         </p>
                         <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.7em' }}>
                           In counties with highest mean rainfall:
                         </h2>
                         {inclementForecasts.map(({ id, countyName, series }, i) => (
-                          <p key={id} style={{ color: this.secondaryStroke, opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
+                          <p key={id} style={{ color: this.secondaryStroke, opacity: 1.5 / (i + 1), fontSize: '0.7em' }}>
                             {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
                           </p>
                         ))}
@@ -142,7 +142,7 @@ export default class ForecastChart extends Component {
               {inclementForecasts.map(({ id, series }, i) => (
                 <LineSeries
                   key={id}
-                  opacity={0.4 / (i + 1)}
+                  opacity={0.3 / (i + 1)}
                   data={series}
                   curve={this.curve}
                   stroke={this.secondaryStroke}
