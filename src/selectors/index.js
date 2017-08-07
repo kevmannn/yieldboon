@@ -158,7 +158,7 @@ export const getSeriesExtremes = createSelector(
   getInclementForecasts,
   (forecasts) => {
     const [ min, max ] = findExtremesAcrossForecasts(forecasts);
-    return [0.9 * min, 1.1 * max];
+    return [0.85 * min, 1.15 * max];
   }
 )
 
