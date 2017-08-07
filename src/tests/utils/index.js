@@ -24,7 +24,7 @@ export const fullState = {
     disallowedIds: [],
     precipForecasts: [
       {
-        id: 1,
+        id: '1',
         coords: {},
         countyName: 'x',
         stateAbbr: 'CA',
@@ -35,7 +35,7 @@ export const fullState = {
         ]
       },
       {
-        id: 2,
+        id: '2',
         coords: {},
         countyName: 'y',
         stateAbbr: 'CA',

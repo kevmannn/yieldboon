@@ -10,7 +10,7 @@ import {
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
-export default class ForecastBarSeries extends Component {
+export default class ForecastSeries extends Component {
   static propTypes = {
     series: PropTypes.arrayOf(PropTypes.object).isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number)

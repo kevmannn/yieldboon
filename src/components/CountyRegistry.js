@@ -14,7 +14,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
-// import ForecastBarSeries from './ForecastBarSeries';
+// import ForecastSeries from './ForecastSeries';
 
 class CountyRegistry extends PureComponent {
   static propTypes = {
@@ -131,7 +131,7 @@ class CountyRegistry extends PureComponent {
                         <span>{totalRainfall}</span>
                       </TableCell>
                       {/*<TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
-                        <ForecastBarSeries
+                        <ForecastSeries
                           series={rainfallIntensity}
                           seriesExtremes={seriesExtremes} />
                       </TableCell>*/}
