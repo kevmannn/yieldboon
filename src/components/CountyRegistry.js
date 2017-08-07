@@ -13,6 +13,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
+// import ForecastBarSeries from './ForecastBarSeries';
 
 class CountyRegistry extends PureComponent {
   static propTypes = {
@@ -20,7 +21,13 @@ class CountyRegistry extends PureComponent {
     // Provided via connect:
     isFetching: PropTypes.bool,
     disallowedIds: PropTypes.arrayOf(PropTypes.string),
-    activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired
+    activeCounties: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      countyName: PropTypes.string,
+      // series: PropTypes.arrayOf(PropTypes.object),
+      soybeanYield: PropTypes.string,
+      totalRainfall: PropTypes.string
+    })).isRequired
   };
 
   constructor(props) {
@@ -28,6 +35,10 @@ class CountyRegistry extends PureComponent {
     this.state = {
       didCheckAll: true
     }
+  }
+
+  getOpacityForTableCell(id) {
+    return this.props.disallowedIds.includes(id) ? '0.3' : '1';
   }
 
   onChange = (id, isChecked) => {
@@ -101,21 +112,19 @@ class CountyRegistry extends PureComponent {
                 </TableHead>
                 <TableBody>
                   {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall }) => (
-                    <TableRow
-                      key={id}
-                      selected={false}>
+                    <TableRow key={id}>
                       <TableCell checkbox>
                         <Checkbox
                           checked={!disallowedIds.includes(id)}
                           onChange={(event, isChecked) => this.onChange(id, isChecked)} />
                       </TableCell>
-                      <TableCell>
+                      <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         {countyName}
                       </TableCell>
-                      <TableCell>
+                      <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         {soybeanYield}
                       </TableCell>
-                      <TableCell>
+                      <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         {totalRainfall}
                       </TableCell>
                     </TableRow>
