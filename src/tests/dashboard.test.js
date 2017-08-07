@@ -16,6 +16,8 @@ import CountyRegistry from '../components/CountyRegistry';
 import DialogInitiator from '../components/DialogInitiator';
 // import StateDialog from '../components/StateDialog';
 // import ErrorLogger from '../components/ErrorLogger';
+// import ForecastSeries from '../components/ForecastSeries';
+// import TimespanToggle from '../components/TimespanToggle';
 
 const mockStore = configureStore();
 const mountComponentWithState = (Component, state, props = {}) => {

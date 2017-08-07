@@ -28,7 +28,7 @@ class CountyRegistry extends PureComponent {
       countyName: PropTypes.string,
       soybeanYield: PropTypes.string,
       totalRainfall: PropTypes.string,
-      rainfallIntensity: PropTypes.arrayOf(PropTypes.object)
+      // rainfallIntensity: PropTypes.arrayOf(PropTypes.object)
     })).isRequired
   };
 
@@ -113,14 +113,13 @@ class CountyRegistry extends PureComponent {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall, rainfallIntensity }) => (
+                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall }) => (
                     <TableRow key={id}>
                       <TableCell checkbox>
                         <Checkbox
                           checked={!disallowedIds.includes(id)}
                           onChange={(event, isChecked) => this.onChange(id, isChecked)} />
                       </TableCell>
-                      {/*<Motion></Motion>*/}
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         <span>{countyName}</span>
                       </TableCell>
