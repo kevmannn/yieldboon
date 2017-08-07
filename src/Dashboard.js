@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 // import AsyncComponent from './components/AsyncComponent';
 import * as selectors from './selectors';
+import InitLoader from './components/InitLoader';
 import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
 import { loadForecasts, selectState, fetchSoybeanProductionIfNeeded } from './actions';
@@ -13,6 +14,7 @@ class Dashboard extends PureComponent {
     match: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     // Provided via connect:
+    isFetching: PropTypes.bool,
     selectedState: PropTypes.string.isRequired,
     payloadSubset: PropTypes.arrayOf(PropTypes.object).isRequired,
     didFailToFetch: PropTypes.bool
@@ -36,20 +38,23 @@ class Dashboard extends PureComponent {
   }
 
   render() {
-    const { selectedState, didFailToFetch } = this.props;
+    const { isFetching, selectedState, didFailToFetch } = this.props;
     return (
       didFailToFetch
         ? <div className="buffer error">Something went wrong...</div>
-        : <div>
-            <VisualizationDyad />
-            <CountyRegistry selectedState={selectedState} />
-          </div>
+        : isFetching
+          ? <InitLoader />
+          : <div>
+              <VisualizationDyad />
+              <CountyRegistry selectedState={selectedState} />
+            </div>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
+    isFetching: selectors.getIsFetchingSoybeanProduction(state),
     selectedState: selectors.getSelectedState(state),
     payloadSubset: selectors.getPayloadSubset(state),
     didFailToFetch: selectors.getDidFailToFetch(state)

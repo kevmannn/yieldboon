@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import { TransitionMotion, spring, presets } from 'react-motion';
 
 import ForecastSynopsis from './ForecastSynopsis';
 import ForecastChart from './ForecastChart';

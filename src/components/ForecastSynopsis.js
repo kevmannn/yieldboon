@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import lowerCase from 'lodash/lowerCase';
 import { Motion, spring, presets } from 'react-motion';
+import AboutIcon from 'material-ui-icons/WifiTethering';
 import SelectStateIcon from 'material-ui-icons/Mms';
-import AboutIcon from 'material-ui-icons/Bookmark';
 
 import ErrorLogger from './ErrorLogger';
 import DialogInitiator from './DialogInitiator';
@@ -77,8 +77,8 @@ export default class ForecastSynopsis extends PureComponent {
             </p>
           </div>
         ))}
-        <DialogInitiator icon={<SelectStateIcon />} />
         <DialogInitiator isDisabled icon={<AboutIcon />} />
+        <DialogInitiator icon={<SelectStateIcon />} />
         <ErrorLogger />
       </div>
     )

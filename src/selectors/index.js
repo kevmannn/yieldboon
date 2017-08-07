@@ -10,6 +10,7 @@ export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
 export const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 export const getDidReachReqLimit = ({ forecasts: { errorLog } }) => errorLog && errorLog.didReachReqLimit;
+export const getIsFetchingSoybeanProduction = ({ soybeanProduction: { isFetching }}) => isFetching;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(

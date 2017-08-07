@@ -39,6 +39,13 @@ export default class ForecastChart extends Component {
     margin: { top: 0, right: 10, bottom: 20, left: 10 }
   };
 
+  hintDivStyle = {
+    padding: '10px 20px',
+    borderRadius: '3px',
+    background: '#1c243d',
+    boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.4)'
+  };
+
   hintParagraphStyle = {
     fontSize: '0.8em',
     fontFamily: 'Noto Sans',
@@ -90,19 +97,16 @@ export default class ForecastChart extends Component {
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 20 }}
+                    defaultStyle={{ opacity: 0, translation: 50 }}
                     style={{
-                      opacity: spring(0.95, { ...presets.stiff, precision: 1 }),
-                      translation: spring(0, { ...presets.stiff, precision: 1 })
+                      opacity: spring(0.9, { ...presets.stiff, precision: 0.5 }),
+                      translation: spring(0, { ...presets.stiff, precision: 0.5 })
                     }}>
                     {({ opacity, translation }) => (
                       <div style={{
+                        ...this.hintDivStyle,
                         opacity,
-                        transform: `translateY(${translation}px)`,
-                        padding: '10px 20px',
-                        borderRadius: '3px',
-                        background: '#1c243d',
-                        boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.4)'
+                        transform: `translateY(${translation}px)`
                       }}>
                         <p style={this.hintParagraphStyle}>
                           {moment(highlighted.x).calendar()}
