@@ -5,6 +5,7 @@ import { Motion, spring, presets } from 'react-motion';
 
 import ErrorLogger from './ErrorLogger';
 import DialogInitiator from './DialogInitiator';
+// import TimespanToggle from './TimespanToggle';
 
 export default class ForecastSynopsis extends PureComponent {
   static propTypes = {

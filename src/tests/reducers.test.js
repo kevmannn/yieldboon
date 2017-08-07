@@ -80,6 +80,12 @@ describe('soybeanProduction', () => {
     })
   })
 
+  it('stores isFetching', () => {
+    expect(soybeanProduction(undefined, {
+      type: actions.REQUEST_SOYBEAN_PRODUCTION
+    })).toEqual({ didFailToFetch: false, isFetching: true })
+  })
+
   it('stores a received paylod', () => {
     expect(soybeanProduction(undefined, {
       type: actions.RECEIVE_SOYBEAN_PRODUCTION,
