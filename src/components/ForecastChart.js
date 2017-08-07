@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Motion, spring, presets } from 'react-motion';
 import {
   Hint,
+  XAxis,
   XYPlot,
   LineSeries,
   MarkSeries,
@@ -36,7 +37,7 @@ export default class ForecastChart extends Component {
   secondaryStroke = '#bdccfc';
   flexibleXYPlotProps = {
     height: 340,
-    margin: { top: 0, right: 10, bottom: 10, left: 10 }
+    margin: { top: 10, right: 10, bottom: 20, left: 10 }
   };
 
   hintDivStyle = {
@@ -58,6 +59,14 @@ export default class ForecastChart extends Component {
 
   onNearestX = (highlighted = {}) => {
     this.props.onNearestX(highlighted);
+  };
+
+  tickFormat = (x) => {
+    return moment(x).format('h:mm a');
+  };
+
+  axisStyle = {
+    text: { fontSize: '0.6em', opacity: '0.7', paddingTop: '10px', fill: this.secondaryStroke }
   };
 
   render() {
@@ -148,6 +157,12 @@ export default class ForecastChart extends Component {
                   stroke={this.secondaryStroke}
                   strokeWidth={2} />
               ))}
+              <XAxis
+                width={0}
+                tickSize={0}
+                style={this.axisStyle}
+                tickTotal={Math.floor(aggregateActiveForecastSeries.length / 8)}
+                tickFormat={this.tickFormat} />
             </FlexibleXYPlot>}
       </div>
     )
