@@ -43,10 +43,13 @@ describe('forecast selectors', () => {
 
   it('can derive activeCounties from state', () => {
     expect(selectors.getActiveCounties(emptyState)).toEqual([]);
-    expect(selectors.getActiveCounties(fullState)).toEqual([
-      { countyName: 'x', id: '1', soybeanYield: expect.any(String), totalRainfall: '0.12"' },
-      { countyName: 'y', id: '2', soybeanYield: expect.any(String), totalRainfall: '0.24"' }
-    ])
+    expect(selectors.getActiveCounties(fullState)[0]).toEqual({
+      id: '1',
+      countyName: 'x',
+      soybeanYield: expect.any(String),
+      totalRainfall: '0.12"',
+      rainfallIntensity: expect.any(Array)
+    })
   })
 
   it('can derive seriesExtremes from state', () => {
