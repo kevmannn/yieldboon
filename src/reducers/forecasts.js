@@ -50,6 +50,7 @@ export default (state = { disallowedIds: [], precipForecasts: [] }, action) => {
   }
 }
 
+// TODO: change state shape to { [countyName]: { ...payload } } to accomodate history accumulation.
 function precipForecasts(state = [], { type, id, countyName, stateAbbr, coords, series }) {
   switch (type) {
     case RECEIVE_FORECAST:

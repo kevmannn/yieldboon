@@ -6,7 +6,9 @@ import AboutIcon from 'material-ui-icons/WifiTethering';
 import SelectStateIcon from 'material-ui-icons/Mms';
 
 import ErrorLogger from './ErrorLogger';
+// import AboutDialog from './AboutDialog';
 import DialogInitiator from './DialogInitiator';
+// import SelectStateDialog from './SelectStateDialog';
 // import TimespanToggle from './TimespanToggle';
 
 export default class ForecastSynopsis extends PureComponent {
@@ -63,7 +65,7 @@ export default class ForecastSynopsis extends PureComponent {
             key={i}
             style={{
               display: 'inline-block',
-              width: '110px',
+              width: '100px',
               padding: '5px 25px',
               fontFamily: 'Noto Sans'
             }}>
@@ -77,8 +79,10 @@ export default class ForecastSynopsis extends PureComponent {
             </p>
           </div>
         ))}
-        <DialogInitiator isDisabled icon={<AboutIcon />} />
-        <DialogInitiator icon={<SelectStateIcon />} />
+        <DialogInitiator
+          icon={<AboutIcon />} />
+        <DialogInitiator
+          icon={<SelectStateIcon />} />
         <ErrorLogger />
       </div>
     )

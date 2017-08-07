@@ -118,9 +118,9 @@ export const getActiveCounties = createSelector(
               countyName,
               soybeanYield: abbreviateInt(soybeanYield),
               totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`,
-              // rainfallIntensity: series
-              //   .filter(({ i }) => i % 4 === 0)
-              //   .map(({ x, y }) => ({ x, y: y + 0.005 }))
+              rainfallIntensity: series
+                .filter(({ i }) => i % 2 === 0)
+                .map(({ x, y }) => ({ x, y: y + 0.005 }))
             }))
       : []
   )
@@ -157,7 +157,7 @@ export const getInclementForecasts = createSelector(
 export const getSeriesExtremes = createSelector(
   getInclementForecasts,
   (forecasts) => {
-    const [ min, max ] = findExtremesAcrossForecasts(forecasts, 'y')
+    const [ min, max ] = findExtremesAcrossForecasts(forecasts);
     return [0.8 * min, 1.2 * max];
   }
 )
@@ -174,7 +174,7 @@ function findYMean(series) {
   return series.reduce((acc, { y }) => acc + y, 0);
 }
 
-function findExtremesAcrossForecasts(forecasts, field) {
+function findExtremesAcrossForecasts(forecasts, field = 'y') {
   return forecasts
     .map(({ series = [] }) => series.map(dataPoint => dataPoint[field]))
     .reduce((acc, fieldValues) => [...acc, ...fieldValues] , [])

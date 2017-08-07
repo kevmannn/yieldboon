@@ -63,7 +63,7 @@ describe('ForecastSynopsis', () => {
   }
   const wrapper = shallow(<ForecastSynopsis {...props} />);
   it('renders the correct number of children', () => {
-    expect(wrapper.find('div').children()).toHaveLength(14);
+    expect(wrapper.find('div').children()).toHaveLength(15);
   })
 
   // TODO: ...

@@ -15,7 +15,7 @@ import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/D
 import * as selectors from '../selectors';
 import { selectState } from '../actions';
 
-class StateDialog extends PureComponent {
+class SelectStateDialog extends PureComponent {
   static defaultProps = {
     history: PropTypes.object,
     isOpen: PropTypes.bool.isRequired,
@@ -169,4 +169,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { selectState })(StateDialog));
+export default withRouter(connect(mapStateToProps, { selectState })(SelectStateDialog));

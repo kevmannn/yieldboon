@@ -74,11 +74,11 @@ to revisit the possibility of using immutable.
 
 * Use [Redux-pack](https://github.com/lelandrichardson/redux-pack) or [Redux-loop](https://github.com/redux-loop/redux-loop) to bring increased neatness / extensibility / sanity to async actions.
 
-* Add support for different visible timespans in chart (= 24H, 2D).
-
 * Clearly demarcate pre / post Date.now() within chart.
 
 * Generalize DialogInitiator.
+
+* Add support for different visible timespans in chart (= 24H, 2D).
 
 * Overlay historical average rainfall for a given timespan onto the chart.
 

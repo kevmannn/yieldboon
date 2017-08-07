@@ -14,7 +14,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
-// import ForecastSeries from './ForecastSeries';
+import ForecastSeries from './ForecastSeries';
 
 class CountyRegistry extends PureComponent {
   static propTypes = {
@@ -28,7 +28,7 @@ class CountyRegistry extends PureComponent {
       countyName: PropTypes.string,
       soybeanYield: PropTypes.string,
       totalRainfall: PropTypes.string,
-      // rainfallIntensity: PropTypes.arrayOf(PropTypes.object)
+      rainfallIntensity: PropTypes.arrayOf(PropTypes.object)
     })).isRequired
   };
 
@@ -40,7 +40,7 @@ class CountyRegistry extends PureComponent {
   }
 
   getOpacityForTableCell(id) {
-    return this.props.disallowedIds.includes(id) ? '0.3' : '1';
+    return this.props.disallowedIds.includes(id) ? '0.2' : '1';
   }
 
   onChange = (id, isChecked) => {
@@ -61,7 +61,10 @@ class CountyRegistry extends PureComponent {
     overrides: {
       MuiTableHead: {
         root: {
+          // position: 'fixed',
           color: '#1c243d',
+          fontSize: '0.9em',
+          letterSpacing: '0.02em'
         }
       },
       MuiTableRow: {
@@ -113,7 +116,7 @@ class CountyRegistry extends PureComponent {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall }) => (
+                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall, rainfallIntensity }) => (
                     <TableRow key={id}>
                       <TableCell checkbox>
                         <Checkbox
@@ -129,11 +132,11 @@ class CountyRegistry extends PureComponent {
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         <span>{totalRainfall}</span>
                       </TableCell>
-                      {/*<TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
+                      <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         <ForecastSeries
                           series={rainfallIntensity}
                           seriesExtremes={seriesExtremes} />
-                      </TableCell>*/}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

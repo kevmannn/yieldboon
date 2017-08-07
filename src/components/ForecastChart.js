@@ -32,17 +32,18 @@ export default class ForecastChart extends Component {
   }
 
   curve = 'curveMonotoneX';
-  primaryStroke = '#bdccfc';
-  strokeHierarchy = ['#7795f8', '#6883dd', '#5b72c1'];
+  primaryStroke = '#7795f8';
+  secondaryStroke = '#bdccfc';
+  // strokeHierarchy = ['#bdccfc', '#bdccfc', '#bdccfc'];
   flexibleXYPlotProps = {
     height: 340,
-    margin: { top: 0, right: 10, bottom: 20, left: 10 }
+    margin: { top: 0, right: 10, bottom: 10, left: 10 }
   };
 
   hintDivStyle = {
     padding: '10px 20px',
     borderRadius: '3px',
-    background: '#1c243d',
+    background: '#1a223a',
     boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.4)'
   };
 
@@ -99,8 +100,8 @@ export default class ForecastChart extends Component {
                   <Motion
                     defaultStyle={{ opacity: 0, translation: 50 }}
                     style={{
-                      opacity: spring(0.9, { ...presets.stiff, precision: 0.5 }),
-                      translation: spring(0, { ...presets.stiff, precision: 0.5 })
+                      opacity: spring(0.9, { ...presets.stiff, precision: 0.1 }),
+                      translation: spring(0, { ...presets.stiff, precision: 0.1 })
                     }}>
                     {({ opacity, translation }) => (
                       <div style={{
@@ -119,13 +120,13 @@ export default class ForecastChart extends Component {
                           <span style={{ color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
                           </span>
-                          <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.2' }}>/ hr</span>
+                          <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.3' }}>/ hr</span>
                         </p>
-                        <h2 style={{ ...this.hintParagraphStyle, fontWeight: '300', fontSize: '0.7em' }}>
+                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.7em' }}>
                           In counties with highest mean rainfall:
                         </h2>
                         {inclementForecasts.map(({ id, countyName, series }, i) => (
-                          <p key={id} style={{ color: this.strokeHierarchy[i], opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
+                          <p key={id} style={{ color: this.secondaryStroke, opacity: 1.8 / (i + 1), fontSize: '0.7em' }}>
                             {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
                           </p>
                         ))}
@@ -142,10 +143,10 @@ export default class ForecastChart extends Component {
               {inclementForecasts.map(({ id, series }, i) => (
                 <LineSeries
                   key={id}
-                  opacity={0.5 / (i + 1)}
+                  opacity={0.4 / (i + 1)}
                   data={series}
                   curve={this.curve}
-                  stroke={this.strokeHierarchy[i]}
+                  stroke={this.secondaryStroke}
                   strokeWidth={2} />
               ))}
             </FlexibleXYPlot>}

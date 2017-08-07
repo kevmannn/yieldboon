@@ -4,19 +4,20 @@ import IconButton from 'material-ui/IconButton';
 import SelectStateIcon from 'material-ui-icons/Mms';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
-import StateDialog from './StateDialog';
+import SelectStateDialog from './SelectStateDialog';
 
 export default class DialogInitiator extends PureComponent {
   static propTypes = {
     icon: PropTypes.node,
-    isDisabled: PropTypes.bool,
-    // color: PropTypes.string,
+    color: PropTypes.string,
     // dialog: PropTypes.node.isRequired,
+    isDisabled: PropTypes.bool,
     isFullScreen: PropTypes.bool
   };
 
   static defaultProps = {
     icon: <SelectStateIcon />,
+    color: '#7795f8',
     isFullScreen: false
   };
 
@@ -31,7 +32,7 @@ export default class DialogInitiator extends PureComponent {
     overrides: {
       MuiIconButton: {
         root: {
-          color: '#7795f8'
+          color: this.props.color
         }
       }
     }
@@ -55,7 +56,7 @@ export default class DialogInitiator extends PureComponent {
             {Icon}
           </IconButton>
         </MuiThemeProvider>
-        <StateDialog
+        <SelectStateDialog
           isOpen={dialogIsOpen}
           onRequestClose={this.onRequestClose} />
       </div>

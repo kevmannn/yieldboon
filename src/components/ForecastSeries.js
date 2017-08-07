@@ -22,9 +22,9 @@ export default class ForecastSeries extends Component {
 
   flexibleXYPlotProps = {
     height: 50,
-    width: 100,
-    opacity: '0.5',
-    margin: { top: 0, right: 0, bottom: 0, left: 0 }
+    width: 150,
+    opacity: '0.7',
+    margin: { top: 20, right: 0, bottom: 10, left: 0 }
   };
 
   primaryStroke = '#7795f8';
