@@ -61,16 +61,20 @@ class CountyRegistry extends PureComponent {
     overrides: {
       MuiTableHead: {
         root: {
-          // position: 'fixed',
-          color: '#1c243d',
-          fontSize: '0.9em'
+          background: '#e8eaef',
+          fontSize: '0.6em'
         }
       },
       MuiTableRow: {
         root: {
           fontFamily: 'Noto Sans',
-          fontSize: '0.8em',
+          fontSize: '0.95em',
           color: '#151b2d'
+        }
+      },
+      MuiTableCell: {
+        root: {
+          borderBottom: '1px solid rgba(7, 9, 15, 0.05)'
         }
       },
       MuiCheckbox: {
@@ -91,9 +95,8 @@ class CountyRegistry extends PureComponent {
       <div style={{
         margin: '10px',
         minHeight: '100px',
-        maxHeight: '215px',
+        maxHeight: '235px',
         overflow: 'auto',
-        padding: '10px',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
         {isFetching || !activeCounties.length
@@ -108,7 +111,7 @@ class CountyRegistry extends PureComponent {
                         onChange={this.onSelectAll} />
                     </TableCell>
                     {Object.keys(activeCounties[0]).slice(1).map((key, i) => (
-                      <TableCell key={i}>
+                      <TableCell style={{ color: '#242f4f' }} key={i}>
                         {lowerCase(key)}
                       </TableCell>
                     ))}
