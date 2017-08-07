@@ -74,7 +74,7 @@ to revisit the possibility of using immutable.
 
 * Use [Redux-pack](https://github.com/lelandrichardson/redux-pack) or [Redux-loop](https://github.com/redux-loop/redux-loop) to bring increased neatness / extensibility / sanity to async actions.
 
-* Add support for different visible timespans in chart (= 1d, 2d).
+* Add support for different visible timespans in chart (= 24H, 2D).
 
 * Clearly demarcate pre / post Date.now() within chart.
 

@@ -11,6 +11,8 @@ import {
   makeWidthFlexible
 } from 'react-vis';
 
+import Loader from './Loader';
+
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
@@ -68,7 +70,7 @@ export default class ForecastChart extends Component {
         background: '#151b2d'
       }}>
         {isFetching
-          ? <div className="buffer load">loading...</div>
+          ? <Loader />
           : <FlexibleXYPlot
               {...this.flexibleXYPlotProps}
               yDomain={seriesExtremes}

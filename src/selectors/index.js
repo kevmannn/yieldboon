@@ -115,9 +115,11 @@ export const getActiveCounties = createSelector(
           .map(({ id, countyName, soybeanYield, series }) => ({
               id,
               countyName,
-              // series,
               soybeanYield: abbreviateInt(soybeanYield),
-              totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`
+              totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`,
+              // rainfallIntensity: series
+              //   .filter(({ i }) => i % 4 === 0)
+              //   .map(({ x, y }) => ({ x, y: y + 0.005 }))
             }))
       : []
   )

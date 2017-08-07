@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import lowerCase from 'lodash/lowerCase';
 import { connect } from 'react-redux';
+// import { Motion, spring, presets } from 'react-motion';
 import Table, {
   TableRow,
   TableBody,
@@ -21,12 +22,13 @@ class CountyRegistry extends PureComponent {
     // Provided via connect:
     isFetching: PropTypes.bool,
     disallowedIds: PropTypes.arrayOf(PropTypes.string),
+    seriesExtremes: PropTypes.arrayOf(PropTypes.number),
     activeCounties: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
       countyName: PropTypes.string,
-      // series: PropTypes.arrayOf(PropTypes.object),
       soybeanYield: PropTypes.string,
-      totalRainfall: PropTypes.string
+      totalRainfall: PropTypes.string,
+      rainfallIntensity: PropTypes.arrayOf(PropTypes.object)
     })).isRequired
   };
 
@@ -81,7 +83,7 @@ class CountyRegistry extends PureComponent {
   });
 
   render() {
-    const { isFetching, activeCounties, disallowedIds = [] } = this.props;
+    const { isFetching, activeCounties, seriesExtremes, disallowedIds = [] } = this.props;
     const { didCheckAll } = this.state;
     return (
       <div style={{
@@ -111,22 +113,28 @@ class CountyRegistry extends PureComponent {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall }) => (
+                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall, rainfallIntensity }) => (
                     <TableRow key={id}>
                       <TableCell checkbox>
                         <Checkbox
                           checked={!disallowedIds.includes(id)}
                           onChange={(event, isChecked) => this.onChange(id, isChecked)} />
                       </TableCell>
+                      {/*<Motion></Motion>*/}
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
-                        {countyName}
+                        <span>{countyName}</span>
                       </TableCell>
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
-                        {soybeanYield}
+                        <span>{soybeanYield}</span>
                       </TableCell>
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
-                        {totalRainfall}
+                        <span>{totalRainfall}</span>
                       </TableCell>
+                      {/*<TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
+                        <ForecastBarSeries
+                          series={rainfallIntensity}
+                          seriesExtremes={seriesExtremes} />
+                      </TableCell>*/}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -137,10 +145,11 @@ class CountyRegistry extends PureComponent {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     isFetching: selectors.getIsFetching(state),
     disallowedIds: selectors.getDisallowedIds(state),
+    seriesExtremes: selectors.getSeriesExtremes(state),
     activeCounties: selectors.getActiveCounties(state)
   }
 }
