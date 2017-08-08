@@ -67,7 +67,7 @@ export default class ForecastSynopsis extends PureComponent {
               display: 'inline-block',
               width: '100px',
               padding: '5px 25px',
-              fontFamily: 'Noto Sans'
+              fontFamily: 'Rubik'
             }}>
             <p style={{ color: '#1c243d', opacity: '0.5', fontSize: '0.5em' }}>{lowerCase(key)}:</p>
             <p style={{ color: '#1c243d', fontSize: '1em', fontWeight: '300', margin: '10px 0px' }}>

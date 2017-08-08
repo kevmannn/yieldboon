@@ -85,7 +85,7 @@ class SelectStateDialog extends PureComponent {
       MuiTypography: {
         title: {
           color: '#151b2d',
-          fontFamily: 'Noto Sans'
+          fontFamily: 'Rubik'
         }
       },
       MuiIconButton: {
@@ -109,7 +109,7 @@ class SelectStateDialog extends PureComponent {
       MuiFormControlLabel: {
         label: {
           lineHeight: '25px',
-          fontFamily: 'Noto Sans',
+          fontFamily: 'Rubik',
           fontSize: '0.9em',
           color: '#151b2d'
         }

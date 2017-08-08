@@ -49,7 +49,7 @@ export default class ForecastChart extends Component {
 
   hintParagraphStyle = {
     fontSize: '0.8em',
-    fontFamily: 'Noto Sans',
+    fontFamily: 'Rubik',
     color: '#fcfdff'
   };
 
@@ -123,7 +123,7 @@ export default class ForecastChart extends Component {
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
-                        <p style={{ ...this.hintParagraphStyle, fontSize: '1.2em' }}>
+                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.2em' }}>
                           Mean rainfall:
                           <span style={{ color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}

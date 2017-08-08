@@ -61,13 +61,13 @@ class CountyRegistry extends PureComponent {
     overrides: {
       MuiTableHead: {
         root: {
-          background: '#e8eaef',
+          background: '#f7f7f9',
           fontSize: '0.6em'
         }
       },
       MuiTableRow: {
         root: {
-          fontFamily: 'Noto Sans',
+          fontFamily: 'Rubik',
           fontSize: '0.95em',
           color: '#151b2d'
         }
@@ -95,7 +95,7 @@ class CountyRegistry extends PureComponent {
       <div style={{
         margin: '10px',
         minHeight: '100px',
-        maxHeight: '235px',
+        maxHeight: '240px',
         overflow: 'auto',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>

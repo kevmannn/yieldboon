@@ -46,7 +46,7 @@ class ErrorLogger extends PureComponent {
     overrides: {
       MuiSnackbarContent: {
         root: {
-          fontFamily: 'Noto Sans',
+          fontFamily: 'Rubik',
           color: '#fcfdff',
           backgroundColor: '#151b2d'
         }

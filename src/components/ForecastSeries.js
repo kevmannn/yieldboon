@@ -23,11 +23,11 @@ export default class ForecastSeries extends Component {
   flexibleXYPlotProps = {
     height: 50,
     width: 150,
-    opacity: '0.7',
+    opacity: '0.3',
     margin: { top: 20, right: 0, bottom: 10, left: 0 }
   };
 
-  primaryStroke = '#7795f8';
+  primaryStroke = '#2d3a60';
 
   render() {
     const { series, seriesExtremes } = this.props;
