@@ -14,10 +14,10 @@ import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
 import CountyRegistry from '../components/CountyRegistry';
 import DialogInitiator from '../components/DialogInitiator';
-// import StateDialog from '../components/StateDialog';
 // import ErrorLogger from '../components/ErrorLogger';
 // import ForecastSeries from '../components/ForecastSeries';
 // import TimespanToggle from '../components/TimespanToggle';
+import StateSelectionDialog from '../components/StateSelectionDialog';
 
 const mockStore = configureStore();
 const mountComponentWithState = (Component, state, props = {}) => {
@@ -62,11 +62,9 @@ describe('ForecastSynopsis', () => {
     forecastTotals: selectors.getForecastTotals(fullState)
   }
   const wrapper = shallow(<ForecastSynopsis {...props} />);
-  it('renders the correct number of children', () => {
-    expect(wrapper.find('div').children()).toHaveLength(15);
-  })
-
   // TODO: ...
+  it('renders total rainfall within the selected state', () => {})
+
   it('renders the number of counties with allowed ids for the selected state', () => {})
 
   it('renders the accumulated rainfall at the highlighted value', () => {})
@@ -112,8 +110,8 @@ describe('CountyRegistry', () => {
 })
 
 describe('DialogInitiator', () => {
-  it('opens the dialog when clicked', () => {
-    const wrapper = shallow(<DialogInitiator />);
+  it('opens the given dialog when clicked', () => {
+    const wrapper = shallow(<DialogInitiator icon={null} dialog={<StateSelectionDialog />} />);
     expect(wrapper.instance().state).toEqual({ dialogIsOpen: false });
     // TODO: ...
     // wrapper.find({ onClick: jest.fn() }).simulate('click');

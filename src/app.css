@@ -10,6 +10,11 @@ body {
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+  color: #7795f8;
+}
+
 .buffer {
   font-weight: 300;
   letter-spacing: 0.05em;

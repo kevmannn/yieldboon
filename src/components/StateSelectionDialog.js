@@ -18,8 +18,8 @@ import { selectState } from '../actions';
 class StateSelectionDialog extends PureComponent {
   static defaultProps = {
     history: PropTypes.object,
-    isOpen: PropTypes.bool.isRequired,
-    onRequestClose: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool,
+    onRequestClose: PropTypes.func,
     activeStates: PropTypes.object.isRequired,
     selectedState: PropTypes.string.isRequired
   };

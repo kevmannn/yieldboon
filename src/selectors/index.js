@@ -158,11 +158,11 @@ export const getSeriesExtremes = createSelector(
   getInclementForecasts,
   (forecasts) => {
     const [ min, max ] = findExtremesAcrossForecasts(forecasts);
+    // TODO: Alleviate the danger of not capturing a peak that has a large delta relative
+    // to the mean y value.
     const meanYAcrossForecasts = forecasts
       .map(({ series }) => findYMean(series))
       .reduce((acc, yMean) => acc + yMean, 0) / forecasts.length
-    // TODO: Alleviate the danger of not capturing a peak that has
-    // a large delta compared to the mean y value.
     return [0.85 * min, (1.8 * max) / Math.abs(0.001 - meanYAcrossForecasts)];
   }
 )
