@@ -116,7 +116,7 @@ export const getActiveCounties = createSelector(
           .map(({ id, countyName, soybeanYield, series }) => ({
               id,
               countyName,
-              soybeanYield: abbreviateInt(soybeanYield),
+              soybeanYield: `${abbreviateInt(soybeanYield)} bu`,
               totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`,
               rainfallIntensity: series
                 .filter(({ i }) => i % 2 === 0)

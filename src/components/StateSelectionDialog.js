@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+// import Slide from 'material-ui/transitions/Slide';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import DoneIcon from 'material-ui-icons/Done';
@@ -15,7 +16,7 @@ import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/D
 import * as selectors from '../selectors';
 import { selectState } from '../actions';
 
-class SelectStateDialog extends PureComponent {
+class StateSelectionDialog extends PureComponent {
   static defaultProps = {
     history: PropTypes.object,
     isOpen: PropTypes.bool.isRequired,
@@ -124,11 +125,11 @@ class SelectStateDialog extends PureComponent {
       <MuiThemeProvider theme={this.theme}>
         <Dialog
           open={isOpen}
-          enterTransitionDuration={400}
-          leaveTransitionDuration={400}
+          // transition={<Slide direction="up" />}
+          enterTransitionDuration={270}
+          leaveTransitionDuration={270}
           onBackdropClick={this.onCancel}
           onEntering={this.onEntering}>
-          {/*children*/}
           <DialogTitle>Filter forecasts by state</DialogTitle>
           <DialogContent>
             <RadioGroup
@@ -177,4 +178,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, { selectState })(SelectStateDialog));
+export default withRouter(connect(mapStateToProps, { selectState })(StateSelectionDialog));

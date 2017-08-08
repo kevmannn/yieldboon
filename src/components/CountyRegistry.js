@@ -128,10 +128,10 @@ class CountyRegistry extends PureComponent {
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         <span>{countyName}</span>
                       </TableCell>
-                      <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
+                      <TableCell style={{ fontSize: '1.2em', opacity: this.getOpacityForTableCell(id) }}>
                         <span>{soybeanYield}</span>
                       </TableCell>
-                      <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
+                      <TableCell style={{ fontSize: '1.2em', opacity: this.getOpacityForTableCell(id) }}>
                         <span>{totalRainfall}</span>
                       </TableCell>
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
