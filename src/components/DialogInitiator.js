@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from 'material-ui/IconButton';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
-export default class DialogInitiator extends PureComponent {
+export default class DialogInitiator extends Component {
   static propTypes = {
     icon: PropTypes.node,
     dialog: PropTypes.node.isRequired,
@@ -19,6 +19,10 @@ export default class DialogInitiator extends PureComponent {
     this.state = {
       dialogIsOpen: false
     }
+  }
+
+  shouldComponentUpdate(nextProps, { dialogIsOpen }) {
+    return dialogIsOpen !== this.state.dialogIsOpen;
   }
 
   theme = createMuiTheme({

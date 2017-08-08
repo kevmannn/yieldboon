@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
@@ -7,7 +7,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import * as selectors from '../selectors';
 
-class ErrorLogger extends PureComponent {
+class ErrorLogger extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     didReachReqLimit: PropTypes.bool,
@@ -20,6 +20,10 @@ class ErrorLogger extends PureComponent {
       isOpen: false,
       message: 'changing'
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(nextProps, this.props) || !isEqual(nextState, this.state);
   }
 
   // TODO: didReachReqLimit implementation

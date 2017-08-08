@@ -36,7 +36,7 @@ export default class ForecastChart extends Component {
   primaryStroke = '#7795f8';
   secondaryStroke = '#bdccfc';
   flexibleXYPlotProps = {
-    height: 340,
+    height: 320,
     margin: { top: 10, right: 10, bottom: 20, left: 10 }
   };
 
@@ -79,7 +79,7 @@ export default class ForecastChart extends Component {
     } = this.props;
     return (
       <div style={{
-        height: '340px',
+        height: '320px',
         display: 'block',
         padding: '10px',
         position: 'relative',

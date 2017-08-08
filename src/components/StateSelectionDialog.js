@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import Slide from 'material-ui/transitions/Slide';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import DoneIcon from 'material-ui-icons/Done';
@@ -125,7 +124,6 @@ class StateSelectionDialog extends PureComponent {
       <MuiThemeProvider theme={this.theme}>
         <Dialog
           open={isOpen}
-          // transition={<Slide direction="up" />}
           enterTransitionDuration={270}
           leaveTransitionDuration={270}
           onBackdropClick={this.onCancel}
