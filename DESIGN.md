@@ -78,9 +78,9 @@ to revisit the possibility of using immutable.
 
 * Add support for different visible timespans in chart (= 24H, 2D).
 
-* Overlay historical average rainfall for a given timespan onto the chart.
-
 * Develop meaningful metric for (absolute) rainfall severity.
+
+* Overlay historical average rainfall for a given timespan onto the chart.
 
 * Add support for users / login / accounts.
 

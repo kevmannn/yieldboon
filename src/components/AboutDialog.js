@@ -24,6 +24,11 @@ export default class AboutDialog extends PureComponent {
           maxHeight: '500px'
         }
       },
+      MuiDialogContent: {
+        root: {
+          fontSize: '0.9em'
+        }
+      },
       MuiBackdrop: {
         root: {
           backgroundColor: 'rgba(7, 9, 15, 0.8)'

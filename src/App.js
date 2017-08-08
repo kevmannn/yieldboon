@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-// import { TransitionMotion, spring, presets } from 'react-motion';
 
 import './app.css';
 import 'react-vis/dist/style.css';
@@ -19,15 +18,13 @@ class App extends Component {
     const { selectedState } = this.props;
     return (
       <div>
-        <Route path="/" render={(props) => (
-          <Redirect to={`/dashboard/${selectedState}`} />
-        )} />
+        <Route
+          path="/"
+          render={props => <Redirect to={`/dashboard/${selectedState}`} />} />
         <Route
           exact
           path="/dashboard/:selectedState"
-          render={(props) => (
-            <Dashboard {...props} />
-          )} />
+          component={Dashboard} />
       </div>
     )
   }
