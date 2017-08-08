@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import DoneIcon from 'material-ui-icons/Done';
 import ErrorIcon from 'material-ui-icons/PriorityHigh';
-import CachedIcon from 'material-ui-icons/Sync';
+import CachedIcon from 'material-ui-icons/Bookmark';
 import { FormControlLabel } from 'material-ui/Form';
 import Radio, { RadioGroup } from 'material-ui/Radio';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
@@ -65,8 +65,8 @@ class StateSelectionDialog extends PureComponent {
     height: '20px',
     width: '20px',
     position: 'relative',
-    top: '5px',
-    opacity: '0.4'
+    top: '6px',
+    opacity: '0.3'
   };
 
   theme = createMuiTheme({

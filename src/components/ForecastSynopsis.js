@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import lowerCase from 'lodash/lowerCase';
-import { Motion, spring, presets } from 'react-motion';
 import AboutIcon from 'material-ui-icons/WifiTethering';
 import SelectStateIcon from 'material-ui-icons/Mms';
+import { Motion, spring } from 'react-motion';
 
 import ErrorLogger from './ErrorLogger';
 import DialogInitiator from './DialogInitiator';
@@ -16,7 +16,7 @@ export default class ForecastSynopsis extends PureComponent {
     highlighted: PropTypes.object,
     activeCounties: PropTypes.arrayOf(PropTypes.object),
     forecastTotals: PropTypes.shape({
-      // timespan: PropTypes.array,
+      // timespan: PropTypes.arrayOf(PropTypes.number),
       selectedState: PropTypes.string,
       totalCounties: PropTypes.number,
       totalSoybeanYield: PropTypes.string,
@@ -39,15 +39,11 @@ export default class ForecastSynopsis extends PureComponent {
   renderPartOfWhole(part, whole) {
     return (
       <Motion
-        defaultStyle={{ opacity: 0, translation: 20 }}
-        style={{ opacity: spring(1), translation: spring(0, { ...presets.stiff, precision: 1 }) }}>
-        {({ opacity, translation }) => (
+        defaultStyle={{ opacity: 0 }}
+        style={{ opacity: spring(1) }}>
+        {({ opacity }) => (
           <span style={{ opacity }}>
-            <span style={{
-              opacity,
-              fontSize: '0.8em',
-              transform: `translateX(${translation})px`
-            }}>
+            <span style={{ fontSize: '0.8em' }}>
               {part} /
             </span> {whole}
           </span>

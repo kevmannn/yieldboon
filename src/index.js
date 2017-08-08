@@ -14,6 +14,9 @@ import { compose, createStore, applyMiddleware } from 'redux';
 import App from './App';
 import rootReducer from './reducers';
 
+// window.Perf = require('react-addons-perf');
+// window.Raven.config('https://6d6015b3f0c74b248110aa220a439f12@sentry.io/201236').install();
+
 const isDev = process.env.NODE_ENV !== 'production';
 const composeEnhancers = isDev && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
