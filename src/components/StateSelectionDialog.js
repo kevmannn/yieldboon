@@ -143,7 +143,7 @@ class StateSelectionDialog extends PureComponent {
                   label={
                     <p>{stateAbbr}
                       <span style={{ fontSize: '0.9em', opacity: '0.3' }}>
-                        {` (${activeStates[stateAbbr].total} bu) `}
+                        {` (${activeStates[stateAbbr].yieldTotal} bu) `}
                       </span>
                       {activeStates[stateAbbr].isCached
                         ? activeStates[stateAbbr].didError

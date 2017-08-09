@@ -23,7 +23,7 @@ export default class ForecastSeries extends Component {
   flexibleXYPlotProps = {
     height: 50,
     width: 150,
-    opacity: '0.3',
+    opacity: '0.2',
     margin: { top: 20, right: 0, bottom: 10, left: 0 }
   };
 

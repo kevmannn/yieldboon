@@ -44,14 +44,14 @@ const getYieldTotalsForStates = createSelector(
 )
 
 // Group yield total with booleans indicating whether forecasts for this state have been cached or
-// failed to fetch.
+// have failed to fetch.
 export const getActiveStates = createSelector(
   [getYieldTotalsForStates, getPrecipForecasts, getErrorLog],
   (yieldTotals, precipForecasts, errorLog) => (
     Object.keys(yieldTotals)
       .map((stateAbbr) => ({
         [stateAbbr]: {
-          total: abbreviateInt(yieldTotals[stateAbbr]),
+          yieldTotal: abbreviateInt(yieldTotals[stateAbbr]),
           didError: !!Object.keys(errorLog).find(key => errorLog[key] && errorLog[key].stateAbbr === stateAbbr),
           isCached: !!precipForecasts.find(({ stateAbbr: state }) => state === stateAbbr)
         },
@@ -174,15 +174,15 @@ export const getSeriesExtremes = createSelector(
     const meanYAcrossForecasts = forecasts
       .map(({ series }) => findYMean(series))
       .reduce((acc, yMean) => acc + yMean, 0) / forecasts.length
-    return [0.85 * min, (1.8 * max) / Math.abs(0.001 - meanYAcrossForecasts)];
+    return [0.85 * min, (1.6 * max) / Math.abs(0.001 - meanYAcrossForecasts)];
   }
 )
 
 function abbreviateInt(n) {
-  return n >= 1e4
+  return n >= 1e3
     ? n >= 1e6
       ? `${String(n).slice(0, -6)}.${String(n).slice(-6, -4)}m`
-      : `${String(n).slice(0, -4)}.${String(n).slice(-4, -2)}k`
+      : `${String(n).slice(0, -3)}k`
     : `${n}`
 }
 

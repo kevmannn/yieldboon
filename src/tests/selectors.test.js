@@ -27,6 +27,9 @@ describe('forecast selectors', () => {
     })
   })
 
+  // TODO: ...
+  it('preserves an equivalence for totals between getForecastTotals and getActiveStates', () => {})
+
   it('can get forecast totals from state', () => {
     expect(selectors.getForecastTotals(emptyState)).toEqual(expect.objectContaining({
       selectedState: expect.any(String),
