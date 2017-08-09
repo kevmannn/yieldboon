@@ -149,6 +149,17 @@ export const getInclementForecasts = createSelector(
   (forecasts) => (
     forecasts
       .sort(({ series: a = [] }, { series: b = [] }) => findYMean(b) - findYMean(a))
+      // Inject noise if all ys within a series are effectively zero.
+      .map(({ series, ...rest }) => (
+        series.every(({ y }) => parseFloat(y.toFixed(2)) === 0)
+          ? {
+              ...rest,
+              series: series.map((dataPoint, i) => (
+                i === 0 ? { ...dataPoint, y: Math.random() * 0.01 } : dataPoint
+              ))
+            }
+          : { series, ...rest }
+      ))
       .slice(0, 3)
   )
 )
