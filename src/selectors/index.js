@@ -51,7 +51,7 @@ export const getActiveStates = createSelector(
     Object.keys(yieldTotals)
       .map((stateAbbr) => ({
         [stateAbbr]: {
-          yieldTotal: abbreviateInt(yieldTotals[stateAbbr]),
+          totalYield: abbreviateInt(yieldTotals[stateAbbr]),
           didError: !!Object.keys(errorLog).find(key => errorLog[key] && errorLog[key].stateAbbr === stateAbbr),
           isCached: !!precipForecasts.find(({ stateAbbr: state }) => state === stateAbbr)
         },
@@ -126,7 +126,7 @@ export const getActiveCounties = createSelector(
   )
 )
 
-// TODO: Lessen the O(nm) work that this calc entails by using https://github.com/HeyImAlex/reselect-map (?)
+// TODO: Limit the number of times this O(n^2) work needs to be performed by using https://github.com/HeyImAlex/reselect-map (?)
 // Construct a new series (= collection) of the mean y value at each i across all series within activeForecasts.
 export const getAggregateActiveForecastSeries = createSelector(
   getActiveForecasts,
