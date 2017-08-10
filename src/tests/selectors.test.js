@@ -30,7 +30,7 @@ describe('forecast selectors', () => {
   // TODO: ...
   it('preserves an equivalence for totals between getForecastTotals and getActiveStates', () => {})
 
-  it('can get forecast totals from state', () => {
+  it('can get forecastTotals from state', () => {
     expect(selectors.getForecastTotals(emptyState)).toEqual(expect.objectContaining({
       selectedState: expect.any(String),
       totalCounties: expect.any(Number),
@@ -44,13 +44,16 @@ describe('forecast selectors', () => {
     expect(selectors.getInclementForecasts(fullState)).toHaveLength(2);
   })
 
+  // TODO: ...
+  it('creates noise if all ys within an inclementForecast series are effectively zero', () => {})
+
   it('can derive activeCounties from state', () => {
     expect(selectors.getActiveCounties(emptyState)).toEqual([]);
     expect(selectors.getActiveCounties(fullState)[0]).toEqual({
       id: '1',
       countyName: 'x',
       soybeanYield: expect.any(String),
-      totalRainfall: '0.12"',
+      totalRainfall: expect.any(String),
       rainfallIntensity: expect.any(Array)
     })
   })
