@@ -117,7 +117,7 @@ export const getActiveCounties = createSelector(
               id,
               countyName,
               soybeanYield: `${abbreviateInt(soybeanYield)} bu`,
-              totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(2)}"`,
+              totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(3)}"`,
               rainfallIntensity: series
                 .filter(({ i }) => i % 2 === 0)
                 .map(({ x, y }) => ({ x, y: y + 0.005 }))
@@ -169,12 +169,11 @@ export const getSeriesExtremes = createSelector(
   getInclementForecasts,
   (forecasts) => {
     const [ min, max ] = findExtremesAcrossForecasts(forecasts);
-    // TODO: Alleviate the danger of not capturing a peak that has a large delta relative
-    // to the mean y value.
-    const meanYAcrossForecasts = forecasts
+    const isDominatedByZeroedYs = forecasts
       .map(({ series }) => findYMean(series))
-      .reduce((acc, yMean) => acc + yMean, 0) / forecasts.length
-    return [0.85 * min, (1.6 * max) / Math.abs(0.001 - meanYAcrossForecasts)];
+      .filter(yMean => parseFloat(yMean.toFixed(3)) === 0)
+      .length > Math.floor(forecasts.length * 0.8)
+    return [0.85 * min, (!isDominatedByZeroedYs ? 1.15 : 1.8) * max];
   }
 )
 
