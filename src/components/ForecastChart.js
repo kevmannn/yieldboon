@@ -106,10 +106,10 @@ export default class ForecastChart extends Component {
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 50 }}
+                    defaultStyle={{ opacity: 0, translation: 45 }}
                     style={{
-                      opacity: spring(0.9, { ...presets.stiff, precision: 0.1 }),
-                      translation: spring(0, { ...presets.stiff, precision: 0.1 })
+                      opacity: spring(0.9, { ...presets.stiff, precision: 1 }),
+                      translation: spring(0, { ...presets.stiff, precision: 1 })
                     }}>
                     {({ opacity, translation }) => (
                       <div style={{

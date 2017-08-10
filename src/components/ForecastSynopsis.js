@@ -1,17 +1,18 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isEqual from 'lodash/isEqual';
 import lowerCase from 'lodash/lowerCase';
 import AboutIcon from 'material-ui-icons/WifiTethering';
 import SelectStateIcon from 'material-ui-icons/Mms';
-import { Motion, spring } from 'react-motion';
+import { Motion, spring, presets } from 'react-motion';
 
 import ErrorLogger from './ErrorLogger';
+// import TimespanToggle from './TimespanToggle';
 import DialogInitiator from './DialogInitiator';
 import AboutDialog from './AboutDialog';
 import StateSelectionDialog from './StateSelectionDialog';
-// import TimespanToggle from './TimespanToggle';
 
-export default class ForecastSynopsis extends PureComponent {
+export default class ForecastSynopsis extends Component {
   static propTypes = {
     highlighted: PropTypes.object,
     activeCounties: PropTypes.arrayOf(PropTypes.object),
@@ -23,6 +24,11 @@ export default class ForecastSynopsis extends PureComponent {
       totalRainfall: PropTypes.func
     }).isRequired
   };
+
+  shouldComponentUpdate({ highlighted, activeCounties }) {
+    return !isEqual(highlighted, this.props.highlighted)
+      || !isEqual(activeCounties, this.props.activeCounties)
+  }
 
   renderTotal(key) {
     const { forecastTotals } = this.props;
@@ -40,7 +46,7 @@ export default class ForecastSynopsis extends PureComponent {
     return (
       <Motion
         defaultStyle={{ opacity: 0 }}
-        style={{ opacity: spring(1) }}>
+        style={{ opacity: spring(1, presets.gentle) }}>
         {({ opacity }) => (
           <span style={{ opacity }}>
             <span style={{ fontSize: '0.8em' }}>
