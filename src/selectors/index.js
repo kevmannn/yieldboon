@@ -11,6 +11,7 @@ export const getSelectedState = ({ selectedState }) => selectedState;
 export const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 export const getDidReachReqLimit = ({ forecasts: { errorLog } }) => errorLog && errorLog.didReachReqLimit;
 export const getIsFetchingSoybeanProduction = ({ soybeanProduction: { isFetching }}) => isFetching;
+export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(
@@ -92,7 +93,6 @@ export const getForecastTotals = createSelector(
   (forecasts = [], selectedState) => (
     forecasts.every(({ series }) => series)
       ? {
-          // timespan: findExtremesAcrossForecasts(forecasts, 'x'),
           selectedState,
           totalCounties: forecasts.length,
           totalSoybeanYield: abbreviateInt(forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0)),

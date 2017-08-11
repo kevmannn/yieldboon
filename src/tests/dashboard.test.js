@@ -16,7 +16,7 @@ import CountyRegistry from '../components/CountyRegistry';
 import DialogInitiator from '../components/DialogInitiator';
 // import ErrorLogger from '../components/ErrorLogger';
 // import ForecastSeries from '../components/ForecastSeries';
-// import TimespanToggle from '../components/TimespanToggle';
+// import TimeSpanToggle from '../components/TimeSpanToggle';
 import StateSelectionDialog from '../components/StateSelectionDialog';
 
 const mockStore = configureStore();

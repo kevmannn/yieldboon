@@ -7,7 +7,7 @@ import SelectStateIcon from 'material-ui-icons/Mms';
 import { Motion, spring, presets } from 'react-motion';
 
 import ErrorLogger from './ErrorLogger';
-// import TimespanToggle from './TimespanToggle';
+// import TimeSpanToggle from './TimeSpanToggle';
 import DialogInitiator from './DialogInitiator';
 import AboutDialog from './AboutDialog';
 import StateSelectionDialog from './StateSelectionDialog';
@@ -17,7 +17,6 @@ export default class ForecastSynopsis extends Component {
     highlighted: PropTypes.object,
     activeCounties: PropTypes.arrayOf(PropTypes.object),
     forecastTotals: PropTypes.shape({
-      // timespan: PropTypes.arrayOf(PropTypes.number),
       selectedState: PropTypes.string,
       totalCounties: PropTypes.number,
       totalSoybeanYield: PropTypes.string,
@@ -88,6 +87,7 @@ export default class ForecastSynopsis extends Component {
           icon={<SelectStateIcon />}
           dialog={<StateSelectionDialog />} />
         <ErrorLogger />
+        {/*<TimeSpanToggle />*/}
       </div>
     )
   }

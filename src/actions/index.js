@@ -9,6 +9,7 @@ const API_URL = 'https://yieldboon-api.now.sh';
 export const END_LOAD_FORECASTS = 'END_LOAD_FORECASTS';
 export const BEGIN_LOAD_FORECASTS = 'BEGIN_LOAD_FORECASTS';
 export const SELECT_STATE = 'SELECT_STATE';
+export const SELECT_TIME_SPAN = 'SELECT_TIME_SPAN';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
 export const SET_FORECAST_FILTER = 'SET_FORECAST_FILTER';
@@ -21,6 +22,11 @@ export const FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION = 'FAIL_TO_RECEIVE_SOYBEAN_PRODU
 export const selectState = (stateName) => ({
   type: SELECT_STATE,
   stateName
+})
+
+export const selectTimeSpan = (timeSpan) => ({
+  type: SELECT_TIME_SPAN,
+  timeSpan
 })
 
 export const setForecastFilter = ({ hiddenIds, revealedIds }) => ({

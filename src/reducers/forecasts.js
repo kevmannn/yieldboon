@@ -1,6 +1,7 @@
 import moment from 'moment';
-import { REHYDRATE } from 'redux-persist/constants';
 // import { handle } from 'redux-pack';
+// import { fromJS } from 'immutable';
+import { REHYDRATE } from 'redux-persist/constants';
 
 import {
   REQUEST_FORECAST,
