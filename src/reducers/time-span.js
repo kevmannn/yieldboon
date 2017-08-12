@@ -12,10 +12,10 @@ export default (state = { selectedTimeSpan: {} }, action) => {
   }
 }
 
-function selectedTimeSpan(state = {}, action) {
-  switch (action.type) {
+function selectedTimeSpan(state = {}, { type, timeSpan }) {
+  switch (type) {
     case SELECT_TIME_SPAN:
-      return action.timeSpan;
+      return timeSpan;
     default:
       return state;
   }

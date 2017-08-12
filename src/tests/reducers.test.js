@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 
+import timeSpan from '../reducers/time-span';
 import forecasts from '../reducers/forecasts';
 import selectedState from '../reducers/selected-state';
 import soybeanProduction from '../reducers/soybean-production';
@@ -58,6 +59,15 @@ describe('forecasts', () => {
       id: 1
     }).precipForecasts).toHaveLength(1)
   })
+})
+
+describe('timeSpan', () => {
+  it('has default state', () => {
+    expect(timeSpan(undefined, {})).toEqual({ selectedTimeSpan: {} });
+  })
+
+  // TODO: ...
+  it('stores a startDate and endDate in selectedTimeSpan', () => {})
 })
 
 describe('selectedState', () => {
