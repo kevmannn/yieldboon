@@ -2,10 +2,10 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+// import { install } from 'redux-loop';
 import { REHYDRATE } from 'redux-persist/constants';
 import { createLogger } from 'redux-logger';
 import createActionBuffer from 'redux-action-buffer';
-// import { middleware as pack } from 'redux-pack';
 import { Route, BrowserRouter } from 'react-router-dom';
 import { localforage as storage } from 'localforage';
 import { persistStore, autoRehydrate } from 'redux-persist';
@@ -22,10 +22,11 @@ const composeEnhancers = isDev && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   : compose
 
-// Enhance the store with caching, and apply action buffering (necessary due to caching) and thunk middleware.
+// Enhance the store and apply middleware for action buffering and thunks.
 const store = createStore(
   rootReducer,
   composeEnhancers(
+    // install(),
     autoRehydrate(),
     applyMiddleware(...[createActionBuffer(REHYDRATE), thunk].concat(isDev ? createLogger() : []))
   )

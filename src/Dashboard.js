@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+// import { List } from 'immutable';
 import { connect } from 'react-redux';
 
 // import AsyncComponent from './components/AsyncComponent';

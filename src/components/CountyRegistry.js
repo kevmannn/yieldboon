@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { List } from 'immutable';
 import lowerCase from 'lodash/lowerCase';
 import { connect } from 'react-redux';
 // import { Motion, spring, presets } from 'react-motion';
@@ -21,7 +22,7 @@ class CountyRegistry extends PureComponent {
     selectedState: PropTypes.string.isRequired,
     // Provided via connect:
     isFetching: PropTypes.bool,
-    disallowedIds: PropTypes.arrayOf(PropTypes.string),
+    disallowedIds: PropTypes.instanceOf(List),
     seriesExtremes: PropTypes.arrayOf(PropTypes.number),
     activeCounties: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
@@ -89,7 +90,7 @@ class CountyRegistry extends PureComponent {
   });
 
   render() {
-    const { isFetching, activeCounties, seriesExtremes, disallowedIds = [] } = this.props;
+    const { isFetching, activeCounties, seriesExtremes, disallowedIds } = this.props;
     const { didCheckAll } = this.state;
     return (
       <div style={{

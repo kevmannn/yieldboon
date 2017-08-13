@@ -1,9 +1,11 @@
+import { List } from 'immutable';
+
 export const emptyState = {
   selectedState: '',
   soybeanProduction: {},
   forecasts: {
     errorLog: {},
-    disallowedIds: [],
+    disallowedIds: List(),
     precipForecasts: []
   }
 }
@@ -21,7 +23,7 @@ export const fullState = {
       x: { stateAbbr: 'CA', messages: ['abyssal'] },
       y: { stateAbbr: 'CA', messages: ['doom'] }
     },
-    disallowedIds: [],
+    disallowedIds: List(),
     precipForecasts: [
       {
         id: '1',

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// import { fromJS } from 'immutable';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
 import { Motion, spring, presets } from 'react-motion';

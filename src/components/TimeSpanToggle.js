@@ -7,6 +7,7 @@ import { selectTimeSpan } from '../actions';
 
 class TimeSpanToggle extends PureComponent {
   static propTypes = {
+    // possibleTimeSpans: PropTypes.arrayOf(PropTypes.object),
     selectedTimeSpan: PropTypes.object
   };
 

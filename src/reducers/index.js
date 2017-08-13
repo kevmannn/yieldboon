@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 import timeSpan from './time-span';
 import forecasts from './forecasts';
+// import highlighted from './highlighted';
 import selectedState from './selected-state';
 import soybeanProduction from './soybean-production';
 

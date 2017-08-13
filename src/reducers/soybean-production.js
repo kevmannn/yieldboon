@@ -1,4 +1,5 @@
-// import { fromJS } from 'immutable';
+// import { List } from 'immutable';
+// import { loop, Cmd } from 'redux-loop';
 import {
   REQUEST_SOYBEAN_PRODUCTION,
   RECEIVE_SOYBEAN_PRODUCTION,
@@ -8,15 +9,15 @@ import {
 export default (state = { didFailToFetch: false }, action) => {
   const { type, payload } = action;
   switch (type) {
+    case REQUEST_SOYBEAN_PRODUCTION:
+      return {
+        ...state,
+        isFetching: isFetching(state.isFetching, action)
+      }
     case FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION:
       return {
         ...state,
         didFailToFetch: true,
-        isFetching: isFetching(state.isFetching, action)
-      }
-    case REQUEST_SOYBEAN_PRODUCTION:
-      return {
-        ...state,
         isFetching: isFetching(state.isFetching, action)
       }
     case RECEIVE_SOYBEAN_PRODUCTION:

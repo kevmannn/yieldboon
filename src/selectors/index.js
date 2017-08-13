@@ -1,17 +1,18 @@
 import { createSelector } from 'reselect';
+// import { Map, fromJS } from 'immutable';
 // import { createArraySelector } from 'reselect-map';
 
 const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
+export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
 export const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
 export const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
 export const getDidReachReqLimit = ({ forecasts: { errorLog } }) => errorLog && errorLog.didReachReqLimit;
 export const getIsFetchingSoybeanProduction = ({ soybeanProduction: { isFetching }}) => isFetching;
-export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(
@@ -82,7 +83,7 @@ const getForecastPayloadCorrelation = createSelector(
 // Pull forecasts with allowed ids.
 export const getActiveForecasts = createSelector(
   [getDisallowedIds, getForecastPayloadCorrelation],
-  (disallowedIds = [], correlatedForecasts) => (
+  (disallowedIds, correlatedForecasts) => (
     correlatedForecasts.filter(({ id }) => !disallowedIds.includes(id))
   )
 )
@@ -127,7 +128,7 @@ export const getActiveCounties = createSelector(
 )
 
 // TODO: Limit the number of times this O(n^2) work needs to be performed by using https://github.com/HeyImAlex/reselect-map (?)
-// Construct a new series (= collection) of the mean y value at each i across all series within activeForecasts.
+// Construct a new series (= collection) containing the mean y value at each i across all series within activeForecasts.
 export const getAggregateActiveForecastSeries = createSelector(
   getActiveForecasts,
   ([ firstForecast = {}, ...others ]) => (

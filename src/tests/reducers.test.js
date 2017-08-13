@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import { List } from 'immutable';
 
 import timeSpan from '../reducers/time-span';
 import forecasts from '../reducers/forecasts';
@@ -15,7 +16,7 @@ const transformState = (firstActionCreator) => (secondActionCreator) => {
 describe('forecasts', () => {
   it('has default state', () => {
     expect(forecasts(undefined, {})).toEqual({
-      disallowedIds: [],
+      disallowedIds: List(),
       precipForecasts: []
     })
   })
@@ -25,7 +26,7 @@ describe('forecasts', () => {
     expect(transformState
       ({ type: actions.SET_FORECAST_FILTER, hiddenIds })
       ({ type: actions.SET_FORECAST_FILTER, revealedIds: hiddenIds })
-    .disallowedIds).toHaveLength(0)
+    .disallowedIds).toEqual(List())
   })
 
   it('stores didReachReqLimit', () => {
@@ -65,9 +66,6 @@ describe('timeSpan', () => {
   it('has default state', () => {
     expect(timeSpan(undefined, {})).toEqual({ selectedTimeSpan: {} });
   })
-
-  // TODO: ...
-  it('stores a startDate and endDate in selectedTimeSpan', () => {})
 })
 
 describe('selectedState', () => {
