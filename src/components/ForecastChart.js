@@ -107,7 +107,7 @@ export default class ForecastChart extends Component {
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 45 }}
+                    defaultStyle={{ opacity: 0, translation: 55 }}
                     style={{
                       opacity: spring(0.9, { ...presets.stiff, precision: 1 }),
                       translation: spring(0, { ...presets.stiff, precision: 1 })
@@ -124,7 +124,7 @@ export default class ForecastChart extends Component {
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
-                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.2em' }}>
+                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.3em' }}>
                           Mean rainfall:
                           <span style={{ color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
