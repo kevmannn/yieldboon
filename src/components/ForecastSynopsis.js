@@ -14,7 +14,7 @@ import StateSelectionDialog from './StateSelectionDialog';
 
 export default class ForecastSynopsis extends Component {
   static propTypes = {
-    // isFetching: PropTypes.bool,
+    isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     activeCounties: PropTypes.arrayOf(PropTypes.object),
     forecastTotals: PropTypes.shape({
@@ -59,13 +59,15 @@ export default class ForecastSynopsis extends Component {
   }
 
   render() {
-    const { highlighted, forecastTotals, activeCounties = [] } = this.props;
+    const { isFetching, highlighted, forecastTotals, activeCounties = [] } = this.props;
+    const opacity = isFetching ? '0.2' : '1';
     return (
       <div>
         {Object.keys(forecastTotals).reverse().map((key, i) => (
           <div
             key={i}
             style={{
+              opacity,
               display: 'inline-block',
               width: '100px',
               padding: '5px 25px',

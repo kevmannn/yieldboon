@@ -130,9 +130,9 @@ export default class ForecastChart extends Component {
                             <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                           </div>
                         </div>
-                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.75em' }}>
+                        <p style={{ ...this.hintParagraphStyle, opacity: '0.6' }}>
                           For counties with highest mean rainfall:
-                        </h2>
+                        </p>
                         {inclementForecasts
                           .sort(({ series: a }, { series: b }) => b[highlighted.i].y - a[highlighted.i].y)
                           .map(({ id, countyName, series }, i) => (
