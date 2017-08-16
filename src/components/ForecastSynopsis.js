@@ -7,9 +7,10 @@ import SelectStateIcon from 'material-ui-icons/Mms';
 import { Motion, spring, presets } from 'react-motion';
 
 import ErrorLogger from './ErrorLogger';
-// import TimeSpanToggle from './TimeSpanToggle';
-import DialogInitiator from './DialogInitiator';
 import AboutDialog from './AboutDialog';
+// import TimeSpanToggle from './TimeSpanToggle';
+// import FactorDropdown from './FactorDropdown';
+import DialogInitiator from './DialogInitiator';
 import StateSelectionDialog from './StateSelectionDialog';
 
 export default class ForecastSynopsis extends Component {

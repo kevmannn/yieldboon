@@ -10,6 +10,7 @@ import {
 export default class ForecastSeries extends Component {
   static propTypes = {
     series: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // opacity: PropTypesp.number.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number)
   };
 

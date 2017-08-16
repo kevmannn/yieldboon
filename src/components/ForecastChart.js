@@ -13,6 +13,7 @@ import {
 } from 'react-vis';
 
 import Loader from './Loader';
+// import ForecastHint from './ForecastHint';
 
 export default class ForecastChart extends Component {
   static propTypes = {
@@ -104,10 +105,10 @@ export default class ForecastChart extends Component {
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 50 }}
+                    defaultStyle={{ opacity: 0, translation: 27 }}
                     style={{
                       opacity: spring(0.88),
-                      translation: spring(0, { ...presets.stiff, precision: 1 })
+                      translation: spring(0, { ...presets.gentle, precision: 0.1 })
                     }}>
                     {({ opacity, translation }) => (
                       <div style={{
@@ -121,21 +122,23 @@ export default class ForecastChart extends Component {
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
-                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.25em' }}>
+                        <div style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.25em' }}>
                           Mean rainfall intensity:
-                          <span style={{ color: this.primaryStroke }}>
+                          <div style={{ display: 'block', transform: `translateX(${translation}px)`, color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
-                          </span>
-                          <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
-                        </p>
+                            <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
+                          </div>
+                        </div>
                         <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.75em' }}>
-                          In counties with highest mean rainfall:
+                          For counties with highest mean rainfall:
                         </h2>
                         {inclementForecasts
                           .sort(({ series: a }, { series: b }) => b[highlighted.i].y - a[highlighted.i].y)
                           .map(({ id, countyName, series }, i) => (
-                            <p key={id} style={{ color: this.secondaryStroke, opacity: 1.4 / (i + 1), fontSize: '0.75em' }}>
-                              {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}" `}
+                            <p
+                              key={id}
+                              style={{ opacity: 1.4 / (i + 1), fontSize: '0.75em' }}>
+                              {countyName}: <span style={{ color: this.secondaryStroke }}>{`${(series[highlighted.i].y).toFixed(4)}" `}</span>
                               <span style={{ opacity: '0.6' }}>/ hr</span>
                             </p>
                           ))}
