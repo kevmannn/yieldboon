@@ -6,10 +6,9 @@ import AboutIcon from 'material-ui-icons/WifiTethering';
 import SelectStateIcon from 'material-ui-icons/Mms';
 import { Motion, spring, presets } from 'react-motion';
 
+// import FactorMenu from './FactorMenu';
 import ErrorLogger from './ErrorLogger';
 import AboutDialog from './AboutDialog';
-// import TimeSpanToggle from './TimeSpanToggle';
-// import FactorDropdown from './FactorDropdown';
 import DialogInitiator from './DialogInitiator';
 import StateSelectionDialog from './StateSelectionDialog';
 
@@ -50,7 +49,7 @@ export default class ForecastSynopsis extends Component {
         style={{ translation: spring(0, presets.stiff) }}>
         {({ translation }) => (
           <div style={{ transform: `translateX(${translation}px)` }}>
-            <span style={{ fontSize: '0.7em', opacity: '0.6' }}>
+            <span style={{ fontSize: '0.6em', opacity: '0.6' }}>
               {part} /
             </span> {whole}
           </div>
@@ -72,8 +71,8 @@ export default class ForecastSynopsis extends Component {
               padding: '5px 25px',
               fontFamily: 'Rubik'
             }}>
-            <p style={{ color: '#1c243d', opacity: '0.5', fontSize: '0.5em' }}>{lowerCase(key)}:</p>
-            <div style={{ color: '#1c243d', fontSize: '1em', fontWeight: '300', margin: '10px 0px' }}>
+            <p style={{ color: '#1c243d', opacity: '0.4', fontSize: '0.6em' }}>{lowerCase(key)}</p>
+            <div style={{ color: '#1c243d', fontSize: '1.15em', fontWeight: '300', margin: '10px 0px' }}>
               {highlighted && key === 'totalRainfall'
                 ? this.renderPartOfWhole(forecastTotals[key](highlighted.i + 1).toFixed(2), this.renderTotal(key))
                 : key === 'totalCounties' && activeCounties.length !== forecastTotals[key]
@@ -89,7 +88,7 @@ export default class ForecastSynopsis extends Component {
           icon={<SelectStateIcon />}
           dialog={<StateSelectionDialog />} />
         <ErrorLogger />
-        {/*<TimeSpanToggle />*/}
+        {/*<FactorMenu />*/}
       </div>
     )
   }

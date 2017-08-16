@@ -29,7 +29,8 @@ export default class DialogInitiator extends Component {
     overrides: {
       MuiIconButton: {
         root: {
-          color: this.props.iconColor
+          color: this.props.iconColor,
+          width: '35px'
         }
       }
     }

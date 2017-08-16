@@ -63,7 +63,7 @@ all of the forecasts that have been requested for a given day. If in the future 
 to revisit the possibility of using immutable.
 
 ## Lessons:
-* Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of a solution.
+* Willingness to close the laptop and just think should be commensurate with obscurity concerning the "large-scale path" of a solution for a given problem.
 
 * The interpretation of the problem will fluctuate, and given its extreme importance (with respect to how all subsequent thinking takes shape) thus demands attention to how it is "heard".
 

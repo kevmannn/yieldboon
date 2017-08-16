@@ -14,6 +14,7 @@ import {
 
 import Loader from './Loader';
 // import ForecastHint from './ForecastHint';
+// import TimeSpanToggle from './TimeSpanToggle';
 
 export default class ForecastChart extends Component {
   static propTypes = {

@@ -3,8 +3,7 @@ import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import {
   FlexibleXYPlot,
-  VerticalBarSeries as BarSeries,
-  // VerticalRectSeries as RectSeries
+  VerticalBarSeries as BarSeries
 } from 'react-vis';
 
 export default class ForecastSeries extends Component {
