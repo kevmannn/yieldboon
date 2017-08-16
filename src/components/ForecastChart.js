@@ -107,10 +107,10 @@ export default class ForecastChart extends Component {
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 55 }}
+                    defaultStyle={{ opacity: 0, translation: 60 }}
                     style={{
-                      opacity: spring(0.9, { ...presets.stiff, precision: 1 }),
-                      translation: spring(0, { ...presets.stiff, precision: 1 })
+                      opacity: spring(0.9, presets.stiff),
+                      translation: spring(0, presets.stiff)
                     }}>
                     {({ opacity, translation }) => (
                       <div style={{
@@ -124,14 +124,14 @@ export default class ForecastChart extends Component {
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
-                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.4em' }}>
+                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.32em' }}>
                           Mean rainfall:
                           <span style={{ color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
                           </span>
                           <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                         </p>
-                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.75em' }}>
+                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.7', fontWeight: '300', fontSize: '0.75em' }}>
                           In counties with highest mean rainfall:
                         </h2>
                         {inclementForecasts.map(({ id, countyName, series }, i) => (

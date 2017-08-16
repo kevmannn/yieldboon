@@ -14,6 +14,7 @@ import StateSelectionDialog from './StateSelectionDialog';
 
 export default class ForecastSynopsis extends Component {
   static propTypes = {
+    // isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     activeCounties: PropTypes.arrayOf(PropTypes.object),
     forecastTotals: PropTypes.shape({
@@ -26,7 +27,7 @@ export default class ForecastSynopsis extends Component {
 
   shouldComponentUpdate({ highlighted, activeCounties }) {
     return !isEqual(highlighted, this.props.highlighted)
-      || !isEqual(activeCounties, this.props.activeCounties)
+      || !isEqual(activeCounties, this.props.forecastTotals.totalCounties)
   }
 
   renderTotal(key) {
@@ -44,14 +45,14 @@ export default class ForecastSynopsis extends Component {
   renderPartOfWhole(part, whole) {
     return (
       <Motion
-        defaultStyle={{ opacity: 0 }}
-        style={{ opacity: spring(1, presets.gentle) }}>
-        {({ opacity }) => (
-          <span style={{ opacity }}>
-            <span style={{ fontSize: '0.8em' }}>
+        defaultStyle={{ translation: -30 }}
+        style={{ translation: spring(0, presets.stiff) }}>
+        {({ translation }) => (
+          <div style={{ transform: `translateX(${translation}px)` }}>
+            <span style={{ fontSize: '0.7em', opacity: '0.8' }}>
               {part} /
             </span> {whole}
-          </span>
+          </div>
         )}
       </Motion>
     )
@@ -71,13 +72,13 @@ export default class ForecastSynopsis extends Component {
               fontFamily: 'Rubik'
             }}>
             <p style={{ color: '#1c243d', opacity: '0.5', fontSize: '0.5em' }}>{lowerCase(key)}:</p>
-            <p style={{ color: '#1c243d', fontSize: '1em', fontWeight: '300', margin: '10px 0px' }}>
+            <div style={{ color: '#1c243d', fontSize: '1em', fontWeight: '300', margin: '10px 0px' }}>
               {highlighted && key === 'totalRainfall'
                 ? this.renderPartOfWhole(forecastTotals[key](highlighted.i + 1).toFixed(2), this.renderTotal(key))
                 : key === 'totalCounties' && activeCounties.length !== forecastTotals[key]
                   ? this.renderPartOfWhole(forecastTotals[key], activeCounties.length)
                   : this.renderTotal(key)}
-            </p>
+            </div>
           </div>
         ))}
         <DialogInitiator

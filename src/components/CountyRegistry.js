@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import lowerCase from 'lodash/lowerCase';
 import { connect } from 'react-redux';
-// import { Motion, spring, presets } from 'react-motion';
 import Table, {
   TableRow,
   TableBody,
