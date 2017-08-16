@@ -124,19 +124,19 @@ export default class ForecastChart extends Component {
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
-                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.3em' }}>
+                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.4em' }}>
                           Mean rainfall:
                           <span style={{ color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
                           </span>
                           <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                         </p>
-                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.7em' }}>
+                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.75em' }}>
                           In counties with highest mean rainfall:
                         </h2>
                         {inclementForecasts.map(({ id, countyName, series }, i) => (
-                          <p key={id} style={{ color: this.secondaryStroke, opacity: 1.5 / (i + 1), fontSize: '0.7em' }}>
-                            {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}"`}
+                          <p key={id} style={{ color: this.secondaryStroke, opacity: 1.5 / (i + 1), fontSize: '0.75em' }}>
+                            {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}" / hr`}
                           </p>
                         ))}
                       </div>

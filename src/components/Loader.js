@@ -4,7 +4,7 @@ export default class Loader extends PureComponent {
   render() {
     return (
       <div className="buffer load">
-        <span style={{ color: '#bdccfc', fontSize: '1.1em' }}>loading...</span>
+        <span style={{ color: '#7795f8', fontSize: '1.2em' }}>loading...</span>
       </div>
     )
   }
