@@ -49,7 +49,7 @@ export default class ForecastSynopsis extends Component {
         style={{ translation: spring(0, presets.stiff) }}>
         {({ translation }) => (
           <div style={{ transform: `translateX(${translation}px)` }}>
-            <span style={{ fontSize: '0.7em', opacity: '0.8' }}>
+            <span style={{ fontSize: '0.7em', opacity: '0.6' }}>
               {part} /
             </span> {whole}
           </div>

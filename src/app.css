@@ -2,7 +2,9 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-smoothing: antialiased;
   text-rendering: geometricPrecision !important;
+  /*text-rendering: optimizeLegibility !important;*/
   font-family: 'Rubik', sans-serif;
   font-weight: 300;
   background: #fcfdff;
@@ -20,7 +22,7 @@ a {
   letter-spacing: 0.05em;
   text-align: center;
   margin: 0px auto;
-  padding: 150px;
+  padding: 140px;
   color: #151b2d;
 }
 
@@ -31,7 +33,7 @@ a {
 
 .load {
   font-size: 0.8em;
-  animation: Blink infinite 1s ease-in-out;
+  animation: Blink infinite 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 @keyframes Blink {

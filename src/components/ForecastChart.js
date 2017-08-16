@@ -7,15 +7,12 @@ import { Motion, spring, presets } from 'react-motion';
 import {
   Hint,
   XAxis,
-  XYPlot,
   LineSeries,
   MarkSeries,
-  makeWidthFlexible
+  FlexibleXYPlot
 } from 'react-vis';
 
 import Loader from './Loader';
-
-const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastChart extends Component {
   static propTypes = {
@@ -33,11 +30,11 @@ export default class ForecastChart extends Component {
       || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)
   }
 
-  curve = 'curveMonotoneX';
+  curve = 'curveNatural';
   primaryStroke = '#7795f8';
   secondaryStroke = '#bdccfc';
   flexibleXYPlotProps = {
-    height: 320,
+    height: 300,
     margin: { top: 10, right: 10, bottom: 20, left: 10 }
   };
 
@@ -45,7 +42,7 @@ export default class ForecastChart extends Component {
     padding: '10px 20px',
     borderRadius: '3px',
     background: '#1a223a',
-    boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.4)'
+    boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.9), 0 1px 1px 0 rgba(7, 9, 15, 0.9), 0 2px 1px -1px rgba(7, 9, 15, 0.7)'
   };
 
   hintParagraphStyle = {
@@ -80,7 +77,7 @@ export default class ForecastChart extends Component {
     } = this.props;
     return (
       <div style={{
-        height: '320px',
+        height: '300px',
         display: 'block',
         padding: '10px',
         position: 'relative',
@@ -96,7 +93,7 @@ export default class ForecastChart extends Component {
                 <MarkSeries
                   color={this.primaryStroke}
                   opacity={0.2}
-                  size={8}
+                  size={10}
                   data={[
                     { x: highlighted.x, y: highlighted.y },
                     ...inclementForecasts.map(({ series }) => ({
@@ -107,10 +104,10 @@ export default class ForecastChart extends Component {
               {highlighted &&
                 <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 60 }}
+                    defaultStyle={{ opacity: 0, translation: 50 }}
                     style={{
-                      opacity: spring(0.9, presets.stiff),
-                      translation: spring(0, presets.stiff)
+                      opacity: spring(0.88),
+                      translation: spring(0, { ...presets.stiff, precision: 1 })
                     }}>
                     {({ opacity, translation }) => (
                       <div style={{
@@ -124,21 +121,24 @@ export default class ForecastChart extends Component {
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
-                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.32em' }}>
-                          Mean rainfall:
+                        <p style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.25em' }}>
+                          Mean rainfall intensity:
                           <span style={{ color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
                           </span>
                           <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                         </p>
-                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.7', fontWeight: '300', fontSize: '0.75em' }}>
+                        <h2 style={{ ...this.hintParagraphStyle, opacity: '0.6', fontWeight: '300', fontSize: '0.75em' }}>
                           In counties with highest mean rainfall:
                         </h2>
-                        {inclementForecasts.map(({ id, countyName, series }, i) => (
-                          <p key={id} style={{ color: this.secondaryStroke, opacity: 1.5 / (i + 1), fontSize: '0.75em' }}>
-                            {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}" / hr`}
-                          </p>
-                        ))}
+                        {inclementForecasts
+                          .sort(({ series: a }, { series: b }) => b[highlighted.i].y - a[highlighted.i].y)
+                          .map(({ id, countyName, series }, i) => (
+                            <p key={id} style={{ color: this.secondaryStroke, opacity: 1.4 / (i + 1), fontSize: '0.75em' }}>
+                              {`${countyName}: ${(series[highlighted.i].y).toFixed(4)}" `}
+                              <span style={{ opacity: '0.6' }}>/ hr</span>
+                            </p>
+                          ))}
                       </div>
                     )}
                   </Motion>
@@ -156,6 +156,7 @@ export default class ForecastChart extends Component {
                   data={series}
                   curve={this.curve}
                   stroke={this.secondaryStroke}
+                  strokeStyle="dashed"
                   strokeWidth={2} />
               ))}
               <XAxis

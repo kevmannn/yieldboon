@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import isEqual from 'lodash/isEqual';
 import PropTypes from 'prop-types';
 import {
-  XYPlot,
-  makeWidthFlexible,
+  FlexibleXYPlot,
   VerticalBarSeries as BarSeries,
   // VerticalRectSeries as RectSeries
 } from 'react-vis';
-
-const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
 export default class ForecastSeries extends Component {
   static propTypes = {
