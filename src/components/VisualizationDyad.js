@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import immutable from 'seamless-immutable';
 
 import ForecastSynopsis from './ForecastSynopsis';
 import ForecastChart from './ForecastChart';
@@ -53,7 +54,7 @@ class VisualizationDyad extends PureComponent {
           onNearestX={this.onNearestX}
           seriesExtremes={seriesExtremes}
           inclementForecasts={inclementForecasts}
-          aggregateActiveForecastSeries={aggregateActiveForecastSeries} />
+          aggregateActiveForecastSeries={immutable(aggregateActiveForecastSeries)} />
       </div>
     )
   }

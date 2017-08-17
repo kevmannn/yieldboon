@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { fromJS } from 'immutable';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
+// import { onlyUpdateForKeys } from 'recompose';
 import { Motion, spring, presets } from 'react-motion';
 import {
   Hint,
@@ -15,7 +15,6 @@ import {
 import Loader from './Loader';
 // import ForecastHint from './ForecastHint';
 // import TimeSpanToggle from './TimeSpanToggle';
-// import InvariantPlotInternals from './InvariantPlotInternals';
 
 export default class ForecastChart extends Component {
   static propTypes = {
