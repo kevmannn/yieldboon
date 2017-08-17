@@ -3,13 +3,23 @@
 import {
   REQUEST_SOYBEAN_PRODUCTION,
   RECEIVE_SOYBEAN_PRODUCTION,
-  FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION
+  FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION,
+  // receiveSoybeanProduction,
+  // failToReceiveSoybeanProduction,
+  // fetchSoybeanProductionIfNeeded
 } from '../actions';
 
 export default (state = { didFailToFetch: false }, action) => {
   const { type, payload } = action;
   switch (type) {
     case REQUEST_SOYBEAN_PRODUCTION:
+      // return loop(
+      //   { ...state, isFetching: isFetching(state.isFetching, action) }
+      //   Cmd.run(fetchSoybeanProductionIfNeeded, {
+      //     successActionCreator: receiveSoybeanProduction,
+      //     failActionCreator: failToReceiveSoybeanProduction
+      //   })
+      // )
       return {
         ...state,
         isFetching: isFetching(state.isFetching, action)

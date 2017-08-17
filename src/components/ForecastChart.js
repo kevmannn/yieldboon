@@ -21,6 +21,7 @@ export default class ForecastChart extends Component {
     isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
+    // selectedFactor: PropTypes.object.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
     inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired

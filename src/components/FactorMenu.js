@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
+import lowerCase from 'lodash/lowerCase';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import FactorMenuIcon from 'material-ui-icons/Assessment';
@@ -89,7 +90,7 @@ class FactorMenu extends Component {
                     key={name}
                     selected={name === selectedFactor.name}
                     onClick={() => this.onMenuItemClick(name)}>
-                    {name}
+                    {lowerCase(name)}
                   </MenuItem>
                 ))}
             </Menu>
