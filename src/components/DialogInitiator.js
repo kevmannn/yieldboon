@@ -30,7 +30,7 @@ export default class DialogInitiator extends Component {
       MuiIconButton: {
         root: {
           color: this.props.iconColor,
-          width: '35px'
+          width: '30px'
         }
       }
     }

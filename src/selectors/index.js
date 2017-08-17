@@ -6,6 +6,8 @@ const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
 
+export const getSelectedFactor = ({ factors: { selectedFactor } }) => selectedFactor;
+export const getAvailableFactors = ({ factors: { availableFactors } }) => availableFactors;
 export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
 export const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;

@@ -4,11 +4,10 @@ import moment from 'moment';
 import nprogress from 'nprogress';
 import capitalize from 'lodash/capitalize';
 
-const API_URL = 'https://yieldboon-api.now.sh';
-
 export const END_LOAD_FORECASTS = 'END_LOAD_FORECASTS';
 export const BEGIN_LOAD_FORECASTS = 'BEGIN_LOAD_FORECASTS';
 export const SELECT_STATE = 'SELECT_STATE';
+export const SELECT_FACTOR = 'SELECT_FACTOR';
 export const SELECT_TIME_SPAN = 'SELECT_TIME_SPAN';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
@@ -22,6 +21,11 @@ export const FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION = 'FAIL_TO_RECEIVE_SOYBEAN_PRODU
 export const selectState = (stateName) => ({
   type: SELECT_STATE,
   stateName
+})
+
+export const selectFactor = (factorName) => ({
+  type: SELECT_FACTOR,
+  factorName
 })
 
 export const selectTimeSpan = (timeSpan) => ({
@@ -55,6 +59,8 @@ const receiveSoybeanProduction = (payload) => ({
 const failToReceiveSoybeanProduction = () => ({
   type: FAIL_TO_RECEIVE_SOYBEAN_PRODUCTION
 })
+
+const API_URL = 'https://yieldboon-api.now.sh';
 
 const fetchSoybeanProduction = () => (dispatch) => {
   dispatch(requestSoybeanProduction());

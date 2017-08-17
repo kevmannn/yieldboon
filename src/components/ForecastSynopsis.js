@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import lowerCase from 'lodash/lowerCase';
-import AboutIcon from 'material-ui-icons/WifiTethering';
+import AboutIcon from 'material-ui-icons/Help';
 import SelectStateIcon from 'material-ui-icons/Mms';
 import { Motion, spring, presets } from 'react-motion';
 
-// import FactorMenu from './FactorMenu';
+import FactorMenu from './FactorMenu';
 import ErrorLogger from './ErrorLogger';
 import AboutDialog from './AboutDialog';
 import DialogInitiator from './DialogInitiator';
@@ -89,8 +89,8 @@ export default class ForecastSynopsis extends Component {
         <DialogInitiator
           icon={<SelectStateIcon />}
           dialog={<StateSelectionDialog />} />
+        <FactorMenu />
         <ErrorLogger />
-        {/*<FactorMenu />*/}
       </div>
     )
   }
