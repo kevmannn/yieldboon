@@ -36,31 +36,38 @@ export const getPayloadSubset = createSelector(
   )
 )
 
-// Correlate states with their total (= across all of their counties) soybean yield.
-const getYieldTotalsForStates = createSelector(
+// Pull an array of the unique state abbreviations present in the crop data.
+const getUniqueStateAbbrs = createSelector(
   getSoybeanProductionPayload,
-  (payload = []) => (
-    payload.reduce((acc, { stateAbbr, soybeanYield }) => ({
-      ...acc,
-      [stateAbbr]: (acc[stateAbbr] || 0) + soybeanYield
-    }), {})
-  )
+  (payload = []) => {
+    const seen = new Set();
+    const uniqueStateAbbrs = [];
+    for (let i = 0; i < payload.length; i++) {
+      const stateAbbr = payload[i].stateAbbr;
+      if (seen.has(stateAbbr)) {
+        continue;
+      }
+      seen.add(stateAbbr);
+      uniqueStateAbbrs.push(stateAbbr);
+    }
+    return uniqueStateAbbrs;
+  }
 )
 
-// Group yield total with booleans indicating whether forecasts for this state have been cached or
+// Associate stateAbbrs with booleans indicating whether forecasts for this state have been cached or
 // have failed to fetch.
 export const getActiveStates = createSelector(
-  [getYieldTotalsForStates, getPrecipForecasts, getErrorLog],
-  (yieldTotals, precipForecasts, errorLog) => (
-    Object.keys(yieldTotals)
+  [getUniqueStateAbbrs, getPrecipForecasts, getErrorLog],
+  (uniqueStateAbbrs, precipForecasts, errorLog) => (
+    uniqueStateAbbrs
       .map((stateAbbr) => ({
         [stateAbbr]: {
-          totalYield: abbreviateInt(yieldTotals[stateAbbr]),
+          // totalYield: abbreviateInt(uniqueStateAbbrs[stateAbbr]),
           didError: !!Object.keys(errorLog).find(key => errorLog[key] && errorLog[key].stateAbbr === stateAbbr),
           isCached: !!precipForecasts.find(({ stateAbbr: state }) => state === stateAbbr)
         },
       }))
-      .reduce((acc, correlation) => ({...acc, ...correlation}), {})
+    .reduce((acc, correlation) => ({...acc, ...correlation}), {})
   )
 )
 

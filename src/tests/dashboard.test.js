@@ -43,7 +43,7 @@ describe('App', () => {
   })
 })
 
-describe('VisualizationDyad', () => {
+describe.skip('VisualizationDyad', () => {
   it('passes highlighted object to children', () => {
     const [ , wrapper ] = mountComponentWithState(VisualizationDyad, fullState);
     expect(wrapper.find('ForecastSynopsis').props()).toEqual(expect.objectContaining({

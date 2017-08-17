@@ -14,8 +14,8 @@ import {
 
 import Loader from './Loader';
 // import ForecastHint from './ForecastHint';
-// import PlotInternals from './PlotInternals';
 // import TimeSpanToggle from './TimeSpanToggle';
+// import InvariantPlotInternals from './InvariantPlotInternals';
 
 export default class ForecastChart extends Component {
   static propTypes = {

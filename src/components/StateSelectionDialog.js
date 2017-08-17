@@ -20,7 +20,10 @@ class StateSelectionDialog extends PureComponent {
     history: PropTypes.object,
     isOpen: PropTypes.bool,
     onRequestClose: PropTypes.func,
-    activeStates: PropTypes.object.isRequired,
+    activeStates: PropTypes.shape({
+      didError: PropTypes.bool,
+      isCached: PropTypes.bool
+    }).isRequired,
     selectedState: PropTypes.string.isRequired
   };
 
@@ -88,11 +91,16 @@ class StateSelectionDialog extends PureComponent {
           fontFamily: 'Rubik'
         }
       },
+      MuiDialogActions: {
+        button: {
+          minWidth: '45px'
+        }
+      },
       MuiIconButton: {
         root: {
           color: '#7795f8',
-          width: '45px',
-          height: '45px'
+          // width: '45px',
+          // height: '45px'
         }
       },
       MuiRadio: {
@@ -100,7 +108,7 @@ class StateSelectionDialog extends PureComponent {
           color: '#7795f8'
         },
         default: {
-          color: '#151b2d'
+          color: 'rgba(7, 9, 15, 0.2)'
         }
       },
       MuiPaper: {
@@ -144,9 +152,9 @@ class StateSelectionDialog extends PureComponent {
                   control={<Radio />}
                   label={
                     <p>{stateAbbr}
-                      <span style={{ fontSize: '0.9em', opacity: '0.3' }}>
+                      {/*<span style={{ fontSize: '0.9em', opacity: '0.3' }}>
                         {` (${activeStates[stateAbbr].totalYield} bu) `}
-                      </span>
+                      </span>*/}
                       {activeStates[stateAbbr].isCached
                         ? activeStates[stateAbbr].didError
                           ? <ErrorIcon style={{ ...this.iconStyle, color: '#ff4081' }} />
