@@ -61,7 +61,6 @@ const failToReceiveSoybeanProduction = () => ({
 })
 
 const API_URL = 'https://yieldboon-api.now.sh';
-
 const fetchSoybeanProduction = () => (dispatch) => {
   dispatch(requestSoybeanProduction());
   return fetch(`${API_URL}/yield`)

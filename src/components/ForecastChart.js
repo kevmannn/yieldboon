@@ -14,6 +14,7 @@ import {
 
 import Loader from './Loader';
 // import ForecastHint from './ForecastHint';
+// import PlotInternals from './PlotInternals';
 // import TimeSpanToggle from './TimeSpanToggle';
 
 export default class ForecastChart extends Component {
@@ -77,6 +78,10 @@ export default class ForecastChart extends Component {
       inclementForecasts,
       aggregateActiveForecastSeries
     } = this.props;
+    // console.log(highlighted && inclementForecasts.map(({ series }) => ({
+    //   x: highlighted.x,
+    //   y: series[highlighted.i].y
+    // })))
     return (
       <div style={{
         height: '300px',
@@ -119,7 +124,7 @@ export default class ForecastChart extends Component {
                       }}>
                         <p style={this.hintParagraphStyle}>
                           {moment(highlighted.x).calendar()}
-                          <span style={{ ...this.hintParagraphStyle, opacity: '0.6' }}>
+                          <span style={{ opacity: '0.5' }}>
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
@@ -130,7 +135,7 @@ export default class ForecastChart extends Component {
                             <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                           </div>
                         </div>
-                        <p style={{ ...this.hintParagraphStyle, opacity: '0.6' }}>
+                        <p style={{ ...this.hintParagraphStyle, opacity: '0.5' }}>
                           For counties with highest mean rainfall:
                         </p>
                         {inclementForecasts

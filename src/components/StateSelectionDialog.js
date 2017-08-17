@@ -90,7 +90,9 @@ class StateSelectionDialog extends PureComponent {
       },
       MuiIconButton: {
         root: {
-          color: '#7795f8'
+          color: '#7795f8',
+          width: '45px',
+          height: '45px'
         }
       },
       MuiRadio: {

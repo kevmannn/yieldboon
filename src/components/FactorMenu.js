@@ -46,7 +46,13 @@ class FactorMenu extends Component {
       MuiIconButton: {
         root: {
           color: '#7795f8',
-          width: '30px'
+          width: '30px',
+          height: '30px'
+        }
+      },
+      MuiMenu: {
+        root: {
+          backgroundColor: '#fcfdff'
         }
       },
       MuiMenuItem: {
@@ -56,7 +62,7 @@ class FactorMenu extends Component {
           color: '#1c243d'
         },
         selected: {
-          backgroundColor: 'rgba(7, 9, 15, 0.1)'
+          backgroundColor: 'rgba(7, 9, 15, 0.05)'
         }
       }
     }

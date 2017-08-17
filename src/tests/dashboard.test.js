@@ -14,6 +14,7 @@ import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
 import CountyRegistry from '../components/CountyRegistry';
 import DialogInitiator from '../components/DialogInitiator';
+// import FactorMenu from '../components/FactorMenu';
 // import ErrorLogger from '../components/ErrorLogger';
 // import ForecastSeries from '../components/ForecastSeries';
 // import TimeSpanToggle from '../components/TimeSpanToggle';

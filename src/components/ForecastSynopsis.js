@@ -60,7 +60,7 @@ export default class ForecastSynopsis extends Component {
 
   render() {
     const { isFetching, highlighted, forecastTotals, activeCounties = [] } = this.props;
-    const opacity = isFetching ? '0.2' : '1';
+    const opacity = isFetching ? '0.1' : '1';
     return (
       <div>
         {Object.keys(forecastTotals).reverse().map((key, i) => (
@@ -83,13 +83,15 @@ export default class ForecastSynopsis extends Component {
             </div>
           </div>
         ))}
-        <DialogInitiator
-          icon={<AboutIcon />}
-          dialog={<AboutDialog />} />
-        <DialogInitiator
-          icon={<SelectStateIcon />}
-          dialog={<StateSelectionDialog />} />
-        <FactorMenu />
+        <div style={{ position: 'absolute', top: '20px', right: '20px' }}>
+          <DialogInitiator
+            icon={<AboutIcon />}
+            dialog={<AboutDialog />} />
+          <DialogInitiator
+            icon={<SelectStateIcon />}
+            dialog={<StateSelectionDialog />} />
+          <FactorMenu />
+        </div>
         <ErrorLogger />
       </div>
     )
