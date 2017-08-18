@@ -82,6 +82,11 @@ export default class ForecastChart extends Component {
     //   x: highlighted.x,
     //   y: series[highlighted.i].y
     // })))
+    const sortedInclementForecasts = highlighted
+      ? inclementForecasts.sort(({ series: a }, { series: b }) => (
+          b[highlighted.i].y - a[highlighted.i].y
+        ))
+      : inclementForecasts
     return (
       <div style={{
         height: '300px',
@@ -103,7 +108,7 @@ export default class ForecastChart extends Component {
                   size={10}
                   data={[
                     { x: highlighted.x, y: highlighted.y },
-                    ...inclementForecasts.map(({ series }) => ({
+                    ...sortedInclementForecasts.map(({ series }) => ({
                       x: highlighted.x,
                       y: series[highlighted.i].y
                     }))
@@ -138,8 +143,7 @@ export default class ForecastChart extends Component {
                         <p style={{ ...this.hintParagraphStyle, opacity: '0.5' }}>
                           For counties with highest mean rainfall:
                         </p>
-                        {inclementForecasts
-                          .sort(({ series: a }, { series: b }) => b[highlighted.i].y - a[highlighted.i].y)
+                        {sortedInclementForecasts
                           .map(({ id, countyName, series }, i) => (
                             <p
                               key={id}
@@ -158,7 +162,7 @@ export default class ForecastChart extends Component {
                 stroke={this.primaryStroke}
                 strokeWidth={2}
                 onNearestX={this.onNearestX} />
-              {inclementForecasts.map(({ id, series }, i) => (
+              {sortedInclementForecasts.map(({ id, series }, i) => (
                 <LineSeries
                   key={id}
                   opacity={0.3 / (i + 1)}

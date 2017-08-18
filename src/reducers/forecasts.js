@@ -4,7 +4,7 @@ import { REHYDRATE } from 'redux-persist/constants';
 import { List, fromJS } from 'immutable';
 
 import {
-  REQUEST_FORECAST,
+  // REQUEST_FORECAST,
   RECEIVE_FORECAST,
   END_LOAD_FORECASTS,
   BEGIN_LOAD_FORECASTS,
@@ -36,11 +36,11 @@ export default (state = { disallowedIds: List(), precipForecasts: [] }, action) 
             precipForecasts: payload.forecasts.precipForecasts.filter(isForecastForToday)
           }
         : state
+    // case REQUEST_FORECAST:
     case END_LOAD_FORECASTS:
     case BEGIN_LOAD_FORECASTS:
     case REACH_FORECAST_REQ_LIMIT:
     case FAIL_TO_RECEIVE_FORECAST:
-    case REQUEST_FORECAST:
     case RECEIVE_FORECAST:
       return {
         ...state,
