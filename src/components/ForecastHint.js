@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import { Hint } from 'react-vis';
-import { Motion, spring, presets } from 'react-motion';
+// import moment from 'moment';
+// import { Hint } from 'react-vis';
+// import lowerCase from 'lodash/lowerCase';
+// import { Motion, spring, presets } from 'react-motion';
 
 export default class ForecastHint extends PureComponent {
   static propTypes = {
+    // isHighlighted: PropTypes.bool.isRequired,
     value: PropTypes.shape({
       x: PropTypes.number,
       y: PropTypes.number

@@ -13,7 +13,10 @@ class VisualizationDyad extends PureComponent {
     seriesExtremes: PropTypes.array.isRequired,
     forecastTotals: PropTypes.object.isRequired,
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // selectedFactor: PropTypes.shape({ name: PropTypes.string }).isRequired,
+    selectedFactor: PropTypes.shape({
+      name: PropTypes.string,
+      unitOfMeasure: PropTypes.string
+    }).isRequired,
     inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
   };
@@ -36,7 +39,7 @@ class VisualizationDyad extends PureComponent {
       seriesExtremes,
       forecastTotals,
       activeCounties,
-      // selectedFactor,
+      selectedFactor,
       inclementForecasts,
       aggregateActiveForecastSeries
     } = this.props;
@@ -55,7 +58,7 @@ class VisualizationDyad extends PureComponent {
           isFetching={isFetching || !activeCounties.length}
           highlighted={highlighted}
           onNearestX={this.onNearestX}
-          // selectedFactor={selectedFactor}
+          selectedFactor={selectedFactor}
           seriesExtremes={seriesExtremes}
           inclementForecasts={inclementForecasts}
           aggregateActiveForecastSeries={immutable(aggregateActiveForecastSeries)} />
@@ -70,7 +73,7 @@ function mapStateToProps(state) {
     seriesExtremes: selectors.getSeriesExtremes(state),
     forecastTotals: selectors.getForecastTotals(state),
     activeCounties: selectors.getActiveCounties(state),
-    // selectedFactor: selectors.getSelectedFactor(state),
+    selectedFactor: selectors.getSelectedFactor(state),
     inclementForecasts: selectors.getInclementForecasts(state),
     aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(state)
   }  

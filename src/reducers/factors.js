@@ -2,19 +2,21 @@ import { SELECT_FACTOR } from '../actions';
 
 const defaultState = {
   availableFactors: [
-    { name: 'precipIntensity' },
-    // { name: 'windSpeed' }
+    { name: 'precipIntensity', unitOfMeasure: '"' },
+    // { name: 'windSpeed', unitOfMeasure: 'mph' }
   ],
-  selectedFactor: { name: 'precipIntensity' }
+  selectedFactor: { name: 'precipIntensity', unitOfMeasure: '"' }
 }
 
 export default (state = defaultState, { type, factorName: name }) => {
   switch (type) {
     case SELECT_FACTOR:
+      const { availableFactors } = defaultState;
       return {
         ...state,
         selectedFactor: {
-          name
+          name,
+          unitOfMeasure: availableFactors.find(({ name: nm }) => nm === name).unitOfMeasure
         }
       }
     default:

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
+import lowerCase from 'lodash/lowerCase';
 // import { onlyUpdateForKeys } from 'recompose';
 import { Motion, spring, presets } from 'react-motion';
 import {
@@ -21,7 +22,7 @@ export default class ForecastChart extends Component {
     isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
     onNearestX: PropTypes.func.isRequired,
-    // selectedFactor: PropTypes.object.isRequired,
+    selectedFactor: PropTypes.object.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
     inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
     aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -75,6 +76,7 @@ export default class ForecastChart extends Component {
       isFetching,
       highlighted,
       seriesExtremes,
+      selectedFactor: { name: factorName, unitOfMeasure },
       inclementForecasts,
       aggregateActiveForecastSeries
     } = this.props;
@@ -134,21 +136,21 @@ export default class ForecastChart extends Component {
                           </span>
                         </p>
                         <div style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.25em' }}>
-                          Mean rainfall intensity:
+                          Mean {lowerCase(factorName)}
                           <div style={{ display: 'block', transform: `translateX(${translation}px)`, color: this.primaryStroke }}>
-                            {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}" `}
+                            {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}${unitOfMeasure} `}
                             <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                           </div>
                         </div>
                         <p style={{ ...this.hintParagraphStyle, opacity: '0.5' }}>
-                          For counties with highest mean rainfall:
+                          For counties with highest mean {lowerCase(factorName)}
                         </p>
                         {sortedInclementForecasts
                           .map(({ id, countyName, series }, i) => (
                             <p
                               key={id}
                               style={{ opacity: 1.4 / (i + 1), fontSize: '0.75em' }}>
-                              {countyName}: <span style={{ color: this.secondaryStroke }}>{`${(series[highlighted.i].y).toFixed(4)}" `}</span>
+                              {countyName}: <span style={{ color: this.secondaryStroke }}>{`${(series[highlighted.i].y).toFixed(4)}${unitOfMeasure} `}</span>
                               <span style={{ opacity: '0.6' }}>/ hr</span>
                             </p>
                           ))}

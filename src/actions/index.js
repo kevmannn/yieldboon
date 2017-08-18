@@ -146,6 +146,7 @@ const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (disp
         : res.json()
     )
     .then(({ hourly: { data } }) => {
+      // TODO: Generalize for other factor types.
       const series = data
         .map(({ time, precipIntensity: y, precipProbability: z }, i) => ({
           i,

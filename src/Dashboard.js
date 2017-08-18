@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-// import { List } from 'immutable';
 import { connect } from 'react-redux';
-import { Motion, spring } from 'react-motion';
+// import { List } from 'immutable';
 
 // import AsyncComponent from './components/AsyncComponent';
 import * as selectors from './selectors';
@@ -46,16 +45,10 @@ class Dashboard extends PureComponent {
         ? <div className="buffer error">Something went wrong...</div>
         : isFetchingCropData
           ? <InitLoader />
-          : <Motion
-              defaultStyle={{ opacty: 0 }}
-              style={{ opacty: spring(1) }}>
-              {({ opacty }) => (
-                <div style={{ opacty }}>
-                  <VisualizationDyad />
-                  <CountyRegistry selectedState={selectedState} />
-                </div>
-              )}
-            </Motion>
+          : <div>
+              <VisualizationDyad />
+              <CountyRegistry selectedState={selectedState} />
+            </div>
     )
   }
 }
