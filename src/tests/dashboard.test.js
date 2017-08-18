@@ -48,6 +48,7 @@ describe.skip('VisualizationDyad', () => {
     const [ , wrapper ] = mountComponentWithState(VisualizationDyad, fullState);
     expect(wrapper.find('ForecastSynopsis').props()).toEqual(expect.objectContaining({
       activeCounties: expect.any(Array),
+      selectedFactor: expect.any(Object),
       forecastTotals: expect.any(Object),
       highlighted: null
     }))
@@ -60,6 +61,7 @@ describe.skip('VisualizationDyad', () => {
 describe('ForecastSynopsis', () => {
   const props = {
     highlighted: null,
+    selectedFactor: selectors.getSelectedFactor(fullState),
     forecastTotals: selectors.getForecastTotals(fullState)
   }
   const wrapper = shallow(<ForecastSynopsis {...props} />);
@@ -76,6 +78,7 @@ describe('ForecastChart', () => {
     isFetching: false,
     onNearestX: jest.fn(),
     highlighted: { i: 0, x: Date.now(), y: 1 },
+    selectedFactor: selectors.getSelectedFactor(fullState),
     seriesExtremes: selectors.getSeriesExtremes(fullState),
     inclementForecasts: selectors.getInclementForecasts(fullState),
     aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(fullState)

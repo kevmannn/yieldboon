@@ -51,7 +51,7 @@ class VisualizationDyad extends PureComponent {
         <ForecastSynopsis
           isFetching={isFetching || !activeCounties.length}
           highlighted={highlighted}
-          // selectedFactor={selectedFactor}
+          selectedFactor={selectedFactor}
           activeCounties={activeCounties}
           forecastTotals={forecastTotals} />
         <ForecastChart
@@ -67,6 +67,7 @@ class VisualizationDyad extends PureComponent {
   }
 }
 
+// TODO: pass ownProps to forecastTotals (for the sake of communicating the selectedFactor)?
 function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),

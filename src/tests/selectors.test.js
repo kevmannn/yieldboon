@@ -35,7 +35,7 @@ describe('forecast selectors', () => {
       selectedState: expect.any(String),
       totalCounties: expect.any(Number),
       totalSoybeanYield: expect.any(String),
-      totalRainfall: expect.any(Function)
+      totalChartedValue: expect.any(Function)
     }))
   })
 

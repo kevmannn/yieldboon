@@ -16,12 +16,13 @@ export default class ForecastSynopsis extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
+    selectedFactor: PropTypes.object,
     activeCounties: PropTypes.arrayOf(PropTypes.object),
     forecastTotals: PropTypes.shape({
       selectedState: PropTypes.string,
       totalCounties: PropTypes.number,
       totalSoybeanYield: PropTypes.string,
-      totalRainfall: PropTypes.func
+      totalChartedValue: PropTypes.func
     }).isRequired
   };
 
@@ -31,12 +32,12 @@ export default class ForecastSynopsis extends Component {
   }
 
   renderTotal(key) {
-    const { forecastTotals } = this.props;
+    const { selectedFactor: { unitOfMeasure }, forecastTotals } = this.props;
     switch (key) {
       case 'totalSoybeanYield':
         return `${forecastTotals[key]} bu`;
-      case 'totalRainfall':
-        return `${forecastTotals[key](24).toFixed(2)}"`;
+      case 'totalChartedValue':
+        return `${forecastTotals[key](24).toFixed(2)}${unitOfMeasure}`;
       default:
         return forecastTotals[key];
     }
@@ -75,7 +76,7 @@ export default class ForecastSynopsis extends Component {
             }}>
             <p style={{ color: '#1c243d', opacity: '0.4', fontSize: '0.6em' }}>{lowerCase(key)}</p>
             <div style={{ color: '#1c243d', fontSize: '1.15em', fontWeight: '300', margin: '10px 0px' }}>
-              {highlighted && key === 'totalRainfall'
+              {highlighted && key === 'totalChartedValue'
                 ? this.renderPartOfWhole(forecastTotals[key](highlighted.i + 1).toFixed(2), this.renderTotal(key))
                 : key === 'totalCounties' && activeCounties.length !== forecastTotals[key]
                   ? this.renderPartOfWhole(forecastTotals[key], activeCounties.length)

@@ -106,7 +106,7 @@ export const getForecastTotals = createSelector(
           selectedState,
           totalCounties: forecasts.length,
           totalSoybeanYield: abbreviateInt(forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0)),
-          totalRainfall: (i) => (
+          totalChartedValue: (i) => (
             forecasts
               .map(({ series }) => series.slice(0, i).reduce((acc, { y }) => acc + y, 0))
               .reduce((acc, seriesTotal) => acc + seriesTotal, 0)

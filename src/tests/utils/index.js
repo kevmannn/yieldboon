@@ -18,6 +18,9 @@ export const fullState = {
       soybeanYield: 1e7
     }]
   },
+  factors: {
+    selectedFactor: { name: 'precipIntensity', unitOfMeasure: '"' }
+  },
   forecasts: {
     errorLog: {
       x: { stateAbbr: 'CA', messages: ['abyssal'] },
