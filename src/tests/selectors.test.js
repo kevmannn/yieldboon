@@ -34,7 +34,7 @@ describe('forecast selectors', () => {
     expect(selectors.getForecastTotals(emptyState)).toEqual(expect.objectContaining({
       selectedState: expect.any(String),
       totalCounties: expect.any(Number),
-      totalSoybeanYield: expect.any(String),
+      totalCropYield: expect.any(String),
       totalChartedValue: expect.any(Function)
     }))
   })
@@ -52,7 +52,7 @@ describe('forecast selectors', () => {
     expect(selectors.getActiveCounties(fullState)[0]).toEqual({
       id: '1',
       countyName: 'x',
-      soybeanYield: expect.any(String),
+      cropYield: expect.any(String),
       totalRainfall: expect.any(String),
       rainfallIntensity: expect.any(Array)
     })

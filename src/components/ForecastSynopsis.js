@@ -21,7 +21,7 @@ export default class ForecastSynopsis extends Component {
     forecastTotals: PropTypes.shape({
       selectedState: PropTypes.string,
       totalCounties: PropTypes.number,
-      totalSoybeanYield: PropTypes.string,
+      totalCropYield: PropTypes.string,
       totalChartedValue: PropTypes.func
     }).isRequired
   };
@@ -34,7 +34,7 @@ export default class ForecastSynopsis extends Component {
   renderTotal(key) {
     const { selectedFactor: { unitOfMeasure }, forecastTotals } = this.props;
     switch (key) {
-      case 'totalSoybeanYield':
+      case 'totalCropYield':
         return `${forecastTotals[key]} bu`;
       case 'totalChartedValue':
         return `${forecastTotals[key](24).toFixed(2)}${unitOfMeasure}`;

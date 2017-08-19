@@ -10,12 +10,12 @@ const mockStore = configureStore([thunk]);
 describe.skip('forecast action creators', () => {
   let forecasts;
   const store = mockStore({
-    soybeanProduction: { lastUpdated: null }
+    cropYield: { lastUpdated: null }
   })
   beforeEach(async () => {
     // nock.cleanAll();
     store.clearActions();
-    await store.dispatch(actions.fetchSoybeanProductionIfNeeded());
+    await store.dispatch(actions.fetchCropYieldIfNeeded());
     const [ , { payload } ] = store.getActions();
     forecasts = await store.dispatch(actions.loadForecasts(payload.slice(0, 2)));
   })

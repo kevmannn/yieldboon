@@ -2,7 +2,7 @@ import { List } from 'immutable';
 
 export const emptyState = {
   selectedState: '',
-  soybeanProduction: {},
+  cropYield: {},
   forecasts: {
     errorLog: {},
     disallowedIds: List(),
@@ -12,7 +12,7 @@ export const emptyState = {
 
 export const fullState = {
   selectedState: 'CA',
-  soybeanProduction: {
+  cropYield: {
     payload: [{
       stateAbbr: 'CA',
       soybeanYield: 1e7

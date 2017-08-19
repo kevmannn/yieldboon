@@ -8,7 +8,7 @@ import * as selectors from './selectors';
 import InitLoader from './components/InitLoader';
 import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
-import { loadForecasts, selectState, fetchSoybeanProductionIfNeeded } from './actions';
+import { loadForecasts, selectState, fetchCropYieldIfNeeded } from './actions';
 
 class Dashboard extends PureComponent {
   static propTypes = {
@@ -18,11 +18,11 @@ class Dashboard extends PureComponent {
     selectedState: PropTypes.string.isRequired,
     payloadSubset: PropTypes.arrayOf(PropTypes.object).isRequired,
     didFailToFetch: PropTypes.bool,
-    isFetchingCropData: PropTypes.bool
+    isFetchingCropYield: PropTypes.bool
   };
 
   componentWillMount() {
-    this.props.fetchSoybeanProductionIfNeeded();
+    this.props.fetchCropYieldIfNeeded();
   }
 
   componentWillReceiveProps({ match: { params }, selectedState, payloadSubset }) {
@@ -39,11 +39,11 @@ class Dashboard extends PureComponent {
   }
 
   render() {
-    const { selectedState, isFetchingCropData, didFailToFetch } = this.props;
+    const { selectedState, isFetchingCropYield, didFailToFetch } = this.props;
     return (
       didFailToFetch
         ? <div className="buffer error">Something went wrong...</div>
-        : isFetchingCropData
+        : isFetchingCropYield
           ? <InitLoader />
           : <div>
               <VisualizationDyad />
@@ -58,11 +58,11 @@ function mapStateToProps(state) {
     selectedState: selectors.getSelectedState(state),
     payloadSubset: selectors.getPayloadSubset(state),
     didFailToFetch: selectors.getDidFailToFetch(state),
-    isFetchingCropData: selectors.getIsFetchingSoybeanProduction(state)
+    isFetchingCropYield: selectors.getIsFetchingCropYield(state)
   }
 }
 
 export default connect(
   mapStateToProps,
-  { loadForecasts, selectState, fetchSoybeanProductionIfNeeded }
+  { loadForecasts, selectState, fetchCropYieldIfNeeded }
 )(Dashboard)

@@ -3,8 +3,8 @@ import { List } from 'immutable';
 
 import timeSpan from '../reducers/time-span';
 import forecasts from '../reducers/forecasts';
+import cropYield from '../reducers/crop-yield';
 import selectedState from '../reducers/selected-state';
-import soybeanProduction from '../reducers/soybean-production';
 
 import * as actions from '../actions';
 
@@ -81,22 +81,22 @@ describe('selectedState', () => {
   })
 })
 
-describe('soybeanProduction', () => {
+describe('cropYield', () => {
   it('has default state', () => {
-    expect(soybeanProduction(undefined, {})).toEqual({
+    expect(cropYield(undefined, {})).toEqual({
       didFailToFetch: false
     })
   })
 
   it('stores isFetching', () => {
-    expect(soybeanProduction(undefined, {
-      type: actions.REQUEST_SOYBEAN_PRODUCTION
+    expect(cropYield(undefined, {
+      type: actions.REQUEST_CROP_YIELD
     })).toEqual({ didFailToFetch: false, isFetching: true })
   })
 
   it('stores a received paylod', () => {
-    expect(soybeanProduction(undefined, {
-      type: actions.RECEIVE_SOYBEAN_PRODUCTION,
+    expect(cropYield(undefined, {
+      type: actions.RECEIVE_CROP_YIELD,
       payload: [{}, {}]
     }).payload).toHaveLength(2)
   })

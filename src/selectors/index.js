@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 
 const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
-const getSoybeanProductionPayload = ({ soybeanProduction: { payload } }) => payload;
+const getCropYieldPayload = ({ cropYield: { payload } }) => payload;
 
 export const getSelectedFactor = ({ factors: { selectedFactor } }) => selectedFactor;
 export const getAvailableFactors = ({ factors: { availableFactors } }) => availableFactors;
@@ -12,9 +12,9 @@ export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => sele
 export const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
-export const getDidFailToFetch = ({ soybeanProduction: { didFailToFetch } }) => didFailToFetch;
+export const getDidFailToFetch = ({ cropYield: { didFailToFetch } }) => didFailToFetch;
 export const getDidReachReqLimit = ({ forecasts: { errorLog } }) => errorLog && errorLog.didReachReqLimit;
-export const getIsFetchingSoybeanProduction = ({ soybeanProduction: { isFetching }}) => isFetching;
+export const getIsFetchingCropYield = ({ cropYield: { isFetching }}) => isFetching;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(
@@ -28,9 +28,9 @@ export const getErrorLogMessages = createSelector(
   )
 )
 
-// Filter soybeanProduction payload for entities that are within the selectedState.
+// Filter cropYield payload for entities that are within the selectedState.
 export const getPayloadSubset = createSelector(
-  [getSelectedState, getSoybeanProductionPayload],
+  [getSelectedState, getCropYieldPayload],
   (selectedState, payload = []) => (
     payload.filter(({ stateAbbr }) => stateAbbr === selectedState)
   )
@@ -38,7 +38,7 @@ export const getPayloadSubset = createSelector(
 
 // Pull an array of the unique state abbreviations present in the crop data.
 const getUniqueStateAbbrs = createSelector(
-  getSoybeanProductionPayload,
+  getCropYieldPayload,
   (payload = []) => {
     const seen = new Set();
     const uniqueStateAbbrs = [];
@@ -72,7 +72,7 @@ export const getActiveStates = createSelector(
 )
 
 // TODO: Account for precipForecasts becoming an object which associates { [stateName]: [ ...forecasts ] }.
-// Correlate allowed precipForecasts (and coordinates) with their soybean payloads.
+// Correlate allowed precipForecasts (and coordinates) with their yield payloads.
 const getForecastPayloadCorrelation = createSelector(
   [getPrecipForecasts, getPayloadSubset, getSelectedState],
   (precipForecasts, payloadSubset, selectedState) => (
@@ -105,7 +105,7 @@ export const getForecastTotals = createSelector(
       ? {
           selectedState,
           totalCounties: forecasts.length,
-          totalSoybeanYield: abbreviateInt(forecasts.reduce((acc, { soybeanYield }) => acc + soybeanYield, 0)),
+          totalCropYield: abbreviateInt(forecasts.reduce((acc, { cropYield }) => acc + cropYield, 0)),
           totalChartedValue: (i) => (
             forecasts
               .map(({ series }) => series.slice(0, i).reduce((acc, { y }) => acc + y, 0))
@@ -122,11 +122,11 @@ export const getActiveCounties = createSelector(
   (correlatedForecasts = []) => (
     correlatedForecasts.every(({ series }) => series)
       ? correlatedForecasts
-          .sort(({ soybeanYield: a }, { soybeanYield: b }) => b - a)
-          .map(({ id, countyName, soybeanYield, series }) => ({
+          .sort(({ cropYield: a }, { cropYield: b }) => b - a)
+          .map(({ id, countyName, cropYield, series }) => ({
               id,
               countyName,
-              soybeanYield: `${abbreviateInt(soybeanYield)} bu`,
+              cropYield: `${abbreviateInt(cropYield)} bu`,
               totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(3)}"`,
               rainfallIntensity: series
                 .filter(({ i }) => i % 2 === 0)
