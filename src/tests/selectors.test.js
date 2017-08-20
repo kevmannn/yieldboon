@@ -53,8 +53,8 @@ describe('forecast selectors', () => {
       id: '1',
       countyName: 'x',
       cropYield: expect.any(String),
-      totalRainfall: expect.any(String),
-      rainfallIntensity: expect.any(Array)
+      chartedValueTotal: expect.any(String),
+      chartedValueSeries: expect.any(Array)
     })
   })
 

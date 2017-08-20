@@ -22,6 +22,7 @@ class CountyRegistry extends PureComponent {
     // Provided via connect:
     isFetching: PropTypes.bool,
     disallowedIds: PropTypes.instanceOf(List),
+    selectedFactor: PropTypes.object.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number),
     activeCounties: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
@@ -89,13 +90,20 @@ class CountyRegistry extends PureComponent {
   });
 
   render() {
-    const { isFetching, activeCounties, seriesExtremes, disallowedIds } = this.props;
+    const {
+      isFetching,
+      activeCounties,
+      seriesExtremes,
+      selectedFactor: { name: factorName },
+      disallowedIds
+    } = this.props;
     const { didCheckAll } = this.state;
     return (
       <div style={{
         margin: '10px',
         minHeight: '100px',
-        maxHeight: '282px',
+        maxHeight: '275px',
+        // display: 'flex',
         overflow: 'auto',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
@@ -112,13 +120,13 @@ class CountyRegistry extends PureComponent {
                     </TableCell>
                     {Object.keys(activeCounties[0]).slice(1).map((key, i) => (
                       <TableCell style={{ color: '#242f4f' }} key={i}>
-                        {lowerCase(key)}
+                        {lowerCase(key.replace(/chartedValue/, factorName))}
                       </TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activeCounties.map(({ id, countyName, soybeanYield, totalRainfall, rainfallIntensity }) => (
+                  {activeCounties.map(({ id, countyName, cropYield, chartedValueTotal, chartedValueSeries }) => (
                     <TableRow key={id}>
                       <TableCell checkbox>
                         <Checkbox
@@ -129,14 +137,14 @@ class CountyRegistry extends PureComponent {
                         <span>{countyName}</span>
                       </TableCell>
                       <TableCell style={{ fontSize: '1.2em', opacity: this.getOpacityForTableCell(id) }}>
-                        <span>{soybeanYield}</span>
+                        <span>{cropYield}</span>
                       </TableCell>
                       <TableCell style={{ fontSize: '1.2em', opacity: this.getOpacityForTableCell(id) }}>
-                        <span>{totalRainfall}</span>
+                        <span>{chartedValueTotal}</span>
                       </TableCell>
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         <ForecastSeries
-                          series={rainfallIntensity}
+                          series={chartedValueSeries}
                           seriesExtremes={seriesExtremes} />
                       </TableCell>
                     </TableRow>
@@ -153,6 +161,7 @@ function mapStateToProps(state, ownProps) {
   return {
     isFetching: selectors.getIsFetching(state),
     disallowedIds: selectors.getDisallowedIds(state),
+    selectedFactor: selectors.getSelectedFactor(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
     activeCounties: selectors.getActiveCounties(state)
   }

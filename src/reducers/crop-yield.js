@@ -14,7 +14,7 @@ export default (state = { didFailToFetch: false }, action) => {
   switch (type) {
     case REQUEST_CROP_YIELD:
       // return loop(
-      //   { ...state, isFetching: isFetching(state.isFetching, action) }
+      //   { ...state, isFetching: isFetching(state.isFetching, action) },
       //   Cmd.run(fetchCropYieldIfNeeded, {
       //     successActionCreator: receiveCropYield,
       //     failActionCreator: failToReceiveCropYield

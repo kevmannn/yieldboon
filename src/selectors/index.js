@@ -127,8 +127,8 @@ export const getActiveCounties = createSelector(
               id,
               countyName,
               cropYield: `${abbreviateInt(cropYield)} bu`,
-              totalRainfall: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(3)}"`,
-              rainfallIntensity: series
+              chartedValueTotal: `${series.reduce((acc, { y }) => acc + y, 0).toFixed(3)}"`,
+              chartedValueSeries: series
                 .filter(({ i }) => i % 2 === 0)
                 .map(({ x, y }) => ({ x, y: y + 0.005 }))
             }))

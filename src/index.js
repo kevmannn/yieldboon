@@ -2,12 +2,12 @@ import React from 'react';
 import thunk from 'redux-thunk';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-// import { install } from 'redux-loop';
 import { REHYDRATE } from 'redux-persist/constants';
 import { createLogger } from 'redux-logger';
 import createActionBuffer from 'redux-action-buffer';
 import { Route, BrowserRouter } from 'react-router-dom';
 import { localforage as storage } from 'localforage';
+// import { install as installLoop } from 'redux-loop';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { compose, createStore, applyMiddleware } from 'redux';
 
@@ -26,9 +26,9 @@ const composeEnhancers = isDev && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 const store = createStore(
   rootReducer,
   composeEnhancers(
-    // install(),
     autoRehydrate(),
     applyMiddleware(...[createActionBuffer(REHYDRATE), thunk].concat(isDev ? createLogger() : []))
+    // installLoop()
   )
 )
 

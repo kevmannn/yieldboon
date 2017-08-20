@@ -1,7 +1,8 @@
+// import { fromJS } from 'immutable';
 import { combineReducers } from 'redux';
 
-import factors from './factors';
 // import highlighted from './highlighted';
+import factors from './factors';
 import timeSpan from './time-span';
 import forecasts from './forecasts';
 import cropYield from './crop-yield';

@@ -106,10 +106,16 @@ describe('ForecastChart', () => {
 })
 
 describe('CountyRegistry', () => {
+  const props = { selectedState: 'NY', selectedFactor: selectors.getSelectedFactor(fullState) };
+  const [ , wrapper ] = mountComponentWithState(CountyRegistry, fullState, props);
   it('renders the correct number of children', () => {
-    const [ , wrapper ] = mountComponentWithState(CountyRegistry, fullState, { selectedState: 'NY' });
     expect(wrapper.find('TableBody')).toHaveLength(1);
     expect(wrapper.find({ checked: true })).toHaveLength(3);
+  })
+
+  // TODO: ..
+  it('renders rows for every key in activeCounties', () => {
+    // expect(wrapper.find('TableRow')).toHaveLength(42);
   })
 })
 
