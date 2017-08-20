@@ -5,6 +5,7 @@ import immutable from 'seamless-immutable';
 
 import ForecastSynopsis from './ForecastSynopsis';
 import ForecastChart from './ForecastChart';
+// import ForecastMap from './ForecastMap';
 import * as selectors from '../selectors';
 
 class VisualizationDyad extends PureComponent {

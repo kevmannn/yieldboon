@@ -1,7 +1,10 @@
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
-  height: 100%;
   font-smoothing: antialiased;
   text-rendering: geometricPrecision !important;
   /*text-rendering: optimizeLegibility !important;*/

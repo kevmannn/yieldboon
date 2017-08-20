@@ -93,7 +93,7 @@ describe('ForecastChart', () => {
     const { highlighted: { i, x }, aggregateActiveForecastSeries } = props;
     expect(wrapper.find('Hint').props().value).toEqual({
       x,
-      y: aggregateActiveForecastSeries[i].y
+      y: expect.any(Number)
     })
   })
 
@@ -115,13 +115,18 @@ describe('CountyRegistry', () => {
 
   // TODO: ..
   it('renders rows for every key in activeCounties', () => {
-    // expect(wrapper.find('TableRow')).toHaveLength(42);
+    // const numKeysInActiveCounties = Object.keys(selectors.getActiveCounties(fullState)).length;
+    // expect(wrapper.find('TableRow')).toHaveLength(numKeysInActiveCounties);
   })
 })
 
 describe('DialogInitiator', () => {
   it('opens the given dialog when clicked', () => {
-    const wrapper = shallow(<DialogInitiator icon={null} dialog={<StateSelectionDialog />} />);
+    const wrapper = shallow(
+      <DialogInitiator
+        icon={null}
+        dialog={<StateSelectionDialog />} />
+    )
     expect(wrapper.instance().state).toEqual({ dialogIsOpen: false });
     // TODO: ...
     // wrapper.find({ onClick: jest.fn() }).simulate('click');

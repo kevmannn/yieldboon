@@ -34,11 +34,23 @@ export default class ForecastChart extends Component {
       || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)
   }
 
+  getHintValue({ i, x }) {
+    const { aggregateActiveForecastSeries, inclementForecasts } = this.props;
+    const chartedYValuesAtHighlighted = [
+      aggregateActiveForecastSeries[i].y,
+      ...inclementForecasts.map(({ series }) => series[i].y)
+    ]
+    return {
+      x,
+      y: Math.min(...chartedYValuesAtHighlighted)
+    }
+  }
+
   curve = 'curveNatural';
   primaryStroke = '#7795f8';
   secondaryStroke = '#bdccfc';
   flexibleXYPlotProps = {
-    height: 300,
+    height: 280,
     margin: { top: 10, right: 10, bottom: 20, left: 10 }
   };
 
@@ -80,10 +92,6 @@ export default class ForecastChart extends Component {
       inclementForecasts,
       aggregateActiveForecastSeries
     } = this.props;
-    // console.log(highlighted && inclementForecasts.map(({ series }) => ({
-    //   x: highlighted.x,
-    //   y: series[highlighted.i].y
-    // })))
     const sortedInclementForecasts = highlighted
       ? inclementForecasts.sort(({ series: a }, { series: b }) => (
           b[highlighted.i].y - a[highlighted.i].y
@@ -91,7 +99,7 @@ export default class ForecastChart extends Component {
       : inclementForecasts
     return (
       <div style={{
-        height: '300px',
+        height: '280px',
         display: 'block',
         padding: '10px',
         position: 'relative',
@@ -116,12 +124,12 @@ export default class ForecastChart extends Component {
                     }))
                   ]} />}
               {highlighted &&
-                <Hint value={{ x: highlighted.x, y: aggregateActiveForecastSeries[highlighted.i].y }}>
+                <Hint value={this.getHintValue(highlighted)}>
                   <Motion
-                    defaultStyle={{ opacity: 0, translation: 27 }}
+                    defaultStyle={{ opacity: 0, translation: 50 }}
                     style={{
-                      opacity: spring(0.88),
-                      translation: spring(0, { ...presets.gentle, precision: 0.1 })
+                      opacity: spring(0.92),
+                      translation: spring(0, { ...presets.gentle, precision: 0.01 })
                     }}>
                     {({ opacity, translation }) => (
                       <div style={{

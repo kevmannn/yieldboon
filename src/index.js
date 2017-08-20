@@ -27,7 +27,7 @@ const store = createStore(
   rootReducer,
   composeEnhancers(
     autoRehydrate(),
-    applyMiddleware(...[createActionBuffer(REHYDRATE), thunk].concat(isDev ? createLogger() : []))
+    applyMiddleware(...[createActionBuffer(REHYDRATE), thunk].concat(isDev ? createLogger() : [])),
     // installLoop()
   )
 )

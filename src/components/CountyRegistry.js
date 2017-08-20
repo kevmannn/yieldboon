@@ -27,9 +27,9 @@ class CountyRegistry extends PureComponent {
     activeCounties: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
       countyName: PropTypes.string,
-      soybeanYield: PropTypes.string,
-      totalRainfall: PropTypes.string,
-      rainfallIntensity: PropTypes.arrayOf(PropTypes.object)
+      cropYield: PropTypes.string,
+      chartedValueTotal: PropTypes.string,
+      chartedValueSeries: PropTypes.arrayOf(PropTypes.object)
     })).isRequired
   };
 
@@ -41,7 +41,7 @@ class CountyRegistry extends PureComponent {
   }
 
   getOpacityForTableCell(id) {
-    return this.props.disallowedIds.includes(id) ? '0.2' : '1';
+    return this.props.disallowedIds.includes(id) ? '0.1' : '1';
   }
 
   onChange = (id, isChecked) => {
@@ -63,7 +63,7 @@ class CountyRegistry extends PureComponent {
       MuiTableHead: {
         root: {
           background: '#f7f7f9',
-          fontSize: '0.6em'
+          fontSize: '0.55em'
         }
       },
       MuiTableRow: {
@@ -98,12 +98,12 @@ class CountyRegistry extends PureComponent {
       disallowedIds
     } = this.props;
     const { didCheckAll } = this.state;
+    // const height = document.body.getBoundingClientRect().height - 305;
     return (
       <div style={{
         margin: '10px',
-        minHeight: '100px',
-        maxHeight: '275px',
-        // display: 'flex',
+        minHeight: '120px',
+        maxHeight: '297px',
         overflow: 'auto',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
@@ -136,10 +136,10 @@ class CountyRegistry extends PureComponent {
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
                         <span>{countyName}</span>
                       </TableCell>
-                      <TableCell style={{ fontSize: '1.2em', opacity: this.getOpacityForTableCell(id) }}>
+                      <TableCell style={{ fontSize: '1.25em', opacity: this.getOpacityForTableCell(id) }}>
                         <span>{cropYield}</span>
                       </TableCell>
-                      <TableCell style={{ fontSize: '1.2em', opacity: this.getOpacityForTableCell(id) }}>
+                      <TableCell style={{ fontSize: '1.25em', opacity: this.getOpacityForTableCell(id) }}>
                         <span>{chartedValueTotal}</span>
                       </TableCell>
                       <TableCell style={{ opacity: this.getOpacityForTableCell(id) }}>
