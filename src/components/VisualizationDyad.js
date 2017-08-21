@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import { Map } from 'immutable';
 import immutable from 'seamless-immutable';
 
 import ForecastSynopsis from './ForecastSynopsis';
@@ -11,6 +12,7 @@ import * as selectors from '../selectors';
 class VisualizationDyad extends PureComponent {
   static propTypes = {
     isFetching: PropTypes.bool,
+    // highlighted: PropTypes.instanceOf(Map).isRequired,
     seriesExtremes: PropTypes.array.isRequired,
     forecastTotals: PropTypes.object.isRequired,
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -38,6 +40,7 @@ class VisualizationDyad extends PureComponent {
     const { highlighted } = this.state;
     const {
       isFetching,
+      // highlighted,
       seriesExtremes,
       forecastTotals,
       activeCounties,
@@ -73,6 +76,7 @@ class VisualizationDyad extends PureComponent {
 function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
+    // highlighted: selectors.getHighlighted(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
     forecastTotals: selectors.getForecastTotals(state),
     activeCounties: selectors.getActiveCounties(state),

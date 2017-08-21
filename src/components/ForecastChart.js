@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
+// import { Map } from 'immutable';
 import lowerCase from 'lodash/lowerCase';
-// import { onlyUpdateForKeys } from 'recompose';
 import { Motion, spring, presets } from 'react-motion';
 import {
   Hint,
@@ -21,6 +21,7 @@ export default class ForecastChart extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
+    // highlighted: PropTypes.instanceOf(Map).isRequired,
     onNearestX: PropTypes.func.isRequired,
     selectedFactor: PropTypes.object.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -35,6 +36,8 @@ export default class ForecastChart extends Component {
   }
 
   getHintValue({ i, x }) {
+    // TODO: Accomodate an immutable highlighted value.
+    // const [ i, x ] = [highlighted.get('i'), highlighted.get('x')];
     const { aggregateActiveForecastSeries, inclementForecasts } = this.props;
     const chartedYValuesAtHighlighted = [
       aggregateActiveForecastSeries[i].y,

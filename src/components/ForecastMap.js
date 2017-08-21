@@ -39,8 +39,9 @@ class ForecastMap extends Component {
     window.addEventListener('resize', this.resize);
   }
 
-  shouldComponentUpdate({ highlighted }, nextState) {
+  shouldComponentUpdate({ highlighted, activeForecasts }, nextState) {
     return !isEqual(highlighted, this.props.highlighted)
+      || !isEqual(activeForecasts, this.props.activeForecasts)
       || !isEqual(nextState, this.state)
   }
 
@@ -71,7 +72,7 @@ class ForecastMap extends Component {
       <MapGL
         {...viewport}
         mapboxApiAccessToken={token}
-        mapStyle="mapbox://styles/mapbox/dark-v9"
+        mapStyle="mapbox://styles/mapbox/light-v9"
         onViewportChange={this.onViewportChange}>
         {activeForecasts.map(({ id, coords: { lat, lng } }) => (
           <Marker
