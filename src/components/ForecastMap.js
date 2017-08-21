@@ -5,8 +5,8 @@ import { Map } from 'immutable';
 import isEqual from 'lodash/isEqual';
 import MapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 
-// import * as selectors from '../selectors';
-import ForecastMapMarker from './ForecastMapMarker';
+// import Loader from './Loader';
+import * as selectors from '../selectors';
 
 // eslint-disable-next-line
 const token = process.env.mapboxAPIToken;
@@ -15,16 +15,17 @@ class ForecastMap extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     highlighted: PropTypes.instanceOf(Map).isRequired,
-    inclementForecasts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    aggregateActiveForecastSeries: PropTypes.arrayOf(PropTypes.object).isRequired
+    activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
   constructor(props) {
     super(props);
+    const { lat: latitude, lng: longitude } = props.activeForecasts[0].coords;
     this.state = {
+      popupContent: null,
       viewport: {
-        latitude: 37.785164,
-        longitude: -100,
+        latitude,
+        longitude,
         zoom: 3.5,
         bearing: 0,
         pitch: 0,
@@ -60,12 +61,11 @@ class ForecastMap extends Component {
   };
 
   render() {
-    const { viewport } = this.state;
+    const { viewport, popupContent } = this.state;
     const {
       // isFetching,
       // highlighted,
-      // inclementForecasts,
-      // aggregateActiveForecastSeries
+      activeForecasts
     } = this.props;
     return (
       <MapGL
@@ -73,6 +73,14 @@ class ForecastMap extends Component {
         mapboxApiAccessToken={token}
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={this.onViewportChange}>
+        {activeForecasts.map(({ id, coords: { lat, lng } }) => (
+          <Marker
+            key={id}
+            latitude={lat}
+            longitude={lng}>
+            {id}
+          </Marker>
+        ))}
       </MapGL>
     )
   }
@@ -82,8 +90,7 @@ function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
     highlighted: selectors.getHighlighted(state),
-    inclementForecasts: selectors.getInclementForecasts(state),
-    aggregateActiveForecastSeries: selectors.getAggregateActiveForecastSeries(state)
+    activeForecasts: selectors.getActiveForecasts(state)
   }
 }
 
