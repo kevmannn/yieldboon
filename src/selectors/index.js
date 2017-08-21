@@ -6,6 +6,7 @@ const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getCropYieldPayload = ({ cropYield: { payload } }) => payload;
 
+export const getHighlighted = ({ highlighted }) => highlighted;
 export const getSelectedFactor = ({ factors: { selectedFactor } }) => selectedFactor;
 export const getAvailableFactors = ({ factors: { availableFactors } }) => availableFactors;
 export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;

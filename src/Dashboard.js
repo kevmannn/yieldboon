@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { List } from 'immutable';
 
-// import AsyncComponent from './components/AsyncComponent';
 import * as selectors from './selectors';
 import InitLoader from './components/InitLoader';
+// import ForecastMap from './components/ForecastMap';
 import CountyRegistry from './components/CountyRegistry';
 import VisualizationDyad from './components/VisualizationDyad';
+// import AsyncComponent from './components/AsyncComponent';
 import { loadForecasts, selectState, fetchCropYieldIfNeeded } from './actions';
 
 class Dashboard extends PureComponent {
@@ -46,6 +47,7 @@ class Dashboard extends PureComponent {
         : isFetchingCropYield
           ? <InitLoader />
           : <div>
+              {/*<ForecastMap />*/}
               <VisualizationDyad />
               <CountyRegistry selectedState={selectedState} />
             </div>

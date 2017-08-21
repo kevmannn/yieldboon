@@ -5,8 +5,8 @@ import immutable from 'seamless-immutable';
 
 import ForecastSynopsis from './ForecastSynopsis';
 import ForecastChart from './ForecastChart';
-// import ForecastMap from './ForecastMap';
 import * as selectors from '../selectors';
+// import { updateHighlighted } from '../actions';
 
 class VisualizationDyad extends PureComponent {
   static propTypes = {
@@ -31,6 +31,7 @@ class VisualizationDyad extends PureComponent {
 
   onNearestX = (highlighted = {}) => {
     this.setState({ highlighted });
+    // this.props.updateHighlighted(highlighted);
   };
 
   render() {

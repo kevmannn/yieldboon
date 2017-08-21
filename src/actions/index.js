@@ -9,6 +9,7 @@ export const BEGIN_LOAD_FORECASTS = 'BEGIN_LOAD_FORECASTS';
 export const SELECT_STATE = 'SELECT_STATE';
 export const SELECT_FACTOR = 'SELECT_FACTOR';
 export const SELECT_TIME_SPAN = 'SELECT_TIME_SPAN';
+export const UPDATE_HIGHLIGHTED = 'UPDATE_HIGHLIGHTED';
 export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
 export const SET_FORECAST_FILTER = 'SET_FORECAST_FILTER';
@@ -31,6 +32,11 @@ export const selectFactor = (factorName) => ({
 export const selectTimeSpan = (timeSpan) => ({
   type: SELECT_TIME_SPAN,
   timeSpan
+})
+
+export const updateHighlighted = (highlighted) => ({
+  type: UPDATE_HIGHLIGHTED,
+  highlighted
 })
 
 export const setForecastFilter = ({ hiddenIds, revealedIds }) => ({
