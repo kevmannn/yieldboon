@@ -9,8 +9,7 @@ export const BEGIN_LOAD_FORECASTS = 'BEGIN_LOAD_FORECASTS';
 export const SELECT_STATE = 'SELECT_STATE';
 export const SELECT_FACTOR = 'SELECT_FACTOR';
 export const SELECT_TIME_SPAN = 'SELECT_TIME_SPAN';
-export const UPDATE_HIGHLIGHTED = 'UPDATE_HIGHLIGHTED';
-export const REQUEST_FORECAST = 'REQUEST_FORECAST';
+// export const REQUEST_FORECAST = 'REQUEST_FORECAST';
 export const RECEIVE_FORECAST = 'RECEIVE_FORECAST';
 export const SET_FORECAST_FILTER = 'SET_FORECAST_FILTER';
 export const FAIL_TO_RECEIVE_FORECAST = 'FAIL_TO_RECEIVE_FORECAST';
@@ -32,11 +31,6 @@ export const selectFactor = (factorName) => ({
 export const selectTimeSpan = (timeSpan) => ({
   type: SELECT_TIME_SPAN,
   timeSpan
-})
-
-export const updateHighlighted = (highlighted) => ({
-  type: UPDATE_HIGHLIGHTED,
-  highlighted
 })
 
 export const setForecastFilter = ({ hiddenIds, revealedIds }) => ({
@@ -99,11 +93,6 @@ export const fetchCropYieldIfNeeded = () => (dispatch, getState) => {
   }
 }
 
-const requestForecast = (countyName) => ({
-  type: REQUEST_FORECAST,
-  countyName
-})
-
 const receiveForecast = ({ countyName, stateAbbr, coords, series }) => ({
   type: RECEIVE_FORECAST,
   countyName,
@@ -142,7 +131,6 @@ const fetchCoords = ({ countyName, stateAbbr }) => (dispatch) => {
 const today = moment().format('YYYY-MM-DDTHH:mm:ss');
 const fetchForecast = ({ countyName, stateAbbr, coords }, time = today) => (dispatch) => {
   const { lat, lng } = coords;
-  dispatch(requestForecast(countyName));
   // Adding `time` to the req yields data starting at midnight of _that_ day and ending at the next midnight.
   return fetch(`${API_URL}/forecast?location=${lat}+${lng}&time=${time}`)
     .then(

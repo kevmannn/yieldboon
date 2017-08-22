@@ -1,12 +1,10 @@
 import { createSelector } from 'reselect';
-// import { Map, fromJS } from 'immutable';
 // import { createArraySelector } from 'reselect-map';
 
 const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 const getCropYieldPayload = ({ cropYield: { payload } }) => payload;
 
-export const getHighlighted = ({ highlighted }) => highlighted;
 export const getSelectedFactor = ({ factors: { selectedFactor } }) => selectedFactor;
 export const getAvailableFactors = ({ factors: { availableFactors } }) => availableFactors;
 export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
@@ -142,7 +140,7 @@ export const getActiveCounties = createSelector(
 export const getAggregateActiveForecastSeries = createSelector(
   getActiveForecasts,
   ([ firstForecast = {}, ...others ]) => (
-    [firstForecast].concat([...others]).every(({ series }) => series)
+    [firstForecast, ...others].every(({ series }) => series)
       ? firstForecast.series.map(({ i, y, ...rest }) => (
         ({
           ...rest,

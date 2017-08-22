@@ -1,9 +1,11 @@
 import { v4 } from 'uuid';
 import { List } from 'immutable';
 
+// import factors from '../reducers/factors';
 import timeSpan from '../reducers/time-span';
 import forecasts from '../reducers/forecasts';
 import cropYield from '../reducers/crop-yield';
+// import highlighted from '../reducers/highlighted';
 import selectedState from '../reducers/selected-state';
 
 import * as actions from '../actions';

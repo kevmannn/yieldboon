@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 // import { Map } from 'immutable';
 import immutable from 'seamless-immutable';
 
+import * as selectors from '../selectors';
 import ForecastSynopsis from './ForecastSynopsis';
 import ForecastChart from './ForecastChart';
-import * as selectors from '../selectors';
-// import { updateHighlighted } from '../actions';
+// import ForecastMap from './components/ForecastMap';
 
-class VisualizationDyad extends PureComponent {
+class VisualizationTriad extends PureComponent {
   static propTypes = {
     isFetching: PropTypes.bool,
-    // highlighted: PropTypes.instanceOf(Map).isRequired,
     seriesExtremes: PropTypes.array.isRequired,
     forecastTotals: PropTypes.object.isRequired,
     activeCounties: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -33,14 +32,12 @@ class VisualizationDyad extends PureComponent {
 
   onNearestX = (highlighted = {}) => {
     this.setState({ highlighted });
-    // this.props.updateHighlighted(highlighted);
   };
 
   render() {
     const { highlighted } = this.state;
     const {
       isFetching,
-      // highlighted,
       seriesExtremes,
       forecastTotals,
       activeCounties,
@@ -53,6 +50,7 @@ class VisualizationDyad extends PureComponent {
         margin: '10px',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
+        {/*<ForecastMap highlighted={highlighted} />*/}
         <ForecastSynopsis
           isFetching={isFetching || !activeCounties.length}
           highlighted={highlighted}
@@ -76,7 +74,6 @@ class VisualizationDyad extends PureComponent {
 function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
-    // highlighted: selectors.getHighlighted(state),
     seriesExtremes: selectors.getSeriesExtremes(state),
     forecastTotals: selectors.getForecastTotals(state),
     activeCounties: selectors.getActiveCounties(state),
@@ -86,4 +83,4 @@ function mapStateToProps(state) {
   }  
 }
 
-export default connect(mapStateToProps)(VisualizationDyad);
+export default connect(mapStateToProps)(VisualizationTriad);

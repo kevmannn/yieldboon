@@ -30,14 +30,13 @@ export default class ForecastChart extends Component {
   };
 
   shouldComponentUpdate({ isFetching, highlighted, aggregateActiveForecastSeries }) {
+    // TODO: permit shallow equality for an immutable highlighted value.
     return isFetching !== this.props.isFetching
       || !isEqual(highlighted, this.props.highlighted)
       || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)
   }
 
   getHintValue({ i, x }) {
-    // TODO: Accomodate an immutable highlighted value.
-    // const [ i, x ] = [highlighted.get('i'), highlighted.get('x')];
     const { aggregateActiveForecastSeries, inclementForecasts } = this.props;
     const chartedYValuesAtHighlighted = [
       aggregateActiveForecastSeries[i].y,

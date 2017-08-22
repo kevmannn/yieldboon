@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 
 import * as selectors from './selectors';
 import InitLoader from './components/InitLoader';
-// import ForecastMap from './components/ForecastMap';
 import CountyRegistry from './components/CountyRegistry';
-import VisualizationDyad from './components/VisualizationDyad';
+import VisualizationTriad from './components/VisualizationTriad';
 // import AsyncComponent from './components/AsyncComponent';
 import { loadForecasts, selectState, fetchCropYieldIfNeeded } from './actions';
 
@@ -47,8 +46,7 @@ class Dashboard extends PureComponent {
         : isFetchingCropYield
           ? <InitLoader />
           : <div>
-              {/*<ForecastMap />*/}
-              <VisualizationDyad />
+              <VisualizationTriad />
               <CountyRegistry selectedState={selectedState} />
             </div>
     )

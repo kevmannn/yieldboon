@@ -9,7 +9,7 @@ import App from '../App';
 // import Dashboard from '../Dashboard';
 import { fullState } from './utils';
 import * as selectors from '../selectors';
-import VisualizationDyad from '../components/VisualizationDyad';
+import VisualizationTriad from '../components/VisualizationTriad';
 import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
 import CountyRegistry from '../components/CountyRegistry';
@@ -44,9 +44,9 @@ describe('App', () => {
   })
 })
 
-describe.skip('VisualizationDyad', () => {
+describe.skip('VisualizationTriad', () => {
   it('passes highlighted object to children', () => {
-    const [ , wrapper ] = mountComponentWithState(VisualizationDyad, fullState);
+    const [ , wrapper ] = mountComponentWithState(VisualizationTriad, fullState);
     expect(wrapper.find('ForecastSynopsis').props()).toEqual(expect.objectContaining({
       activeCounties: expect.any(Array),
       selectedFactor: expect.any(Object),

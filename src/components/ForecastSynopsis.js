@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
+// import { Map } from 'immutable';
 import lowerCase from 'lodash/lowerCase';
 import AboutIcon from 'material-ui-icons/Help';
 import SelectStateIcon from 'material-ui-icons/Mms';
@@ -27,6 +28,7 @@ export default class ForecastSynopsis extends Component {
   };
 
   shouldComponentUpdate({ highlighted, activeCounties }) {
+    // TODO: permit shallow equality for an immutable highlighted value.
     return !isEqual(highlighted, this.props.highlighted)
       || !isEqual(activeCounties, this.props.forecastTotals.totalCounties)
   }
