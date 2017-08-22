@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import isEqual from 'lodash/isEqual';
 import MapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 
 // import Loader from './Loader';
-import * as selectors from '../selectors';
 
 // eslint-disable-next-line
 const token = process.env.mapboxAPIToken;
 
-class ForecastMap extends Component {
+export default class ForecastMap extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     highlighted: PropTypes.instanceOf(Map).isRequired,
@@ -86,13 +84,3 @@ class ForecastMap extends Component {
     )
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    isFetching: selectors.getIsFetching(state),
-    highlighted: selectors.getHighlighted(state),
-    activeForecasts: selectors.getActiveForecasts(state)
-  }
-}
-
-export default connect(mapStateToProps)(ForecastMap);

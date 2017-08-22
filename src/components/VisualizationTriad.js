@@ -46,31 +46,32 @@ class VisualizationTriad extends PureComponent {
       aggregateActiveForecastSeries
     } = this.props;
     return (
-      <div style={{
-        margin: '10px',
-        boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
-      }}>
-        {/*<ForecastMap highlighted={highlighted} />*/}
-        <ForecastSynopsis
-          isFetching={isFetching || !activeCounties.length}
-          highlighted={highlighted}
-          selectedFactor={selectedFactor}
-          activeCounties={activeCounties}
-          forecastTotals={forecastTotals} />
-        <ForecastChart
-          isFetching={isFetching || !activeCounties.length}
-          highlighted={highlighted}
-          onNearestX={this.onNearestX}
-          selectedFactor={selectedFactor}
-          seriesExtremes={seriesExtremes}
-          inclementForecasts={inclementForecasts}
-          aggregateActiveForecastSeries={immutable(aggregateActiveForecastSeries)} />
+      <div>
+        {/*<ForecastMap />*/}
+        <div style={{
+          margin: '10px',
+          boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
+        }}>
+          <ForecastSynopsis
+            isFetching={isFetching || !activeCounties.length}
+            highlighted={highlighted}
+            selectedFactor={selectedFactor}
+            activeCounties={activeCounties}
+            forecastTotals={forecastTotals} />
+          <ForecastChart
+            isFetching={isFetching || !activeCounties.length}
+            highlighted={highlighted}
+            onNearestX={this.onNearestX}
+            selectedFactor={selectedFactor}
+            seriesExtremes={seriesExtremes}
+            inclementForecasts={inclementForecasts}
+            aggregateActiveForecastSeries={immutable(aggregateActiveForecastSeries)} />
+        </div>
       </div>
     )
   }
 }
 
-// TODO: pass ownProps to forecastTotals (for the sake of communicating the selectedFactor)?
 function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
