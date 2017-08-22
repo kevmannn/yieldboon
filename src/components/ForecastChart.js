@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import moment from 'moment';
-// import { Map } from 'immutable';
 import lowerCase from 'lodash/lowerCase';
 import { Motion, spring, presets } from 'react-motion';
 import {
@@ -21,7 +20,6 @@ export default class ForecastChart extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
     highlighted: PropTypes.object,
-    // highlighted: PropTypes.instanceOf(Map).isRequired,
     onNearestX: PropTypes.func.isRequired,
     selectedFactor: PropTypes.object.isRequired,
     seriesExtremes: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -30,7 +28,6 @@ export default class ForecastChart extends Component {
   };
 
   shouldComponentUpdate({ isFetching, highlighted, aggregateActiveForecastSeries }) {
-    // TODO: permit shallow equality for an immutable highlighted value.
     return isFetching !== this.props.isFetching
       || !isEqual(highlighted, this.props.highlighted)
       || !isEqual(aggregateActiveForecastSeries, this.props.aggregateActiveForecastSeries)

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { Map } from 'immutable';
 import immutable from 'seamless-immutable';
 
 import * as selectors from '../selectors';

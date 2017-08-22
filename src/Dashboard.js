@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { List } from 'immutable';
 
 import * as selectors from './selectors';
 import InitLoader from './components/InitLoader';

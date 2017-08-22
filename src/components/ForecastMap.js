@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
 import isEqual from 'lodash/isEqual';
 import MapGL, { Marker, Popup, NavigationControl } from 'react-map-gl';
 
 // import Loader from './Loader';
 
-// eslint-disable-next-line
-const token = process.env.mapboxAPIToken;
+const token = process.env.mapboxAPIToken; // eslint-disable-line
 
 export default class ForecastMap extends Component {
   static propTypes = {
     isFetching: PropTypes.bool,
-    highlighted: PropTypes.instanceOf(Map).isRequired,
+    highlighted: PropTypes.object,
     activeForecasts: PropTypes.arrayOf(PropTypes.object).isRequired
   };
 
