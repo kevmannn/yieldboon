@@ -1,11 +1,10 @@
 import { v4 } from 'uuid';
 import { List } from 'immutable';
 
-// import factors from '../reducers/factors';
+import factors from '../reducers/factors';
 import timeSpan from '../reducers/time-span';
 import forecasts from '../reducers/forecasts';
 import cropYield from '../reducers/crop-yield';
-// import highlighted from '../reducers/highlighted';
 import selectedState from '../reducers/selected-state';
 
 import * as actions from '../actions';
@@ -14,6 +13,19 @@ const transformState = (firstActionCreator) => (secondActionCreator) => {
   const state = forecasts(undefined, firstActionCreator);
   return forecasts(state, secondActionCreator);
 }
+
+describe('factors', () => {
+  it('stores a selected factor', () => {
+    const name = 'precipIntensity';
+    expect(factors(undefined, actions.selectFactor(name))).toEqual({
+      availableFactors: expect.any(Array),
+      selectedFactor: {
+        name,
+        unitOfMeasure: '"'
+      }
+    })
+  })
+})
 
 describe('forecasts', () => {
   it('has default state', () => {
