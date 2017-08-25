@@ -12,7 +12,7 @@ class TimeSpanToggle extends PureComponent {
   };
 
   onClick = (timeSpan) => {
-    // this.props.selectTimeSpan(timeSpan);
+    this.props.selectTimeSpan(timeSpan);
   };
 
   render() {
