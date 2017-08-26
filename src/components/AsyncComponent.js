@@ -15,7 +15,7 @@ export default class AsyncComponent extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.loader().then(Component => this.setState({ Component }))
+    this.props.loader().then(Component => this.setState({ Component }));
   }
 
   render() {

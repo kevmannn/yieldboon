@@ -7,13 +7,14 @@ const getCropYieldPayload = ({ cropYield: { payload } }) => payload;
 
 export const getSelectedFactor = ({ factors: { selectedFactor } }) => selectedFactor;
 export const getAvailableFactors = ({ factors: { availableFactors } }) => availableFactors;
-export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
 export const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
 export const getIsFetching = ({ forecasts: { isFetching } }) => isFetching;
 export const getSelectedState = ({ selectedState }) => selectedState;
 export const getDidFailToFetch = ({ cropYield: { didFailToFetch } }) => didFailToFetch;
 export const getDidReachReqLimit = ({ forecasts: { errorLog } }) => errorLog && errorLog.didReachReqLimit;
 export const getIsFetchingCropYield = ({ cropYield: { isFetching }}) => isFetching;
+export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
+export const getPossibleTimeSpanRanges = ({ timeSpans: { possibleTimeSpanRanges } }) => possibleTimeSpanRanges;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(

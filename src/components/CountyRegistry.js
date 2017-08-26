@@ -98,7 +98,6 @@ class CountyRegistry extends PureComponent {
       disallowedIds
     } = this.props;
     const { didCheckAll } = this.state;
-    // const height = document.body.getBoundingClientRect().height - 305;
     return (
       <div style={{
         margin: '10px',

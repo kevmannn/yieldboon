@@ -78,7 +78,10 @@ describe('forecasts', () => {
 
 describe('timeSpan', () => {
   it('has default state', () => {
-    expect(timeSpan(undefined, {})).toEqual({ selectedTimeSpan: {} });
+    expect(timeSpan(undefined, {})).toEqual({
+      selectedTimeSpan: { range: '24h' },
+      possibleTimeSpanRanges: ['24h', '1d', '2d']
+    })
   })
 })
 

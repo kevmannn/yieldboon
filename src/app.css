@@ -7,7 +7,6 @@ body {
   padding: 0;
   font-smoothing: antialiased;
   text-rendering: geometricPrecision !important;
-  /*text-rendering: optimizeLegibility !important;*/
   font-family: 'Rubik', sans-serif;
   font-weight: 300;
   background: #fcfdff;

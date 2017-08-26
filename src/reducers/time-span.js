@@ -1,6 +1,11 @@
 import { SELECT_TIME_SPAN } from '../actions';
 
-export default (state = { selectedTimeSpan: {} }, action) => {
+const defaultState = {
+  selectedTimeSpan: { range: '24h' },
+  possibleTimeSpanRanges: ['24h', '1d', '2d']
+}
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case SELECT_TIME_SPAN:
       return {
