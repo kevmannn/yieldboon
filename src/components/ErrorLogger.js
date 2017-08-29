@@ -30,13 +30,12 @@ class ErrorLogger extends Component {
   componentWillReceiveProps({ isFetching, errorLogMessages }) {
     if (!isEqual(errorLogMessages, this.props.errorLogMessages)) {
       const len = errorLogMessages.length;
-      this.setState({
-        message: 
-          <p style={{ fontSize: '0.8em' }}>
-            Failed to load forecast{len > 1 ? 's' : ''} for
-            <strong style={{ color: '#ff4081' }}>{` ${len}`}</strong> {`count${len > 1 ? 'ies' : 'y'}`}...
-          </p>
-      })
+      const message = 
+        <p style={{ fontSize: '0.8em' }}>
+          Failed to load forecast{len > 1 ? 's' : ''} for
+          <strong style={{ color: '#ff4081' }}>{` ${len}`}</strong> {`count${len > 1 ? 'ies' : 'y'}`}...
+        </p>
+      this.setState({ message });
     } else if (!isFetching && this.props.errorLogMessages.length) {
       this.setState({ isOpen: true });
     }
