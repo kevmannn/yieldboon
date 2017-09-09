@@ -1,10 +1,7 @@
 import { createSelector } from 'reselect';
 // import { createArraySelector } from 'reselect-map';
 
-const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
-const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
-const getCropYieldPayload = ({ cropYield: { payload } }) => payload;
-
+export const getPrecipForecasts = ({ forecasts: { precipForecasts } }) => precipForecasts;
 export const getSelectedFactor = ({ factors: { selectedFactor } }) => selectedFactor;
 export const getAvailableFactors = ({ factors: { availableFactors } }) => availableFactors;
 export const getDisallowedIds = ({ forecasts: { disallowedIds } }) => disallowedIds;
@@ -15,6 +12,8 @@ export const getDidReachReqLimit = ({ forecasts: { errorLog } }) => errorLog && 
 export const getIsFetchingCropYield = ({ cropYield: { isFetching }}) => isFetching;
 export const getSelectedTimeSpan = ({ timeSpans: { selectedTimeSpan } }) => selectedTimeSpan;
 export const getPossibleTimeSpanRanges = ({ timeSpans: { possibleTimeSpanRanges } }) => possibleTimeSpanRanges;
+
+const getErrorLog = ({ forecasts: { errorLog } }) => errorLog;
 
 // Pull an object containing any error messages specific to the selected state.
 export const getErrorLogMessages = createSelector(
@@ -27,6 +26,8 @@ export const getErrorLogMessages = createSelector(
       ), [])
   )
 )
+
+const getCropYieldPayload = ({ cropYield: { payload } }) => payload;
 
 // Filter cropYield payload for entities that are within the selectedState.
 export const getPayloadSubset = createSelector(

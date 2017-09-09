@@ -3,6 +3,7 @@ import moment from 'moment';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
+// import * as sagas from '../sagas';
 import * as actions from '../actions';
 
 const mockStore = configureStore([thunk]);

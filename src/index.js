@@ -5,13 +5,14 @@ import { Provider } from 'react-redux';
 import { REHYDRATE } from 'redux-persist/constants';
 import { createLogger } from 'redux-logger';
 import createActionBuffer from 'redux-action-buffer';
+// import createSagaMiddleware from 'redux-saga';
 import { Route, BrowserRouter } from 'react-router-dom';
 import { localforage as storage } from 'localforage';
-// import { install as installLoop } from 'redux-loop';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import { compose, createStore, applyMiddleware } from 'redux';
 
 import App from './App';
+// import rootSaga from './sagas';
 import rootReducer from './reducers';
 
 // window.Perf = require('react-addons-perf');
@@ -22,15 +23,17 @@ const composeEnhancers = isDev && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   : compose
 
-// Enhance the store and apply middleware for action buffering and thunks.
+// const sagaMiddleware = createSagaMiddleware();
+const middleware = [createActionBuffer(REHYDRATE), thunk];
 const store = createStore(
   rootReducer,
   composeEnhancers(
     autoRehydrate(),
-    applyMiddleware(...[createActionBuffer(REHYDRATE), thunk].concat(isDev ? createLogger() : []))
+    applyMiddleware(...middleware.concat(isDev ? createLogger() : []))
   )
 )
 
+// sagaMiddleware.run(rootSaga);
 persistStore(store, { storage });
 render(
   <Provider store={store}>
