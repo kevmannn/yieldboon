@@ -15,12 +15,12 @@ function* fetchForecast({ countyName, stateAbbr }) {
   }
 }
 
-export function* watchFetchForecasts() {
+export function* watchFetchForecast() {
   yield takeEvery(actions.FETCH_FORECAST, fetchForecast);
 }
 
 export default function* root() {
   yield all([
-    watchFetchForecasts()
+    watchFetchForecast()
   ])
 }

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import * as selectors from './selectors';
 import InitLoader from './components/InitLoader';
 import CountyRegistry from './components/CountyRegistry';
-// import AsyncComponent from './components/AsyncComponent';
 import VisualizationTriad from './components/VisualizationTriad';
 import { loadForecasts, selectState, fetchCropYieldIfNeeded } from './actions';
 
