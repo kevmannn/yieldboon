@@ -1,4 +1,4 @@
-# yieldboon [![Build Status](https://img.shields.io/travis/kevmannn/yieldboon/master.svg?style=flat-square)](https://travis-ci.org/kevmannn/yieldboon)
+# yieldboon [![Build Status](https://img.shields.io/travis/nonnontrivial/yieldboon/master.svg?style=flat-square)](https://travis-ci.org/nonnontrivial/yieldboon)
 
 [A React / Redux app to correlate forecasts with crop success](https://yieldboon.now.sh)
 
