@@ -19,7 +19,7 @@ class Dashboard extends PureComponent {
     isFetchingCropYield: PropTypes.bool
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchCropYieldIfNeeded();
   }
 

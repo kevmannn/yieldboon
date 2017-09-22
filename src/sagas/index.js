@@ -1,6 +1,6 @@
 import { select, take, takeEvery, put, all } from 'redux-saga/effects';
 
-// import { api } from '../services';
+import { api } from '../services';
 import * as actions from '../actions';
 import { getPrecipForecasts } from '../selectors';
 
