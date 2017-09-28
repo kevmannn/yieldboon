@@ -1,25 +1,23 @@
 import React from 'react';
-// import toJson from 'enzyme-to-json';
+import Adapter from 'enzyme-adapter-react-15';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { BrowserRouter } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, configure } from 'enzyme';
 
 import App from '../App';
 // import Dashboard from '../Dashboard';
 import { fullState } from './utils';
 import * as selectors from '../selectors';
+
 import VisualizationTriad from '../components/VisualizationTriad';
 import ForecastSynopsis from '../components/ForecastSynopsis';
 import ForecastChart from '../components/ForecastChart';
 import CountyRegistry from '../components/CountyRegistry';
 import DialogInitiator from '../components/DialogInitiator';
-// import FactorMenu from '../components/FactorMenu';
-// import ForecastMap from '../components/ForecastMap';
-// import ErrorLogger from '../components/ErrorLogger';
-// import ForecastSeries from '../components/ForecastSeries';
-// import TimeSpanToggle from '../components/TimeSpanToggle';
 import StateSelectionDialog from '../components/StateSelectionDialog';
+
+configure({ adapter: new Adapter() });
 
 const mockStore = configureStore();
 const mountComponentWithState = (Component, state, props = {}) => {
@@ -111,7 +109,6 @@ describe('CountyRegistry', () => {
   const [ , wrapper ] = mountComponentWithState(CountyRegistry, fullState, props);
   it('renders the correct number of children', () => {
     expect(wrapper.find('TableBody')).toHaveLength(1);
-    expect(wrapper.find({ checked: true })).toHaveLength(3);
   })
 
   // TODO: ..
