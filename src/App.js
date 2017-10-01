@@ -20,7 +20,7 @@ class App extends Component {
       <div>
         <Route
           path="/"
-          render={props => <Redirect to={`/dashboard/${selectedState}`} />} />
+          render={_ => <Redirect to={`/dashboard/${selectedState}`} />} />
         <Route
           exact
           path="/dashboard/:selectedState"

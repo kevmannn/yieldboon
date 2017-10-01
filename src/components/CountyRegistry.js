@@ -14,6 +14,8 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 import * as selectors from '../selectors';
 import { setForecastFilter } from '../actions';
+
+// import Search from './Search';
 import ForecastSeries from './ForecastSeries';
 
 class CountyRegistry extends PureComponent {
@@ -106,6 +108,7 @@ class CountyRegistry extends PureComponent {
         overflow: 'auto',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
+        {/*<Search />*/}
         {isFetching || !activeCounties.length
           ? null
           : <MuiThemeProvider theme={this.theme}>
