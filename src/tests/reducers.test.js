@@ -1,6 +1,7 @@
-import { v4 } from 'uuid';
+import uuid from 'uuid/v4';
 import { List } from 'immutable';
 
+// import search from '../reducers/search';
 import factors from '../reducers/factors';
 import timeSpan from '../reducers/time-span';
 import forecasts from '../reducers/forecasts';
@@ -9,10 +10,12 @@ import selectedState from '../reducers/selected-state';
 
 import * as actions from '../actions';
 
-const transformState = (firstActionCreator) => (secondActionCreator) => {
-  const state = forecasts(undefined, firstActionCreator);
-  return forecasts(state, secondActionCreator);
-}
+const transformState = (firstActionCreator, reducer = forecasts) => (
+  (secondActionCreator) => {
+    const state = forecasts(undefined, firstActionCreator);
+    return forecasts(state, secondActionCreator);
+  }
+)
 
 describe('factors', () => {
   it('stores a selected factor', () => {
@@ -36,7 +39,7 @@ describe('forecasts', () => {
   })
 
   it('stores disallowedIds', () => {
-    const hiddenIds = Array(3).map(() => v4());
+    const hiddenIds = Array(3).map(() => uuid());
     expect(transformState
       ({ type: actions.SET_FORECAST_FILTER, hiddenIds })
       ({ type: actions.SET_FORECAST_FILTER, revealedIds: hiddenIds })

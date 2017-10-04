@@ -6,6 +6,7 @@ import capitalize from 'lodash/capitalize';
 
 export const END_LOAD_FORECASTS = 'END_LOAD_FORECASTS';
 export const BEGIN_LOAD_FORECASTS = 'BEGIN_LOAD_FORECASTS';
+// export const NARROW_COUNTIES = 'NARROW_COUNTIES'
 export const SELECT_STATE = 'SELECT_STATE';
 export const SELECT_FACTOR = 'SELECT_FACTOR';
 export const SELECT_TIME_SPAN = 'SELECT_TIME_SPAN';
@@ -16,6 +17,10 @@ export const REACH_FORECAST_REQ_LIMIT = 'REACH_FORECAST_REQ_LIMIT';
 export const REQUEST_CROP_YIELD = 'REQUEST_CROP_YIELD';
 export const RECEIVE_CROP_YIELD = 'RECEIVE_CROP_YIELD';
 export const FAIL_TO_RECEIVE_CROP_YIELD = 'FAIL_TO_RECEIVE_CROP_YIELD';
+
+// export const narrowCounties = () => ({
+//   type: NARROW_COUNTIES
+// })
 
 export const selectState = (stateName) => ({
   type: SELECT_STATE,
