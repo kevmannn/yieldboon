@@ -38,7 +38,8 @@ class CountyRegistry extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      didCheckAll: true
+      didCheckAll: true,
+      // visibleCounties: props.activeCounties
     }
   }
 
@@ -51,6 +52,16 @@ class CountyRegistry extends PureComponent {
       [`${isChecked ? 'revealed' : 'hidden' }Ids`]: [id]
     })
   };
+
+  // onSearchChange = (input = '') => {
+  //   if (input.length) {
+  //     this.setState(({ visibleCounties: prevVisible }) => ({
+  //       visibleCounties: prevVisible.filter(({ countyName }) => countyName.includes(input))
+  //     }))
+  //   } else {
+  //     this.setState({ visibleCounties: this.props.activeCounties });
+  //   }
+  // };
 
   onSelectAll = (event, isChecked) => {
     const { setForecastFilter, activeCounties } = this.props;
@@ -108,7 +119,7 @@ class CountyRegistry extends PureComponent {
         overflow: 'auto',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
-        {/*<Search />*/}
+        {/*<Search onChange={this.onSearchChange} />*/}
         {isFetching || !activeCounties.length
           ? null
           : <MuiThemeProvider theme={this.theme}>
@@ -159,7 +170,7 @@ class CountyRegistry extends PureComponent {
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     isFetching: selectors.getIsFetching(state),
     disallowedIds: selectors.getDisallowedIds(state),

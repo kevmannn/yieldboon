@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import SearchIcon from 'material-ui-icons/Search';
 import TextField from 'material-ui/TextField';
-
-// import * as selectors from '../selectors';
-// import { narrowCounties } from '../actions';
+// import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 export default class Search extends PureComponent {
   static propTypes = {
-    terms: PropTypes.arrayOf(PropTypes.string)
+    onChange: PropTypes.func.isRequired,
+    // label: PropTypes.string
   };
 
   constructor(props) {
@@ -19,25 +18,20 @@ export default class Search extends PureComponent {
   }
 
   onChange = ({ target: { value: input }}) => {
-    this.setState({ input })
+    this.setState({ input });
+    this.props.onChange(input);
   };
 
   render() {
-    const { input } = this.state
+    const { input } = this.state;
     return (
       <div style={{ padding: '20px' }}>
         <TextField
+          fullWidth
           value={input}
+          label={<SearchIcon />}
           onChange={this.onChange} />
       </div>
     )
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    // input: selectors.getSearchInput(state)
-  }
-}
-
-export default connect(mapStateToProps)(Search);
