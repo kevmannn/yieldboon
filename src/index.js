@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { REHYDRATE } from 'redux-persist/constants';
+import { IntlProvider } from 'react-intl';
 import { createLogger } from 'redux-logger';
 import createActionBuffer from 'redux-action-buffer';
 import { Route, BrowserRouter } from 'react-router-dom';
@@ -30,9 +31,11 @@ const store = createStore(
 persistStore(store, { storage });
 render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Route path="/" component={App} />
-    </BrowserRouter>
+    <IntlProvider>
+      <BrowserRouter>
+        <Route path="/" component={App} />
+      </BrowserRouter>
+    </IntlProvider>
   </Provider>,
   document.getElementById('root')
 )
