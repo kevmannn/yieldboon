@@ -3,7 +3,6 @@ import moment from 'moment';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 
-// import * as sagas from '../sagas';
 import * as actions from '../actions';
 
 const mockStore = configureStore([thunk]);
@@ -21,7 +20,7 @@ describe.skip('forecast action creators', () => {
     forecasts = await store.dispatch(actions.loadForecasts(payload.slice(0, 2)));
   })
 
-  it('fetches soybean productino payload', () => {
+  it('fetches soybean production payload', () => {
     expect(store.getActions()).toHaveLength(2);
   })
 
