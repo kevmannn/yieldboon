@@ -31,7 +31,7 @@ const store = createStore(
 persistStore(store, { storage });
 render(
   <Provider store={store}>
-    <IntlProvider>
+    <IntlProvider locale="en">
       <BrowserRouter>
         <Route path="/" component={App} />
       </BrowserRouter>

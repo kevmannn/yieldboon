@@ -148,9 +148,6 @@ export default class ForecastChart extends Component {
                             <span style={{ ...this.hintParagraphStyle, color: this.primaryStroke, opacity: '0.6' }}>/ hr</span>
                           </div>
                         </div>
-                        <p style={{ ...this.hintParagraphStyle, opacity: '0.5' }}>
-                          For counties with highest mean {lowerCase(factorName)}
-                        </p>
                         {sortedInclementForecasts
                           .map(({ id, countyName, series }, i) => (
                             <p
