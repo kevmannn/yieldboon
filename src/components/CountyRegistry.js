@@ -8,6 +8,7 @@ import Table, {
   TableBody,
   TableCell,
   TableHead,
+  // TablePagination
 } from 'material-ui/Table';
 import Checkbox from 'material-ui/Checkbox';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
@@ -76,7 +77,8 @@ class CountyRegistry extends PureComponent {
       MuiTableHead: {
         root: {
           background: '#f7f7f9',
-          fontSize: '0.55em'
+          fontSize: '0.6em',
+          letterSpacing: '0.02em'
         }
       },
       MuiTableRow: {
@@ -111,15 +113,15 @@ class CountyRegistry extends PureComponent {
       disallowedIds
     } = this.props;
     const { didCheckAll } = this.state;
+    const maxHeight = `${window.innerHeight - 405}px`
     return (
       <div style={{
         margin: '10px',
         minHeight: '120px',
-        maxHeight: '297px',
+        maxHeight,
         overflow: 'auto',
         boxShadow: '0 1px 3px 0 rgba(7, 9, 15, 0.3), 0 1px 1px 0 rgba(7, 9, 15, 0.14), 0 2px 1px -1px rgba(7, 9, 15, 0.2)'
       }}>
-        {/*<Search onChange={this.onSearchChange} />*/}
         {isFetching || !activeCounties.length
           ? null
           : <MuiThemeProvider theme={this.theme}>

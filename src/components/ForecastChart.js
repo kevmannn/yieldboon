@@ -141,7 +141,7 @@ export default class ForecastChart extends Component {
                             {` (${moment(highlighted.x).fromNow()})`}
                           </span>
                         </p>
-                        <div style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.25em' }}>
+                        <div style={{ ...this.hintParagraphStyle, margin: '10px 0px', fontSize: '1.3em' }}>
                           Mean {lowerCase(factorName)}
                           <div style={{ display: 'block', transform: `translateX(${translation}px)`, color: this.primaryStroke }}>
                             {` ${(aggregateActiveForecastSeries[highlighted.i].y).toFixed(4)}${unitOfMeasure} `}

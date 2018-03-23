@@ -46,7 +46,6 @@ export default class AboutDialog extends PureComponent {
     return (
       <MuiThemeProvider theme={this.theme}>
         <Dialog
-          // fullscreen
           open={isOpen}
           enterTransitionDuration={270}
           leaveTransitionDuration={270}
@@ -54,6 +53,7 @@ export default class AboutDialog extends PureComponent {
           <DialogTitle>About</DialogTitle>
           <DialogContent>
             <p>This is a service which aspires to correlate weather forecasts with crop success.</p>
+            <p>Hovering over the chart presents hierarchical data for that time value.</p>
             <p>The code can be found{' '}
               <a href="https://github.com/kevmannn/yieldboon" rel="noopener noreferrer" target="_blank">here</a>.
             </p>

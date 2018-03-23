@@ -75,7 +75,7 @@ export default class ForecastSynopsis extends Component {
               fontFamily: 'Rubik'
             }}>
             <p style={{ color: '#1c243d', opacity: '0.4', fontSize: '0.6em' }}>{lowerCase(key)}</p>
-            <div style={{ color: '#1c243d', fontSize: '1.15em', fontWeight: '300', margin: '10px 0px' }}>
+            <div style={{ color: '#1c243d', fontSize: '1.2em', fontWeight: '300', margin: '10px 0px' }}>
               {highlighted && key === 'totalChartedValue'
                 ? this.renderPartOfWhole(forecastTotals[key](highlighted.i + 1).toFixed(2), this.renderTotal(key))
                 : key === 'totalCounties' && activeCounties.length !== forecastTotals[key]
